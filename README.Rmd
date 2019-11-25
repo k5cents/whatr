@@ -16,43 +16,34 @@ knitr::opts_chunk$set(
 # whatr
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/whatr)](https://CRAN.R-project.org/package=whatr)
-[![Travis build status](https://travis-ci.org/kiernann/whatr.svg?branch=master)](https://travis-ci.org/kiernann/whatr)
-[![Codecov test coverage](https://codecov.io/gh/kiernann/whatr/branch/master/graph/badge.svg)](https://codecov.io/gh/kiernann/whatr?branch=master)
+[![Lifecycle: experimental][life_badge]][life_link]
+[![CRAN status][cran_badge]][cran_link]
+[![Travis build status][trav_badge]][trav_link]
+[![Codecov test coverage][cov_badge]][cov_link]
 <!-- badges: end -->
 
-The goal of whatr is to ...
+The goal of `whatr` is to facilitate the analysis of [Jeopardy!][j] data. The
+package contains both past data and the tools used to update with future games
+from the fan-made [J! Archive][ja].
+
 
 ## Installation
 
-You can install the released version of whatr from [CRAN](https://CRAN.R-project.org) with:
+You can install the development version of `whatr` from [GitHub][gh] with:
 
 ``` r
-install.packages("whatr")
+# install.packages("remotes")
+remotes::install_github("kiernann/whatr")
 ```
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
-library(whatr)
-## basic example code
-```
-
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+[life_badge]: https://img.shields.io/badge/lifecycle-experimental-orange.svg
+[life_link]: https://www.tidyverse.org/lifecycle/#experimental
+[cran_badge]: https://www.r-pkg.org/badges/version/whatr
+[cran_link]: https://CRAN.R-project.org/package=whatr
+[trav_badge]: https://travis-ci.org/kiernann/whatr.svg?branch=master
+[trav_link]: https://travis-ci.org/kiernann/whatr
+[cov_badge]: https://codecov.io/gh/kiernann/whatr/branch/master/graph/badge.svg
+[cov_link]: https://codecov.io/gh/kiernann/whatr?branch=master'
+[ja]: http://j-archive.com/
+[j]: https://www.jeopardy.com/
+[gh]: https://github.com/kiernann/whatr
