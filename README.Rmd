@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# whatr
+# whatr <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 [![Lifecycle: experimental][life_badge]][life_link]
@@ -25,7 +25,6 @@ knitr::opts_chunk$set(
 The goal of `whatr` is to facilitate the analysis of [Jeopardy!][j] data. The
 package contains both past data and the tools used to update with future games
 from the fan-made [J! Archive][ja].
-
 
 ## Installation
 
