@@ -2,16 +2,27 @@
 % Please edit documentation in R/whatr-plot.R
 \name{whatr_plot}
 \alias{whatr_plot}
-\title{Visualize a Jeopardy game history}
+\title{Plot Jeopardy game score history}
 \usage{
 whatr_plot(game = NULL, date = NULL, show = NULL)
 }
 \arguments{
-\item{game_id}{A J-Archive! game ID number}
+\item{game}{The J-Archive! game ID number.}
+
+\item{date}{The original date an episode aired.}
+
+\item{show}{The sequential show number.}
 }
 \value{
-Return ggplot of a Jeopardy! game score history
+A ggplot object.
 }
 \description{
-Visualize a Jeopardy game history
+Pass the tidy tibble from \code{\link[=whatr_scores]{whatr_scores()}} to \code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} and
+highlight the contestant scores, double jeopardy questions, and round
+breaks.
+}
+\examples{
+whatr_plot(game = 6304)
+whatr_plot(date = "2018-01-01")
+whatr_plot(show = 8004)
 }

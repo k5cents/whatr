@@ -13,11 +13,10 @@
 #' whatr_scores(game = 6304)
 #' whatr_scores(date = "2019-06-03")
 #' whatr_scores(show = 8006)
-#' @importFrom dplyr arrange bind_rows group_by left_join mutate row_number select slice starts_with ungroup
+#' @importFrom dplyr arrange bind_rows group_by left_join mutate row_number select slice starts_with ungroup lag
 #' @importFrom httr GET
-#' @importFrom readr parse_number
 #' @importFrom rvest html_node html_nodes html_table html_text
-#' @importFrom stringr str_c str_extract str_remove
+#' @importFrom stringr str_c str_extract str_remove str_remove_all
 #' @importFrom tibble as_tibble enframe
 #' @importFrom tidyr drop_na pivot_longer
 #' @importFrom xml2 read_html
@@ -47,7 +46,7 @@ whatr_scores <- function(game = NULL, date = NULL, show = NULL) {
       values_to = "score"
     ) %>%
     dplyr::mutate(
-      score = as.integer(readr::parse_number(score)),
+      score = as.integer(stringr::str_remove_all(score, "\\$|\\,")),
       double = (clue == single_doubles)
     )
 
@@ -70,8 +69,8 @@ whatr_scores <- function(game = NULL, date = NULL, show = NULL) {
       values_to = "score"
     ) %>%
     dplyr::mutate(
-      score = as.integer(readr::parse_number(score)),
-      double = (clue == double_doubles),
+      score = as.integer(stringr::str_remove_all(score, "\\$|\\,")),
+      double = (clue %in% double_doubles),
       clue = clue + max(single_score$clue)
     )
 
@@ -89,13 +88,18 @@ whatr_scores <- function(game = NULL, date = NULL, show = NULL) {
       names_to = "name",
       values_to = "score"
     ) %>%
-    dplyr::mutate(score = as.integer(readr::parse_number(score)))
+    dplyr::mutate(score = as.integer(stringr::str_remove_all(score, "\\$|\\,")))
 
   scores <- single_score %>%
     dplyr::bind_rows(double_score) %>%
     dplyr::bind_rows(final_scores) %>%
     dplyr::arrange(round, clue) %>%
-    dplyr::select(round, clue, name, score, double)
+    dplyr::select(round, clue, name, score, double) %>%
+    group_by(name) %>%
+    mutate(
+      change = ifelse(clue == 1, score, score - dplyr::lag(score)),
+      correct = ifelse(change == 0, NA, change > 0)
+    )
 
   return(scores)
 }
