@@ -1,144 +1,101 @@
 #' Scrape Jeopardy game score history
 #'
-#' @param game A J-Archive! game ID number
-#' @return Tidy tibble of a Jeopardy! episode's score history
+#' Return the tidy tibble of contestant scores over the course of the game.
+#' The tibble indicates what questions were answered correctly and the change
+#' in score from each answer.
+#'
+#' @param game The J-Archive! game ID number.
+#' @param date The original date an episode aired.
+#' @param show The sequential show number.
+#' @return Tidy tibble of an episode score history.
+#' @family J! scrapers
+#' @examples
+#' whatr_scores(game = 6304)
+#' whatr_scores(date = "2019-06-03")
+#' whatr_scores(show = 8006)
+#' @importFrom dplyr arrange bind_rows group_by left_join mutate row_number select slice starts_with ungroup
+#' @importFrom httr GET
+#' @importFrom readr parse_number
+#' @importFrom rvest html_node html_nodes html_table html_text
+#' @importFrom stringr str_c str_extract str_remove
+#' @importFrom tibble as_tibble enframe
+#' @importFrom tidyr drop_na pivot_longer
+#' @importFrom xml2 read_html
 #' @export
-
 whatr_scores <- function(game = NULL, date = NULL, show = NULL) {
+  game <- whatr_id(game, date, show)
+  showscores <- xml2::read_html(paste0("http://www.j-archive.com/showscores.php?game_id=", game))
 
-  # import pipe opperator
-  `%>%` <- magrittr::`%>%`
+  single_doubles <- showscores %>%
+    rvest::html_node("#jeopardy_round > table td.ddred") %>%
+    rvest::html_text() %>%
+    base::as.integer()
 
-  # create url and read html -------------------------------------------------------------------
-
-  # define the initial URL based on the aegument type
-  base_url <-
-    if (!is.null(game)) {
-      stringr::str_c("http://www.j-archive.com/showgame.php?game_id=", game)
-    } else {
-      if (!is.null(date)) {
-        stringr::str_c("http://www.j-archive.com/search.php?search=date:", as.Date(date))
-      } else {
-        if (!is.null(show)) {
-          stringr::str_c("www.j-archive.com/search.php?search=show:", show)
-        } else {
-          stop("A game identifyer is needed")
-        }
-      }
-    }
-
-  # date and show arguments redirect to game url
-  response <- httr::GET(base_url)
-
-  # extract the redirected url if needed
-  final_url <- if (is.null(game)) response$url else base_url
-
-  # create INFO table --------------------------------------------------------------------------
-
-  # extract the game id from end of final url
-  game <- stringr::str_extract(final_url, "\\d+$")
-
-  # read the showscores page
-  showscores <- xml2::read_html(stringr::str_c("http://www.j-archive.com/showscores.php?game_id=", game))
-
-  # create sub-function to scrape scores html table
-  scores_noisy <- function(showscores) {
-
-    # single jeopardy round scores table
-    single_score <- showscores %>%
-      rvest::html_node("#jeopardy_round > table:nth-child(2)") %>%
-      rvest::html_table(fill = TRUE, header = TRUE) %>%
-      tibble::as_tibble(.name_repair = "unique") %>%
-      dplyr::select(2:4) %>%
-      dplyr::mutate(clue = dplyr::row_number()) %>%
-      dplyr::mutate(round = 1) %>%
-      # tidy the table
-      tidyr::gather(name, score, -c(round, clue)) %>%
-      dplyr::mutate(score = score %>%
-                      stringr::str_remove("\\$") %>%
-                      stringr::str_remove(",") %>%
-                      as.numeric())
-
-    # single jeopardy round double jeopardy location
-    single_doubles <- showscores %>%
-      rvest::html_nodes("#jeopardy_round > table td.ddred") %>%
-      rvest::html_text() %>%
-      magrittr::extract(1) %>%
-      tibble::enframe(name = NULL, value = "clue") %>%
-      dplyr::mutate(round = 1) %>%
-      dplyr::mutate(clue = as.integer(clue)) %>%
-      dplyr::mutate(double = TRUE) %>%
-      dplyr::select(round, clue, double)
-
-    # add double jeopardy location to scores table
-    single_score <- single_score %>%
-      dplyr::left_join(single_doubles, by = c("clue", "round")) %>%
-      dplyr::mutate(double = !is.na(double))
-
-    # repeat for double jeopardy round
-    double_score <- showscores %>%
-      rvest::html_node("#double_jeopardy_round > table:nth-child(2)") %>%
-      rvest::html_table(header = TRUE, fill = TRUE) %>%
-      tidyr::drop_na() %>%
-      tibble::as_tibble(.name_repair = "unique") %>%
-      dplyr::select(2:4) %>%
-      dplyr::mutate(clue = dplyr::row_number() + (nrow(single_score)/3)) %>%
-      dplyr::mutate(round = 2) %>%
-      tidyr::gather(name, score, -c(round, clue)) %>%
-      dplyr::mutate(score = score %>%
-                      stringr::str_remove("\\$") %>%
-                      stringr::str_remove(",") %>%
-                      as.numeric())
-
-    double_doubles <- showscores %>%
-      rvest::html_nodes("#double_jeopardy_round > table td.ddred") %>%
-      rvest::html_text() %>%
-      magrittr::extract(c(1, 3)) %>%
-      tibble::enframe(name = NULL, value = "clue") %>%
-      dplyr::mutate(round = 2) %>%
-      dplyr::mutate(clue = as.integer(clue) + nrow(single_score)/3) %>%
-      dplyr::mutate(double = TRUE) %>%
-      dplyr::select(round, clue, double)
-
-    double_score <- double_score %>%
-      dplyr::left_join(double_doubles, by = c("clue", "round")) %>%
-      dplyr::mutate(double = !is.na(double))
-
-    # repeat for final jeopardy scores table
-    final_scores <- showscores %>%
-      rvest::html_node("#final_jeopardy_round > table:nth-child(2)") %>%
-      rvest::html_table(header = TRUE, fill = TRUE) %>%
-      dplyr::slice(1) %>%
-      tibble::as_tibble(.name_repair = "unique") %>%
-      dplyr::mutate(clue = max(double_score$clue) + 1) %>%
-      dplyr::mutate(round = 3) %>%
-      tidyr::gather(name, score, -c(round, clue)) %>%
-      dplyr::mutate(score = score %>%
-                      stringr::str_remove("\\$") %>%
-                      stringr::str_remove(",") %>%
-                      as.numeric())
-
-    # combine scores of all rounds
-    scores <- single_score %>%
-      dplyr::bind_rows(double_score) %>%
-      dplyr::bind_rows(final_scores) %>%
-      dplyr::arrange(round, clue) %>%
-      dplyr::group_by(name) %>%
-      dplyr::mutate(change = dplyr::if_else(
-        condition = clue == 1,
-        true  = score,
-        false = score - dplyr::lag(score, 1))
-      ) %>%
-      dplyr::mutate(correct = ifelse(change == 0, NA, ifelse(change > 0, T, F))) %>%
-      dplyr::ungroup() %>%
-      dplyr::select(round, clue, name, score, change, correct, double)
-
-    return(scores)
+  tibble_uniqe <- function(x) {
+    suppressMessages(tibble::as_tibble(x, .name_repair = "unique"))
   }
 
-  # supress the tibble name warnings
-  scores <- suppressMessages(scores_noisy(showscores))
+  single_score <- showscores %>%
+    rvest::html_node("#jeopardy_round > table:nth-child(2)") %>%
+    rvest::html_table(fill = TRUE, header = TRUE) %>%
+    tibble_uniqe() %>%
+    dplyr::select(-dplyr::starts_with("...")) %>%
+    dplyr::mutate(clue = dplyr::row_number(), round = 1L) %>%
+    tidyr::pivot_longer(
+      cols = -c(clue, round),
+      names_to = "name",
+      values_to = "score"
+    ) %>%
+    dplyr::mutate(
+      score = as.integer(readr::parse_number(score)),
+      double = (clue == single_doubles)
+    )
 
-  # return final list
+  double_doubles <- showscores %>%
+    rvest::html_nodes("#double_jeopardy_round > table td.ddred") %>%
+    rvest::html_text() %>%
+    base::unique() %>%
+    base::as.integer()
+
+  double_score <- showscores %>%
+    rvest::html_node("#double_jeopardy_round > table:nth-child(2)") %>%
+    rvest::html_table(header = TRUE, fill = TRUE) %>%
+    tidyr::drop_na() %>%
+    tibble_uniqe() %>%
+    dplyr::select(-dplyr::starts_with("...")) %>%
+    dplyr::mutate(clue = dplyr::row_number(), round = 2) %>%
+    tidyr::pivot_longer(
+      cols = -c(clue, round),
+      names_to = "name",
+      values_to = "score"
+    ) %>%
+    dplyr::mutate(
+      score = as.integer(readr::parse_number(score)),
+      double = (clue == double_doubles),
+      clue = clue + max(single_score$clue)
+    )
+
+  final_scores <- showscores %>%
+    rvest::html_node("#final_jeopardy_round > table:nth-child(2)") %>%
+    rvest::html_table(header = TRUE, fill = TRUE) %>%
+    dplyr::slice(1) %>%
+    tibble_uniqe() %>%
+    dplyr::mutate(
+      clue = max(double_score$clue) + 1L,
+      round = 3L
+    ) %>%
+    tidyr::pivot_longer(
+      cols = -c(clue, round),
+      names_to = "name",
+      values_to = "score"
+    ) %>%
+    dplyr::mutate(score = as.integer(readr::parse_number(score)))
+
+  scores <- single_score %>%
+    dplyr::bind_rows(double_score) %>%
+    dplyr::bind_rows(final_scores) %>%
+    dplyr::arrange(round, clue) %>%
+    dplyr::select(round, clue, name, score, double)
+
   return(scores)
 }
