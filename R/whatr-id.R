@@ -1,0 +1,25 @@
+#' Return a J! Archive game ID
+#'
+#' Can return the game ID for a show air date or number.
+#'
+#' @param game The J-Archive! game ID number.
+#' @param date The original date an episode aired.
+#' @param show The sequential show number.
+#' @return The J-Archive! game ID number.
+#' @examples
+#' whatr_id(game = 6304)
+#' whatr_id(date = "2019-06-03")
+#' whatr_id(show = 8006)
+whatr_id <- function(game = NULL, date = NULL, show = NULL) {
+  if (!is.null(game)) {
+    return(as.character(game))
+  } else if (!is.null(date)) {
+    url <- paste0("http://www.j-archive.com/search.php?search=date:", as.Date(date))
+    stringr::str_extract(httr::HEAD(url)$url, "\\d+$")
+  } else if (!is.null(show)) {
+    url <- paste0("www.j-archive.com/search.php?search=show:", show)
+    stringr::str_extract(httr::HEAD(url)$url, "\\d+$")
+  } else {
+    stop("a game identifier is needed")
+  }
+}
