@@ -5,35 +5,8 @@
 #' @export
 
 whatr_data <- function(game = NULL, date = NULL, show = NULL) {
-
-  # import pipe opperator
-  `%>%` <- magrittr::`%>%`
-
-  # create url and read html -------------------------------------------------------------------
-
-  # define the initial URL based on the aegument type
-  base_url <-
-    if (!is.null(game)) {
-      stringr::str_c("http://www.j-archive.com/showgame.php?game_id=", game)
-    } else {
-      if (!is.null(date)) {
-        stringr::str_c("http://www.j-archive.com/search.php?search=date:", as.Date(date))
-      } else {
-        if (!is.null(show)) {
-          stringr::str_c("www.j-archive.com/search.php?search=show:", show)
-        } else {
-          stop("A game identifyer is needed")
-        }
-      }
-    }
-
-  # date and show arguments redirect to game url
-  response <- httr::GET(base_url)
-
-  # extract the redirected url if needed
-  final_url <- if (is.null(game)) response$url else base_url
-
-  # read the redirected page content as html
+  game <- whatr_id(game, date, show)
+  response <- httr::GET(paste0("http://www.j-archive.com/showgame.php?game_id=", game))
   showgame <- xml2::read_html(response$content)
 
   # define the typical order of clues listed left-right
