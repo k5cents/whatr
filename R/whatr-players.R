@@ -1,60 +1,34 @@
-#' Scrape Jeopardy game meta data
+#' Scrape Jeopardy game contestant info
 #'
-#' @param game_id A J-Archive! game ID number
-#' @return Tibble of a Jeopardy game player names
-#' @importFrom dplyr mutate pull slice select bind_rows arrange group_by ungroup lag everything
+#' For a given episode, find the J! Archive's record of each contestant's name,
+#' occupation, and home town as they are introduced on the show.
+#'
+#' @param game The J-Archive! game ID number.
+#' @param date The original date an episode aired.
+#' @param show The sequential show number.
+#' @return A tidy tibble of player info.
+#' @examples
+#' whatr_players(game = 6304)
+#' @importFrom xml2 read_html
+#' @importFrom rvest html_node html_table
+#' @importFrom stringr str_replace_all str_remove str_split str_to_title str_trim word
+#' @importFrom tidyr drop_na
+#' @importFrom tibble enframe
+#' @importFrom tidyr separate
+#' @importFrom dplyr mutate pull
 #' @export
-
 whatr_players <- function(game = NULL, date = NULL, show = NULL) {
-
-  # import pipe opperator
-  `%>%` <- magrittr::`%>%`
-
-  # create url and read html -------------------------------------------------------------------
-
-  # define the initial URL based on the aegument type
-  base_url <-
-    if (!is.null(game)) {
-      stringr::str_c("http://www.j-archive.com/showgame.php?game_id=", game)
-    } else {
-      if (!is.null(date)) {
-        stringr::str_c("http://www.j-archive.com/search.php?search=date:", as.Date(date))
-      } else {
-        if (!is.null(show)) {
-          stringr::str_c("www.j-archive.com/search.php?search=show:", show)
-        } else {
-          stop("A game identifyer is needed")
-        }
-      }
-    }
-
-  # date and show arguments redirect to game url
-  response <- httr::GET(base_url)
-
-  # extract the redirected url if needed
-  final_url <- if (is.null(game)) response$url else base_url
-
-  # extract the game id from end of final url
-  game <- stringr::str_extract(final_url, "\\d+$")
-
-  # read the redirected page content as html
+  game <- whatr_id(game, date, show)
+  response <- httr::GET(paste0("http://www.j-archive.com/showgame.php?game_id=", game))
   showgame <- xml2::read_html(response$content)
-
-  # extract html title as string
-  title <- showgame %>%
-    rvest::html_node("title") %>%
-    rvest::html_text()
-
-  # extract contestants html table
-  players <- showgame %>%
+  showgame %>%
     rvest::html_node("#contestants_table") %>%
     rvest::html_table(fill = TRUE) %>%
     dplyr::pull(2) %>%
     stringr::str_split(pattern = "\n") %>%
-    unlist() %>%
+    base::unlist() %>%
     stringr::str_replace_all("\"", "\'") %>%
     tibble::enframe(name = NULL, value = "text") %>%
-    # seperate the string into name, occupation, city, and state
     tidyr::separate(
       col = text,
       into = c("name", "bio"),
@@ -73,16 +47,14 @@ whatr_players <- function(game = NULL, date = NULL, show = NULL) {
       sep = "\\s(from)\\s",
       into = c("occupation", "from")
     ) %>%
-    dplyr::mutate(occupation = occupation %>%
-                    stringr::word(2, -1) %>%
-                    stringr::str_to_title()
+    dplyr::mutate(
+      occupation = occupation %>%
+        stringr::word(2, -1) %>%
+        stringr::str_to_title()
     ) %>%
     tidyr::separate(
       col = "from",
       sep = ",\\s",
       into = c("city", "state")
     )
-
-  # return final table
-  return(players)
 }

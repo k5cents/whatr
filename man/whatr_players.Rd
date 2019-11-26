@@ -2,16 +2,24 @@
 % Please edit documentation in R/whatr-players.R
 \name{whatr_players}
 \alias{whatr_players}
-\title{Scrape Jeopardy game meta data}
+\title{Scrape Jeopardy game contestant info}
 \usage{
 whatr_players(game = NULL, date = NULL, show = NULL)
 }
 \arguments{
-\item{game_id}{A J-Archive! game ID number}
+\item{game}{The J-Archive! game ID number.}
+
+\item{date}{The original date an episode aired.}
+
+\item{show}{The sequential show number.}
 }
 \value{
-Tibble of a Jeopardy game player names
+A tidy tibble of player info.
 }
 \description{
-Scrape Jeopardy game meta data
+For a given episode, find the J! Archive's record of each contestant's name,
+occupation, and home town as they are introduced on the show.
+}
+\examples{
+whatr_players(game = 6304)
 }
