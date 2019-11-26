@@ -29,13 +29,16 @@ whatr_plot <- function(game = NULL, date = NULL, show = NULL) {
     stringr::str_extract("-(.*)") %>%
     stringr::str_remove("-\\s")
   doubles <- tidyr::drop_na(dplyr::filter(scores, double == TRUE))
+  finals <- dplyr::filter(scores, round == 3)
+  finals$clue <- finals$clue + 2
   plot <- scores %>%
-    dplyr::mutate(clue = ifelse(round == 3, clue + 10, clue)) %>%
+    dplyr::filter(round != 3) %>%
     ggplot2::ggplot(mapping = ggplot2::aes(x = clue, y = score)) +
     ggplot2::geom_vline(xintercept = max(scores$clue[scores$round == 1]), linetype = 2) +
     ggplot2::geom_vline(xintercept = max(scores$clue[scores$round == 2]), linetype = 2) +
     ggplot2::geom_line(mapping = ggplot2::aes(color = name), size = 2) +
     ggplot2::geom_point(data = doubles, size = 3, mapping = ggplot2::aes(shape = name)) +
+    ggplot2::geom_point(data = finals, size = 6, shape = 18, mapping = ggplot2::aes(color = name)) +
     ggplot2::scale_y_continuous(labels = scales::dollar) +
     ggplot2::scale_x_continuous(breaks = seq(0, 60, 10)) +
     ggplot2::scale_color_brewer(palette = "Dark2") +
