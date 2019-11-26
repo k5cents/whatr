@@ -2,16 +2,28 @@
 % Please edit documentation in R/whatr-info.R
 \name{whatr_info}
 \alias{whatr_info}
-\title{Scrape Jeopardy game air data}
+\title{Scrape Jeopardy game air info}
 \usage{
 whatr_info(game = NULL, date = NULL, show = NULL)
 }
 \arguments{
-\item{game}{A J-Archive! game ID number}
+\item{game}{The J-Archive! game ID number.}
+
+\item{date}{The original date an episode aired.}
+
+\item{show}{The sequential show number.}
 }
 \value{
-Tibble of a Jeopardy! episode air information
+A single tibble row of air info.
 }
 \description{
-Scrape Jeopardy game air data
+For a given episode, return three variables used to identify an episode:
+\enumerate{
+\item The J! Archive game ID: issued sequentially as episodes are archived.
+\item The sequential show number: most recent episode is the highest show.
+\item The date the episode originally aired in the United States.
+}
+}
+\examples{
+whatr_info(game = 6304)
 }

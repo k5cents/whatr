@@ -1,63 +1,30 @@
-#' Scrape Jeopardy game air data
+#' Scrape Jeopardy game air info
 #'
-#' @param game A J-Archive! game ID number
-#' @return Tibble of a Jeopardy! episode air information
+#' For a given episode, return three variables used to identify an episode:
+#' 1. The J! Archive game ID: issued sequentially as episodes are archived.
+#' 2. The sequential show number: most recent episode is the highest show.
+#' 3. The date the episode originally aired in the United States.
+#'
+#' @param game The J-Archive! game ID number.
+#' @param date The original date an episode aired.
+#' @param show The sequential show number.
+#' @return A single tibble row of air info.
+#' @examples
+#' whatr_info(game = 6304)
+#' @importFrom httr GET
+#' @importFrom xml2 read_html
+#' @importFrom rvest html_node html_text
+#' @importFrom stringr str_extract
+#' @importFrom tibble tibble
 #' @export
-
 whatr_info <- function(game = NULL, date = NULL, show = NULL) {
-
-  # import pipe opperator
-  `%>%` <- magrittr::`%>%`
-
-  # create url and read html -------------------------------------------------------------------
-
-  # define the initial URL based on the aegument type
-  base_url <-
-    if (!is.null(game)) {
-      stringr::str_c("http://www.j-archive.com/showgame.php?game_id=", game)
-    } else {
-      if (!is.null(date)) {
-        stringr::str_c("http://www.j-archive.com/search.php?search=date:", as.Date(date))
-      } else {
-        if (!is.null(show)) {
-          stringr::str_c("www.j-archive.com/search.php?search=show:", show)
-        } else {
-          stop("A game identifyer is needed")
-        }
-      }
-    }
-
-  # date and show arguments redirect to game url
-  response <- httr::GET(base_url)
-
-  # extract the redirected url if needed
-  final_url <- if (is.null(game)) response$url else base_url
-
-  # create INFO table --------------------------------------------------------------------------
-
-  # extract the game id from end of final url
-  game <- stringr::str_extract(final_url, "\\d+$")
-
-  # read the redirected page content as html
+  game <- whatr_id(game, date, show)
+  response <- httr::GET(paste0("http://www.j-archive.com/showgame.php?game_id=", game))
   showgame <- xml2::read_html(response$content)
-
-  # extract html title as string
-  title <- showgame %>%
-    rvest::html_node("title") %>%
-    rvest::html_text()
-
-  # extract air date from end of title string
-  date <- as.Date(stringr::str_extract(title, "\\d+-\\d+-\\d+$"))
-
-  # extract show number from start of title string
-  show <- as.integer(stringr::str_extract(title, "(\\d+)"))
-
-  # define the INFO table
-  info <- tibble::tibble(
-    game = game,
-    show = show,
-    date = date
+  title <- rvest::html_text(rvest::html_node(showgame, "title"))
+  tibble::tibble(
+    game = as.integer(game),
+    show = as.integer(stringr::str_extract(title, "(\\d+)")),
+    date = as.Date(stringr::str_extract(title, "\\d+-\\d+-\\d+$"))
   )
-
-  return(info)
 }
