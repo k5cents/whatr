@@ -23,3 +23,18 @@ whatr_id <- function(game = NULL, date = NULL, show = NULL) {
     stop("a game identifier is needed")
   }
 }
+
+#' Scrape a J! Archive "showgame" page
+#'
+#' Use [xml2::read_html()] to scrape the entire page as R object.
+#'
+#' @param game The J-Archive! game ID number.
+#' @param date The original date an episode aired.
+#' @param show The sequential show number.
+#' @return The J-Archive! showgame page.
+showgame <- function(game = NULL, date = NULL, show = NULL) {
+  game <- whatr_id(game, date, show)
+  response <- httr::GET(paste0("http://www.j-archive.com/showgame.php?game_id=", game))
+  showgame <- xml2::read_html(response$content)
+  return(showgame)
+}

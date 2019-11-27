@@ -17,37 +17,51 @@
 #' @importFrom tibble enframe
 #' @importFrom dplyr mutate left_join select bind_rows add_row
 #' @importFrom magrittr add
-#' @export
+#' @importFrom tidyr separate
 whatr_order <- function(game = NULL, date = NULL, show = NULL) {
-  game <- whatr_id(game, date, show)
-  response <- httr::GET(paste0("http://www.j-archive.com/showgame.php?game_id=", game))
-  showgame <- xml2::read_html(response$content)
-  listed_order <- c(rep(1, 6), rep(2, 6), rep(3, 6), rep(4, 6), rep(5, 6))
-  single_order <- showgame %>%
+  data <- showgame(game, date, show)
+  single_order <- data %>%
     rvest::html_nodes("#jeopardy_round > table td.clue_order_number") %>%
     rvest::html_text() %>%
-    as.integer() %>%
-    tibble::enframe(name = NULL, value = "clue") %>%
-    dplyr::mutate(row = listed_order[1:nrow(.)]) %>%
-    dplyr::mutate(col = rep(1:6, 5)[1:nrow(.)]) %>%
-    dplyr::mutate(round = 1)
-  double_order <- showgame %>%
+    base::as.integer()
+  double_order <- data %>%
     rvest::html_nodes("#double_jeopardy_round > table td.clue_order_number") %>%
     rvest::html_text() %>%
-    as.integer() %>%
-    magrittr::add(nrow(single_order)) %>%
-    tibble::enframe(name = NULL, value = "clue") %>%
-    dplyr::mutate(row = listed_order[1:nrow(.)]) %>%
-    dplyr::mutate(col = rep(1:6, 5)[1:nrow(.)]) %>%
-    dplyr::mutate(round = 2)
-  clue_order <- single_order %>%
-    dplyr::bind_rows(double_order) %>%
-    dplyr::select(round, clue, col, row) %>%
-    dplyr::add_row(
-      round = 3,
-      clue = nrow(.) + 1,
-      col = 1,
-      row = 1
+    base::as.integer()
+  order <- data %>%
+    rvest::html_nodes("table tr td div") %>%
+    rvest::html_attr("onmouseover") %>%
+    stringr::str_extract("(?<=clue_)(.*)(?=_stuck)") %>%
+    tibble::enframe(name = NULL) %>%
+    tidyr::separate(
+      col = value,
+      sep = "', '",
+      into = c("one", "two")
+    ) %>%
+    dplyr::select(one) %>%
+    tidyr::separate(
+      col = one,
+      sep = "_",
+      into = c("round", "col", "row"),
+      convert = TRUE,
+      fill = "right"
+    ) %>%
+    dplyr::mutate(
+      round = as.integer(
+        round %>%
+          dplyr::recode(
+            "J"  = "1",
+            "DJ" = "2",
+            "FJ" = "3"
+          )
+      ),
+      n = c(
+        single_order,
+        double_order + max(single_order),
+        max(double_order) + 1L
+      )
     )
-  return(clue_order)
+  order$row[length(order$row)] <- 0
+  order$col[length(order$col)] <- 0
+  return(order)
 }

@@ -1,76 +1,43 @@
-#' Scrape Jeopardy game meta data
+#' Scrape Jeopardy game board
 #'
-#' @param game A J-Archive! game ID number
-#' @return Tibble of a Jeopardy! episode categories, questions, and answers
+#' This joins together the results of [whatr_categories()], [whatr_clues()] and
+#' [whatr_answers] to return a single tibble with all clue/answer combinations.
+#'
+#' @param game The J-Archive! game ID number.
+#' @param date The original date an episode aired.
+#' @param show The sequential show number.
+#' @return A tibble of categories and positions.
+#' @examples
+#' whatr_board(game = 6304)
+#' @importFrom xml2 read_html
+#' @importFrom rvest html_nodes html_text html_attr
+#' @importFrom stringr str_to_title str_replace_all str_extract str_split str_remove_all
+#' @importFrom tibble enframe
+#' @importFrom dplyr mutate select recode add_row bind_cols left_join
+#' @importFrom tidyr separate
 #' @export
-
-whatr_data <- function(game = NULL, date = NULL, show = NULL) {
-  game <- whatr_id(game, date, show)
-  response <- httr::GET(paste0("http://www.j-archive.com/showgame.php?game_id=", game))
-  showgame <- xml2::read_html(response$content)
-
-  # define the typical order of clues listed left-right
-  listed_order <- c(rep(1, 6), rep(2, 6), rep(3, 6), rep(4, 6), rep(5, 6))
-
-  # read left-right order of clues chosen
-  single_order <- showgame %>%
-    rvest::html_nodes("#jeopardy_round > table td.clue_order_number") %>%
-    rvest::html_text() %>%
-    as.integer() %>%
-    tibble::enframe(name = NULL, value = "clue") %>%
-    dplyr::mutate(row = listed_order[1:nrow(.)]) %>%
-    dplyr::mutate(col = rep(1:6, 5)[1:nrow(.)]) %>%
-    dplyr::mutate(round = 1)
-
-  # repeat for double jeopardy round
-  double_order <- showgame %>%
-    rvest::html_nodes("#double_jeopardy_round > table td.clue_order_number") %>%
-    rvest::html_text() %>%
-    as.integer() %>%
-    magrittr::add(nrow(single_order)) %>%
-    tibble::enframe(name = NULL, value = "clue") %>%
-    dplyr::mutate(row = listed_order[1:nrow(.)]) %>%
-    dplyr::mutate(col = rep(1:6, 5)[1:nrow(.)]) %>%
-    dplyr::mutate(round = 2)
-
-  # bind all three round clue locations
-  clue_order <- single_order %>%
-    dplyr::bind_rows(double_order) %>%
-    dplyr::select(round, clue, col, row) %>%
-    dplyr::add_row(
-      round = 3,
-      clue = nrow(.) + 1,
-      col = NA,
-      row = NA
-    )
-
-  # create CATEGORY sub-table
-  categories <- showgame %>%
+whatr_board <- function(game = NULL, date = NULL, show = NULL) {
+  data <- showgame(game, date, show)
+  categories <- data %>%
     rvest::html_nodes("table td.category_name") %>%
-    rvest::html_text() %>%
+    rvest::html_text(trim = TRUE) %>%
     stringr::str_to_title() %>%
     stringr::str_replace_all("\"", "'") %>%
-    tibble::enframe(value = "category", name = NULL) %>%
-    dplyr::mutate(round = c(rep(1, 6), rep(2, 6), 3)) %>%
-    dplyr::mutate(col = c(1:6, 1:6, NA)) %>%
+    tibble::enframe(name = NULL, value = "category") %>%
+    dplyr::mutate(
+      round = c(rep(1L, 6), rep(2L, 6), 3L),
+      col = c(1L:6L, 1L:6L, 0L)
+    ) %>%
     dplyr::select(round, col, category)
-
-  # create QUESTIONS sub-table
-  questions <- showgame %>%
-    rvest::html_nodes("table td.clue_text") %>%
+  single_order <- data %>%
+    rvest::html_nodes("#jeopardy_round > table td.clue_order_number") %>%
     rvest::html_text() %>%
-    stringr::str_to_title() %>%
-    stringr::str_replace_all("\"", "\'") %>%
-    tibble::enframe(name = NULL, value = "question") %>%
-    dplyr::mutate(clue = clue_order$clue) %>%
-    dplyr::left_join(clue_order, question_text, by = "clue") %>%
-    dplyr::select(round, col, row, clue, question)
-
-  # create the table of answer locations
-  # can't remember if this is neccesary
-  # answers are listed left-right top-bottom
-  # might differ if answers aren't revealed
-  answer_locations <- showgame %>%
+    base::as.integer()
+  double_order <- data %>%
+    rvest::html_nodes("#double_jeopardy_round > table td.clue_order_number") %>%
+    rvest::html_text() %>%
+    base::as.integer()
+  order <- data %>%
     rvest::html_nodes("table tr td div") %>%
     rvest::html_attr("onmouseover") %>%
     stringr::str_extract("(?<=clue_)(.*)(?=_stuck)") %>%
@@ -89,15 +56,22 @@ whatr_data <- function(game = NULL, date = NULL, show = NULL) {
       fill = "right"
     ) %>%
     dplyr::mutate(
-      round = round %>%
-        dplyr::recode(
-          "J"  = "1",
-          "DJ" = "2",
-          "FJ" = "3"
-        ) %>% as.integer()
+      round = as.integer(
+        round %>%
+          dplyr::recode(
+            "J"  = "1",
+            "DJ" = "2",
+            "FJ" = "3"
+          )
+      ),
+      n = c(
+        single_order,
+        double_order + max(single_order),
+        max(double_order) + 1L
+      )
     )
-
-  # create sub-function to extract mouseover text
+  order$row[length(order$row)] <- 0
+  order$col[length(order$col)] <- 0
   extract_answer <- function(node) {
     node %>%
       rvest::html_attr("onmouseover") %>%
@@ -105,41 +79,36 @@ whatr_data <- function(game = NULL, date = NULL, show = NULL) {
       rvest::html_nodes("em.correct_response") %>%
       rvest::html_text()
   }
-
-  # extract the final jeopardy answer from character string
-  # has to be a way to do with rvest
-  final_answer <- showgame %>%
+  clues <- data %>%
+    rvest::html_nodes("table td.clue_text") %>%
+    rvest::html_text() %>%
+    stringr::str_to_title() %>%
+    stringr::str_replace_all("\"", "\'") %>%
+    tibble::enframe(name = NULL, value = "clue") %>%
+    dplyr::bind_cols(order) %>%
+    dplyr::select(round, col, row, n, clue)
+  final_answer <- data %>%
     rvest::html_node(".final_round") %>%
-    as.character() %>%
+    base::as.character() %>%
     stringr::str_split("class") %>%
-    unlist() %>%
+    base::unlist() %>%
     magrittr::extract(stringr::str_which(., "correct_response")) %>%
     stringr::str_extract(";&gt;(.*)&lt;/") %>%
     stringr::str_remove(";&gt;") %>%
     stringr::str_remove("&lt;/") %>%
     stringr::str_to_title()
-
-  # create ANSWERS sub-table
-  answers <- showgame %>%
+  answers <- data %>%
     rvest::html_nodes("table tr td div") %>%
     purrr::map(extract_answer) %>%
-    unlist() %>%
+    base::unlist() %>%
     stringr::str_to_title() %>%
     stringr::str_replace_all("\"", "\'") %>%
     stringr::str_remove_all(stringr::fixed("\\")) %>%
     tibble::enframe(name = NULL, value = "answer") %>%
     dplyr::add_row(answer = final_answer) %>%
-    dplyr::mutate(clue = c(single_order$clue, double_order$clue, nrow(double_order) + 1)) %>%
-    dplyr::bind_cols(answer_locations) %>%
-    dplyr::select(round, clue, col, row, answer)
-
-  # bind all sub-BOARD tables
-  board <- questions %>%
-    dplyr::left_join(answers, by = c("round", "col", "row", "clue")) %>%
-    dplyr::left_join(categories, by = c("round", "col")) %>%
-    dplyr::select(clue, category, question, answer) %>%
-    dplyr::arrange(clue)
-
-  # return final list
-  return(board)
+    dplyr::bind_cols(order) %>%
+    dplyr::select(round, col, row, n, answer)
+  categories %>%
+    dplyr::left_join(clues) %>%
+    dplyr::left_join(answers)
 }

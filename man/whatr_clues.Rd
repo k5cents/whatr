@@ -17,9 +17,21 @@ whatr_clues(game = NULL, date = NULL, show = NULL)
 A tidy tibble or correct answers.
 }
 \description{
-Confusingly, clues are "questions" pased to contestants in the form of an
+Confusingly, clues are "questions" posed to contestants in the form of an
 answer. The clues are the questions read by the host which must be answered
 by the contestants.
+}
+\details{
+From the \href{https://j-archive.com/help.php#category}{J! Archive glossary}:
+\link{Clues are} a "question" posed to Jeopardy! contestants, descriptively
+phrased as the answer to the correct response. Clues have some dollar value
+associated with them, except in cases of Daily Doubles or Final Jeopardy!
+clues, which are wagered upon prior to the revealing of the clue... At the
+start of the Jeopardy! Round, the returning champion, or the player at the
+leftmost lectern if there is no returning champion, selects the first clue;
+thereafter, for the rest of the round, the clues are selected by the last
+player to give a correct response. At the beginning of the Double Jeopardy!
+Round, the player with the lowest score selects the first clue.
 }
 \examples{
 whatr_clues(game = 6304)

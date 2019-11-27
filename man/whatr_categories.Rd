@@ -14,13 +14,22 @@ whatr_categories(game = NULL, date = NULL, show = NULL)
 \item{show}{The sequential show number.}
 }
 \value{
-A tidy tibble or correct answers.
+A tibble of categories and positions.
 }
 \description{
-Categories are collections of five clues, related by subject matter and
-arranged in order of difficulty. In the structure of the game board,
-categories are the columns.
+For a given game, return a table of category names and their position on the
+board for each round. Categories are assigned to one of six distinct columns
+on the game board.
+}
+\details{
+From the \href{https://j-archive.com/help.php#category}{J! Archive glossary}:
+\link{Categories are} a collection of five clues, related by subject matter or
+otherwise, (ostensibly) arranged in order of difficulty, and assigned a
+(frequently punny) title and, sometimes, special instructions, e.g., for
+clues in a category the title of which contains words or letters in quotation
+marks, the correct responses will themselves contain (or sometimes begin
+with) those words or letters.
 }
 \examples{
-whatr_answers(game = 6304)
+whatr_categories(game = 6304)
 }
