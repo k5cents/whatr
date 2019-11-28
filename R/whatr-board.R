@@ -109,6 +109,7 @@ whatr_board <- function(game = NULL, date = NULL, show = NULL) {
     dplyr::bind_cols(order) %>%
     dplyr::select(round, col, row, n, answer)
   categories %>%
-    dplyr::left_join(clues) %>%
-    dplyr::left_join(answers)
+    dplyr::left_join(clues, by = c("round", "col")) %>%
+    dplyr::left_join(answers, by = c("round", "col", "row", "n")) %>%
+    dplyr::select(n, category, clue, answer)
 }

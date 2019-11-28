@@ -5,12 +5,19 @@ output: github_document
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r include = FALSE}
+library(knitr)
 knitr::opts_chunk$set(
+  warning = FALSE,
+  message = FALSE,
+  error = FALSE,
   collapse = TRUE,
   comment = "#>",
+  out.width = "100%",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  fig.width = 10,
+  dpi = 300
 )
+options(width = 99)
 ```
 
 # whatr <img src='man/figures/logo.png' align="right" height="139" />
@@ -35,15 +42,21 @@ You can install the development version of `whatr` from [GitHub][gh] with:
 remotes::install_github("kiernann/whatr")
 ```
 
-## Example
+## Data
+
+```{r}
+
+```
+
+## Functions
 
 ```{r}
 library(whatr)
 library(tidyverse)
-(scores <- whatr_scores(date = "2019-06-03"))
+whatr_scores(date = "2019-06-03")
+whatr_board(show = 8006)
 whatr_plot(game = 6304)
 ```
-
 
 [life_badge]: https://img.shields.io/badge/lifecycle-experimental-orange.svg
 [life_link]: https://www.tidyverse.org/lifecycle/#experimental
