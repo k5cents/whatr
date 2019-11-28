@@ -6,7 +6,7 @@
 #'
 #' @details
 #' From the [J! Archive glossary](https://j-archive.com/help.php#response):
-#' [Responses are] a contestant's "answer" to a clue, phrased in the form of a
+#' \[Responses are\] a contestant's "answer" to a clue, phrased in the form of a
 #' question. A correct response results in the addition to a player's score the
 #' value of the clue... an incorrect response results in the subtraction from
 #' the player's score the clue's value (or the wager). A clue may have multiple

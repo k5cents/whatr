@@ -23,7 +23,7 @@ on the game board.
 }
 \details{
 From the \href{https://j-archive.com/help.php#category}{J! Archive glossary}:
-\link{Categories are} a collection of five clues, related by subject matter or
+[Categories are] a collection of five clues, related by subject matter or
 otherwise, (ostensibly) arranged in order of difficulty, and assigned a
 (frequently punny) title and, sometimes, special instructions, e.g., for
 clues in a category the title of which contains words or letters in quotation

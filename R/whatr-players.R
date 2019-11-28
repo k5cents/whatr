@@ -18,10 +18,8 @@
 #' @importFrom dplyr mutate pull
 #' @export
 whatr_players <- function(game = NULL, date = NULL, show = NULL) {
-  game <- whatr_id(game, date, show)
-  response <- httr::GET(paste0("http://www.j-archive.com/showgame.php?game_id=", game))
-  showgame <- xml2::read_html(response$content)
-  showgame %>%
+  data <- showgame(game, date, show)
+  data %>%
     rvest::html_node("#contestants_table") %>%
     rvest::html_table(fill = TRUE) %>%
     dplyr::pull(2) %>%

@@ -39,15 +39,15 @@ whatr_scores <- function(game = NULL, date = NULL, show = NULL) {
     rvest::html_table(fill = TRUE, header = TRUE) %>%
     tibble_uniqe() %>%
     dplyr::select(-dplyr::starts_with("...")) %>%
-    dplyr::mutate(clue = dplyr::row_number(), round = 1L) %>%
+    dplyr::mutate(n = dplyr::row_number(), round = 1L) %>%
     tidyr::pivot_longer(
-      cols = -c(clue, round),
+      cols = -c(n, round),
       names_to = "name",
       values_to = "score"
     ) %>%
     dplyr::mutate(
       score = as.integer(stringr::str_remove_all(score, "\\$|\\,")),
-      double = (clue == single_doubles)
+      double = (n == single_doubles)
     )
 
   double_doubles <- showscores %>%
@@ -62,16 +62,16 @@ whatr_scores <- function(game = NULL, date = NULL, show = NULL) {
     tidyr::drop_na() %>%
     tibble_uniqe() %>%
     dplyr::select(-dplyr::starts_with("...")) %>%
-    dplyr::mutate(clue = dplyr::row_number(), round = 2) %>%
+    dplyr::mutate(n = dplyr::row_number(), round = 2) %>%
     tidyr::pivot_longer(
-      cols = -c(clue, round),
+      cols = -c(n, round),
       names_to = "name",
       values_to = "score"
     ) %>%
     dplyr::mutate(
       score = as.integer(stringr::str_remove_all(score, "\\$|\\,")),
-      double = (clue %in% double_doubles),
-      clue = clue + max(single_score$clue)
+      double = (n %in% double_doubles),
+      n = n + max(single_score$n)
     )
 
   final_scores <- showscores %>%
@@ -80,11 +80,11 @@ whatr_scores <- function(game = NULL, date = NULL, show = NULL) {
     dplyr::slice(1) %>%
     tibble_uniqe() %>%
     dplyr::mutate(
-      clue = max(double_score$clue) + 1L,
+      n = max(double_score$n) + 1L,
       round = 3L
     ) %>%
     tidyr::pivot_longer(
-      cols = -c(clue, round),
+      cols = -c(n, round),
       names_to = "name",
       values_to = "score"
     ) %>%
@@ -93,13 +93,14 @@ whatr_scores <- function(game = NULL, date = NULL, show = NULL) {
   scores <- single_score %>%
     dplyr::bind_rows(double_score) %>%
     dplyr::bind_rows(final_scores) %>%
-    dplyr::arrange(round, clue) %>%
-    dplyr::select(round, clue, name, score, double) %>%
-    group_by(name) %>%
-    mutate(
-      change = ifelse(clue == 1, score, score - dplyr::lag(score)),
+    dplyr::arrange(round, n) %>%
+    dplyr::select(round, n, name, score, double) %>%
+    dplyr::group_by(name) %>%
+    dplyr::mutate(
+      change = ifelse(n == 1, score, score - dplyr::lag(score)),
       correct = ifelse(change == 0, NA, change > 0)
-    )
+    ) %>%
+    dplyr::ungroup()
 
   return(scores)
 }

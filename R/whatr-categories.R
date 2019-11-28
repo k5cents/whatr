@@ -6,7 +6,7 @@
 #'
 #' @details
 #' From the [J! Archive glossary](https://j-archive.com/help.php#category):
-#' [Categories are] a collection of five clues, related by subject matter or
+#' \[Categories are\] a collection of five clues, related by subject matter or
 #' otherwise, (ostensibly) arranged in order of difficulty, and assigned a
 #' (frequently punny) title and, sometimes, special instructions, e.g., for
 #' clues in a category the title of which contains words or letters in quotation

@@ -23,7 +23,7 @@ by the contestants.
 }
 \details{
 From the \href{https://j-archive.com/help.php#category}{J! Archive glossary}:
-\link{Clues are} a "question" posed to Jeopardy! contestants, descriptively
+[Clues are] a "question" posed to Jeopardy! contestants, descriptively
 phrased as the answer to the correct response. Clues have some dollar value
 associated with them, except in cases of Daily Doubles or Final Jeopardy!
 clues, which are wagered upon prior to the revealing of the clue... At the
