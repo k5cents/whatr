@@ -6,10 +6,6 @@
 #' @param date The original date an episode aired.
 #' @param show The sequential show number.
 #' @return The J-Archive! game ID number.
-#' @examples
-#' whatr_id(game = 6304)
-#' whatr_id(date = "2019-06-03")
-#' whatr_id(show = 8006)
 whatr_id <- function(game = NULL, date = NULL, show = NULL) {
   if (!is.null(game)) {
     return(as.character(game))

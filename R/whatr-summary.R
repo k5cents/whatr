@@ -17,6 +17,7 @@
 #' @return The J-Archive! game ID number.
 #' @examples
 #' whatr_summary(game = 6304)
+#' @export
 whatr_summary <- function(game = NULL, date = NULL, show = NULL) {
   data <- showgame(game, date, show)
   coryat_final <- data %>%

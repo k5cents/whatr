@@ -19,8 +19,3 @@ The J-Archive! game ID number.
 \description{
 Can return the game ID for a show air date or number.
 }
-\examples{
-whatr_id(game = 6304)
-whatr_id(date = "2019-06-03")
-whatr_id(show = 8006)
-}

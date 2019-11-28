@@ -21,6 +21,3 @@ Contestants are free to chose clues from the board in whatever order they
 want. This function returns the position of each clue on the board and the
 order in which they are chosen.
 }
-\examples{
-whatr_order(game = 6304)
-}

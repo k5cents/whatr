@@ -8,8 +8,6 @@
 #' @param date The original date an episode aired.
 #' @param show The sequential show number.
 #' @return A tidy tibble of clue orders.
-#' @examples
-#' whatr_order(game = 6304)
 #' @importFrom httr GET
 #' @importFrom xml2 read_html
 #' @importFrom rvest html_attr html_nodes html_text
@@ -58,7 +56,7 @@ whatr_order <- function(game = NULL, date = NULL, show = NULL) {
       n = c(
         single_order,
         double_order + max(single_order),
-        max(double_order) + 1L
+        max(single_order) + max(double_order) + 1L
       )
     )
   order$row[length(order$row)] <- 0
