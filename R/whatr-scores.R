@@ -16,7 +16,9 @@
 #' @examples
 #' whatr_scores(game = 6304)
 #' read_scores(6304) %>% whatr_scores()
-#' @importFrom dplyr arrange bind_rows group_by mutate select slice ungroup lag
+#' @importFrom dplyr arrange bind_rows group_by lag mutate row_number select
+#'   slice ungroup
+#' @importFrom rlang .data
 #' @importFrom rvest html_node html_nodes html_table html_text
 #' @importFrom stringr str_remove_all
 #' @importFrom tibble as_tibble
@@ -42,15 +44,15 @@ whatr_scores <- function(html = NULL, game = NULL) {
     rvest::html_table(fill = TRUE, header = TRUE) %>%
     magrittr::extract(, 2:4) %>%
     tibble::as_tibble() %>%
-    dplyr::mutate(n = seq(1L, nrow(.)), round = 1L) %>%
+    dplyr::mutate(n = dplyr::row_number(), round = 1L) %>%
     tidyr::pivot_longer(
       cols = -c(n, round),
       names_to = "name",
       values_to = "score"
     ) %>%
     dplyr::mutate(
-      score = as.integer(stringr::str_remove_all(score, "[^\\d]")),
-      double = (n == single_doubles)
+      score = as.integer(stringr::str_remove_all(.data$score, "[^\\d]")),
+      double = (.data$n %in% single_doubles)
     )
 
   # find round 2 doubles location
@@ -67,16 +69,16 @@ whatr_scores <- function(html = NULL, game = NULL) {
     tidyr::drop_na() %>%
     magrittr::extract(, 2:4) %>%
     tibble::as_tibble() %>%
-    dplyr::mutate(n = seq(1L, nrow(.)), round = 1L) %>%
+    dplyr::mutate(n = dplyr::row_number(), round = 2L) %>%
     tidyr::pivot_longer(
       cols = -c(n, round),
       names_to = "name",
       values_to = "score"
     ) %>%
     dplyr::mutate(
-      score = as.integer(stringr::str_remove_all(score, "[^\\d]")),
-      double = (n %in% double_doubles),
-      n = n + max(single_score$n)
+      score = as.integer(stringr::str_remove_all(.data$score, "[^\\d]")),
+      double = (.data$n %in% double_doubles),
+      n = .data$n + max(single_score$n)
     )
 
   # pivot round 3 scores
@@ -85,17 +87,14 @@ whatr_scores <- function(html = NULL, game = NULL) {
     rvest::html_table(header = TRUE, fill = TRUE) %>%
     dplyr::slice(1) %>%
     tibble::as_tibble() %>%
-    dplyr::mutate(
-      n = max(double_score$n) + 1L,
-      round = 3L
-    ) %>%
+    dplyr::mutate(n = max(double_score$n) + 1L, round = 3L) %>%
     tidyr::pivot_longer(
       cols = -c(n, round),
       names_to = "name",
       values_to = "score"
     ) %>%
     dplyr::mutate(
-      score = as.integer(stringr::str_remove_all(score, "[^\\d]")),
+      score = as.integer(stringr::str_remove_all(.data$score, "[^\\d]")),
       double = FALSE
     )
 
@@ -103,12 +102,16 @@ whatr_scores <- function(html = NULL, game = NULL) {
   scores <- single_score %>%
     dplyr::bind_rows(double_score) %>%
     dplyr::bind_rows(final_scores) %>%
-    dplyr::group_by(name) %>%
-    dplyr::mutate(score = ifelse(n == 1, score, score - dplyr::lag(score))) %>%
+    dplyr::group_by(.data$name) %>%
+    dplyr::mutate(score = dplyr::if_else(
+      condition = .data$n == 1,
+      true = .data$score,
+      false = .data$score - dplyr::lag(.data$score))
+    ) %>%
     dplyr::ungroup() %>%
-    dplyr::filter(score != 0 | n == 1) %>%
-    dplyr::arrange(round, n) %>%
-    dplyr::select(round, n, name, score, double)
+    dplyr::filter(.data$score != 0 | .data$n == 1) %>%
+    dplyr::arrange(.data$round, .data$n) %>%
+    dplyr::select(.data$round, .data$n, .data$name, .data$score, .data$double)
 
   return(scores)
 }

@@ -23,37 +23,15 @@ whatr_id <- function(game = NULL, date = NULL, show = NULL) {
       url = "http://www.j-archive.com/search.php",
       query = list(search = paste(type, input, sep = ":"))
     )
-    game <- stringr::str_extract(search$url, "\\d+$")
+    game <- stringr::str_extract(response$url, "\\d+$")
   }
   return(as.character(game))
-}
-
-#' Scrape a J! Archive "showgame" page
-#'
-#' GET the "showgame" HTML document object which can be parsed. Use with
-#' functions like [whatr_clues()].
-#'
-#' @param game The J! Archive game ID number.
-#' @param date The original date an episode aired.
-#' @param show The sequential show number.
-#' @return The J! Archive showgame `html_document`.
-#' @examples
-#' read_game(game = 6304)
-#' @importFrom httr GET content
-#' @export
-read_game <- function(game = NULL, date = NULL, show = NULL) {
-  response <- httr::GET(
-    url = "http://www.j-archive.com/showgame.php",
-    query = list(game_id = whatr_id(game, date, show))
-  )
-  showgame <- httr::content(response)
-  return(showgame)
 }
 
 #' Scrape a J! Archive "showscore" page
 #'
 #' GET the "showscore" HTML document object which can be parsed. Use with
-#' functions like [whatr_score()].
+#' functions like [whatr_scores()].
 #'
 #' @param game The J! Archive game ID number.
 #' @param date The original date an episode aired.
@@ -71,3 +49,25 @@ read_scores <- function(game = NULL, date = NULL, show = NULL) {
   showscore <- httr::content(response)
   return(showscore)
 }
+
+# Scrape a J! Archive "showgame" page
+#
+# GET the "showgame" HTML document object which can be parsed. Use with
+# functions like [whatr_clues()].
+#
+# @param game The J! Archive game ID number.
+# @param date The original date an episode aired.
+# @param show The sequential show number.
+# @return The J! Archive showgame `html_document`.
+# @examples
+# read_game(game = 6304)
+# @importFrom httr GET content
+# @export
+# read_game <- function(game = NULL, date = NULL, show = NULL) {
+#   response <- httr::GET(
+#     url = "http://www.j-archive.com/showgame.php",
+#     query = list(game_id = whatr_id(game, date, show))
+#   )
+#   showgame <- httr::content(response)
+#   return(showgame)
+# }
