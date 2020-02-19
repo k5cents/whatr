@@ -1,36 +1,73 @@
 #' Return a J! Archive game ID
 #'
-#' Can return the game ID for a show air date or number.
+#' Return the game ID for a show air date or number. The game ID is needed to
+#' return the "showgame" or "showscore" page.
 #'
-#' @param game The J-Archive! game ID number.
+#' @param game The J! Archive game ID number.
 #' @param date The original date an episode aired.
 #' @param show The sequential show number.
-#' @return The J-Archive! game ID number.
+#' @return The J! Archive game ID number.
+#' @examples
+#' whatr_id(game = 6304)
+#' whatr_id(date = "2019-06-03")
+#' whatr_id(show = 8006)
+#' @importFrom httr HEAD
+#' @importFrom stringr str_extract
+#' @export
 whatr_id <- function(game = NULL, date = NULL, show = NULL) {
-  if (!is.null(game)) {
-    return(as.character(game))
-  } else if (!is.null(date)) {
-    url <- paste0("http://www.j-archive.com/search.php?search=date:", as.Date(date))
-    stringr::str_extract(httr::HEAD(url)$url, "\\d+$")
-  } else if (!is.null(show)) {
-    url <- paste0("www.j-archive.com/search.php?search=show:", show)
-    stringr::str_extract(httr::HEAD(url)$url, "\\d+$")
-  } else {
-    stop("a game identifier is needed")
+  if (is.null(game)) {
+    else_arg <- c(!is.null(date), !is.null(show))
+    type <- c("date", "show")[else_arg]
+    input <- c(date, show)
+    response <- httr::HEAD(
+      url = "http://www.j-archive.com/search.php",
+      query = list(search = paste(type, input, sep = ":"))
+    )
+    game <- stringr::str_extract(search$url, "\\d+$")
   }
+  return(as.character(game))
 }
 
 #' Scrape a J! Archive "showgame" page
 #'
-#' Use [xml2::read_html()] to scrape the entire page as R object.
+#' GET the "showgame" HTML document object which can be parsed. Use with
+#' functions like [whatr_clues()].
 #'
-#' @param game The J-Archive! game ID number.
+#' @param game The J! Archive game ID number.
 #' @param date The original date an episode aired.
 #' @param show The sequential show number.
-#' @return The J-Archive! showgame page.
-showgame <- function(game = NULL, date = NULL, show = NULL) {
-  game <- whatr_id(game, date, show)
-  response <- httr::GET(paste0("http://www.j-archive.com/showgame.php?game_id=", game))
-  showgame <- xml2::read_html(response$content)
+#' @return The J! Archive showgame `html_document`.
+#' @examples
+#' read_game(game = 6304)
+#' @importFrom httr GET content
+#' @export
+read_game <- function(game = NULL, date = NULL, show = NULL) {
+  response <- httr::GET(
+    url = "http://www.j-archive.com/showgame.php",
+    query = list(game_id = whatr_id(game, date, show))
+  )
+  showgame <- httr::content(response)
   return(showgame)
+}
+
+#' Scrape a J! Archive "showscore" page
+#'
+#' GET the "showscore" HTML document object which can be parsed. Use with
+#' functions like [whatr_score()].
+#'
+#' @param game The J! Archive game ID number.
+#' @param date The original date an episode aired.
+#' @param show The sequential show number.
+#' @return The J! Archive showscore `html_document`.
+#' @examples
+#' read_scores(game = 6304)
+#' @importFrom httr GET content
+#' @export
+read_scores <- function(game = NULL, date = NULL, show = NULL) {
+  response <- httr::GET(
+    url = "http://www.j-archive.com/showscores.php",
+    query = list(game_id = whatr_id(game, date, show))
+  )
+  showscore <- httr::content(response)
+  return(showscore)
 }

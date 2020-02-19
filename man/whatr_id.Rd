@@ -7,15 +7,21 @@
 whatr_id(game = NULL, date = NULL, show = NULL)
 }
 \arguments{
-\item{game}{The J-Archive! game ID number.}
+\item{game}{The J! Archive game ID number.}
 
 \item{date}{The original date an episode aired.}
 
 \item{show}{The sequential show number.}
 }
 \value{
-The J-Archive! game ID number.
+The J! Archive game ID number.
 }
 \description{
-Can return the game ID for a show air date or number.
+Return the game ID for a show air date or number. The game ID is needed to
+return the "showgame" or "showscore" page.
+}
+\examples{
+whatr_id(game = 6304)
+whatr_id(date = "2019-06-03")
+whatr_id(show = 8006)
 }
