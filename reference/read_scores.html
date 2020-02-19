@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return a J! Archive game ID — whatr_id • whatr</title>
+<title>Scrape a J! Archive "showscore" page — read_scores • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,9 @@
 
 
 
-<meta property="og:title" content="Return a J! Archive game ID — whatr_id" />
-<meta property="og:description" content="Return the game ID for a show air date or number. The game ID is needed to
-return the &quot;showgame&quot; or &quot;showscore&quot; page." />
+<meta property="og:title" content="Scrape a J! Archive "showscore" page — read_scores" />
+<meta property="og:description" content="GET the &quot;showscore&quot; HTML document object which can be parsed. Use with
+functions like whatr_scores()." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -117,17 +117,17 @@ return the &quot;showgame&quot; or &quot;showscore&quot; page." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return a J! Archive game ID</h1>
+    <h1>Scrape a J! Archive "showscore" page</h1>
     <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/read-game.R'><code>R/read-game.R</code></a></small>
-    <div class="hidden name"><code>whatr_id.Rd</code></div>
+    <div class="hidden name"><code>read_scores.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Return the game ID for a show air date or number. The game ID is needed to
-return the "showgame" or "showscore" page.</p>
+    <p>GET the "showscore" HTML document object which can be parsed. Use with
+functions like <code><a href='whatr_scores.html'>whatr_scores()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_id</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>read_scores</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,10 +148,13 @@ return the "showgame" or "showscore" page.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The J! Archive game ID number.</p>
+    <p>The J! Archive showscore <code>html_document</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>whatr_id</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; [1] "6304"</div><div class='input'><span class='fu'>whatr_id</span>(<span class='kw'>date</span> <span class='kw'>=</span> <span class='st'>"2019-06-03"</span>)</div><div class='output co'>#&gt; [1] "6304"</div><div class='input'><span class='fu'>whatr_id</span>(<span class='kw'>show</span> <span class='kw'>=</span> <span class='fl'>8006</span>)</div><div class='output co'>#&gt; [1] "6304"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>read_scores</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; {html_document}
+#&gt; &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"&gt;
+#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
+#&gt; [2] &lt;body&gt;\n\n&lt;div id="navbar"&gt;\n  &lt;span id="navbarlogo"&gt;&lt;a href="http://www. ...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
