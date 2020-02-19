@@ -1,12 +1,11 @@
 Package: whatr
 Title: Scrape and analyze the J! Archive
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Kiernan",
+           family = "Nicholls",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "kiernann@protonmail.com")
 Description: Analyze years of past games, with episode
     contestants, categories, questions, and answers. Update the databse
     with the tools to scrape a the data from a specific episode.
