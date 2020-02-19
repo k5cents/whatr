@@ -2,28 +2,30 @@
 % Please edit documentation in R/whatr-scores.R
 \name{whatr_scores}
 \alias{whatr_scores}
-\title{Scrape Jeopardy game score history}
+\title{What are player scores?}
+\format{A tibble with 52 rows and 8 variables:
+\describe{
+\item{round}{The round a clue is chosen.}
+\item{n}{The order of clue chosen.}
+\item{name}{First name of player responding.}
+\item{score}{Change in score from this clue.}
+\item{double}{Is the clue a daily double.}
+}}
 \usage{
-whatr_scores(game = NULL, date = NULL, show = NULL)
+whatr_scores(html = NULL, game = NULL)
 }
 \arguments{
+\item{html}{An HTML document from \code{\link[=read_scores]{read_scores()}}.}
+
 \item{game}{The J-Archive! game ID number.}
-
-\item{date}{The original date an episode aired.}
-
-\item{show}{The sequential show number.}
 }
 \value{
-Tidy tibble of an episode score history.
+Tidy tibble of clue scores.
 }
 \description{
-Return the tidy tibble of contestant scores over the course of the game.
-The tibble indicates what questions were answered correctly and the change
-in score from each answer.
+This data frame has data on the performance of each contestant.
 }
 \examples{
 whatr_scores(game = 6304)
-whatr_scores(date = "2019-06-03")
-whatr_scores(show = 8006)
+read_scores(6304) \%>\% whatr_scores()
 }
-\concept{J! scrapers}
