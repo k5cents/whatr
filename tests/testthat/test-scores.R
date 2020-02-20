@@ -1,7 +1,7 @@
 library(testthat)
 library(whatr)
 
-test_that("score returns from HTML", {
+test_that("scores returns from HTML", {
   s <- read_scores(6304) %>% whatr_scores()
   expect_s3_class(s, "tbl")
   expect_length(s, 5)
@@ -9,7 +9,7 @@ test_that("score returns from HTML", {
   expect_type(s$double, "logical")
 })
 
-test_that("score returns from game ID", {
+test_that("scores returns from game ID", {
   s <- whatr_scores(game = 6304)
   expect_s3_class(s, "tbl")
   expect_length(s, 5)
