@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Who are the players? — whatr_players • whatr</title>
+<title>Scrape a J! Archive "showgame" page — read_game • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,9 @@
 
 
 
-<meta property="og:title" content="Who are the players? — whatr_players" />
-<meta property="og:description" content="These individuals compete to score the most points and win the game." />
+<meta property="og:title" content="Scrape a J! Archive "showgame" page — read_game" />
+<meta property="og:description" content="GET the &quot;showgame&quot; HTML document object which can be parsed. Use with
+functions like whatr_players()." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -116,46 +117,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Who are the players?</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-players.R'><code>R/whatr-players.R</code></a></small>
-    <div class="hidden name"><code>whatr_players.Rd</code></div>
+    <h1>Scrape a J! Archive "showgame" page</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/read-game.R'><code>R/read-game.R</code></a></small>
+    <div class="hidden name"><code>read_game.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These individuals compete to score the most points and win the game.</p>
+    <p>GET the "showgame" HTML document object which can be parsed. Use with
+functions like <code><a href='whatr_players.html'>whatr_players()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_players</span>(<span class='kw'>html</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>read_game</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>html</th>
-      <td><p>An HTML document from <code><a href='read_scores.html'>read_scores()</a></code>.</p></td>
+      <th>game</th>
+      <td><p>The J! Archive game ID number.</p></td>
     </tr>
     <tr>
-      <th>game</th>
-      <td><p>The J-Archive! game ID number.</p></td>
+      <th>date</th>
+      <td><p>The original date an episode aired.</p></td>
+    </tr>
+    <tr>
+      <th>show</th>
+      <td><p>The sequential show number.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tidy tibble of player info.</p>
+    <p>The J! Archive showgame <code>html_document</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>whatr_players</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 5
-#&gt;   first last      occupation                  city      state   
-#&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;                       &lt;chr&gt;     &lt;chr&gt;   
-#&gt; 1 Emma  Boettcher User Experience Librarian   Chicago   Illinois
-#&gt; 2 Jay   Sexton    Senior Research Engineer    Atlanta   Georgia 
-#&gt; 3 James Holzhauer Professional Sports Gambler Las Vegas Nevada  </div><div class='input'><span class='fu'><a href='read_game.html'>read_game</a></span>(<span class='fl'>6304</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_players</span>()</div><div class='output co'>#&gt; # A tibble: 3 x 5
-#&gt;   first last      occupation                  city      state   
-#&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;                       &lt;chr&gt;     &lt;chr&gt;   
-#&gt; 1 Emma  Boettcher User Experience Librarian   Chicago   Illinois
-#&gt; 2 Jay   Sexton    Senior Research Engineer    Atlanta   Georgia 
-#&gt; 3 James Holzhauer Professional Sports Gambler Las Vegas Nevada  </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>read_game</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; {html_document}
+#&gt; &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"&gt;
+#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
+#&gt; [2] &lt;body&gt;\n\n&lt;div id="navbar"&gt;\n  &lt;span id="navbarlogo"&gt;&lt;a href="http://www. ...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
