@@ -17,7 +17,7 @@ whatr_scores(html = NULL, game = NULL)
 \arguments{
 \item{html}{An HTML document from \code{\link[=read_scores]{read_scores()}}.}
 
-\item{game}{The J-Archive! game ID number.}
+\item{game}{The J-Archive! game ID number, possibly from \code{\link[=whatr_id]{whatr_id()}}.}
 }
 \value{
 Tidy tibble of clue scores.

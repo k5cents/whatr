@@ -3,7 +3,7 @@
 #' This data frame has data on the performance of each contestant.
 #'
 #' @param html An HTML document from [read_scores()].
-#' @param game The J-Archive! game ID number.
+#' @param game The J-Archive! game ID number, possibly from [whatr_id()].
 #' @return Tidy tibble of clue scores.
 #' @format A tibble with 52 rows and 8 variables:
 #' \describe{
