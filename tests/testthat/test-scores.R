@@ -1,6 +1,7 @@
 library(testthat)
 library(whatr)
 
+id <- sample(2000:5000, 1)
 test_that("scores returns from HTML", {
   s <- read_scores(6304) %>% whatr_scores()
   expect_s3_class(s, "tbl")
