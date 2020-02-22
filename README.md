@@ -59,20 +59,20 @@ whatr_scores(game = id)
 #>  9     1     7 James   600 FALSE 
 #> 10     1     8 James  1000 FALSE 
 #> # … with 55 more rows
-whatr_board(game = id)
-#> # A tibble: 61 x 7
-#>    round   col   row     n category     clue                                        answer         
-#>    <int> <int> <int> <int> <chr>        <chr>                                       <chr>          
-#>  1     1     1     1    25 Picture The… For An Optimistic View Of Things, Take A L… Rose-Colored G…
-#>  2     1     1     2    24 Picture The… If You Have These, It Means You're Well-Or… Your Ducks In …
-#>  3     1     1     3     7 Picture The… It's What's Going On Here                   Comparing Appl…
-#>  4     1     1     4     6 Picture The… Greenhouse Gas Emission Due To Human Activ… A Carbon Footp…
-#>  5     1     1     5     4 Picture The… Note The Lovely Weather; It Means To Take … Make Hay While…
-#>  6     1     2     1    26 Literature   Melville's 'Bartleby The Scrivener' Is Sub… Wall Street    
-#>  7     1     2     2    23 Literature   In A 1923 Book By Kahlil Gibran, Almustafa… The Prophet    
-#>  8     1     2     3    15 Literature   In 'Charlotte's Web', Templeton Is This Cr… A Rat          
-#>  9     1     2     4     3 Literature   In A Novel Simone De Beauvoir Depicted Her… (Albert) Camus 
-#> 10     1     2     5     1 Literature   The Title Peak Of This Thomas Mann Novel I… Magic Mountain 
+whatr_board(game = id)[, 4:7]
+#> # A tibble: 61 x 4
+#>        n category       clue                                                    answer             
+#>    <int> <chr>          <chr>                                                   <chr>              
+#>  1    25 Picture The I… For An Optimistic View Of Things, Take A Look Through … Rose-Colored Glass…
+#>  2    24 Picture The I… If You Have These, It Means You're Well-Organized       Your Ducks In A Row
+#>  3     7 Picture The I… It's What's Going On Here                               Comparing Apples &…
+#>  4     6 Picture The I… Greenhouse Gas Emission Due To Human Activity Leaves B… A Carbon Footprint 
+#>  5     4 Picture The I… Note The Lovely Weather; It Means To Take Advantage Of… Make Hay While The…
+#>  6    26 Literature     Melville's 'Bartleby The Scrivener' Is Subtitled 'A St… Wall Street        
+#>  7    23 Literature     In A 1923 Book By Kahlil Gibran, Almustafa Is This Mys… The Prophet        
+#>  8    15 Literature     In 'Charlotte's Web', Templeton Is This Creature        A Rat              
+#>  9     3 Literature     In A Novel Simone De Beauvoir Depicted Herself As Anne… (Albert) Camus     
+#> 10     1 Literature     The Title Peak Of This Thomas Mann Novel Is Home To A … Magic Mountain     
 #> # … with 51 more rows
 ```
 
