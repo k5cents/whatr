@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scrape Jeopardy game correct responses — whatr_answers • whatr</title>
+<title>What are the answers? — whatr_answers • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,10 +42,9 @@
 
 
 
-<meta property="og:title" content="Scrape Jeopardy game correct responses — whatr_answers" />
-<meta property="og:description" content="In this context, the &quot;answers&quot; are the &quot;questions&quot; given by the contentsants
-in response to a clue. This function only returns the correct response
-to a clue, not all responses given by contestants." />
+<meta property="og:title" content="What are the answers? — whatr_answers" />
+<meta property="og:description" content="These must be given by the contestants in the form of a question in
+response to the clues asked." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -79,7 +78,7 @@ to a clue, not all responses given by contestants." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -118,53 +117,62 @@ to a clue, not all responses given by contestants." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scrape Jeopardy game correct responses</h1>
+    <h1>What are the answers?</h1>
     <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-answers.R'><code>R/whatr-answers.R</code></a></small>
     <div class="hidden name"><code>whatr_answers.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>In this context, the "answers" are the "questions" given by the contentsants
-in response to a clue. This function only returns the <em>correct</em> response
-to a clue, not all responses given by contestants.</p>
+    <p><em>These</em> must be given by the contestants in the form of a question in
+response to the clues asked.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_answers</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>whatr_answers</span>(<span class='kw'>html</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>html</th>
+      <td><p>An HTML document from <code><a href='read_game.html'>read_game()</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>game</th>
-      <td><p>The J-Archive! game ID number.</p></td>
-    </tr>
-    <tr>
-      <th>date</th>
-      <td><p>The original date an episode aired.</p></td>
-    </tr>
-    <tr>
-      <th>show</th>
-      <td><p>The sequential show number.</p></td>
+      <td><p>The J-Archive! game ID number, possibly from <code><a href='whatr_id.html'>whatr_id()</a></code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A tibble with (usually) 61 rows and 5 variables:</p><dl class='dl-horizontal'>
+<dt>round</dt><dd><p>The round a clue is chosen.</p></dd>
+<dt>col</dt><dd><p>The column position left-to-right.</p></dd>
+<dt>row</dt><dd><p>The row position top-to-bottom.</p></dd>
+<dt>n</dt><dd><p>The order of clue chosen.</p></dd>
+<dt>answer</dt><dd><p>The <em>correct</em> answer to a clue.</p></dd>
+
+</dl>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tidy tibble or correct answers.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>From the <a href='https://j-archive.com/help.php#response'>J! Archive glossary</a>:
-[Responses are] a contestant's "answer" to a clue, phrased in the form of a
-question. A correct response results in the addition to a player's score the
-value of the clue... an incorrect response results in the subtraction from
-the player's score the clue's value (or the wager). A clue may have multiple
-different acceptable correct responses or correct response variations, some
-of them unanticipated by the writers and judges...</p>
+    <p>A tidy tibble of clue text.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>whatr_answers</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 61 x 5
 #&gt;    round   col   row     n answer              
-#&gt;    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;               
+#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;               
+#&gt;  1     1     1     1    25 Rose-Colored Glasses
+#&gt;  2     1     2     1    26 Wall Street         
+#&gt;  3     1     3     1    27 A Crow'S Nest       
+#&gt;  4     1     4     1    28 Jimmy Buffett       
+#&gt;  5     1     5     1    29 Television          
+#&gt;  6     1     6     1    30 Pop-Tarts           
+#&gt;  7     1     1     2    24 Your Ducks In A Row 
+#&gt;  8     1     2     2    23 The Prophet         
+#&gt;  9     1     3     2    22 Dolls               
+#&gt; 10     1     4     2    21 The Four Seasons    
+#&gt; # … with 51 more rows</div><div class='input'><span class='fu'><a href='read_game.html'>read_game</a></span>(<span class='fl'>6304</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_answers</span>()</div><div class='output co'>#&gt; # A tibble: 61 x 5
+#&gt;    round   col   row     n answer              
+#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;               
 #&gt;  1     1     1     1    25 Rose-Colored Glasses
 #&gt;  2     1     2     1    26 Wall Street         
 #&gt;  3     1     3     1    27 A Crow'S Nest       
@@ -181,8 +189,8 @@ of them unanticipated by the writers and judges...</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#format">Format</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
