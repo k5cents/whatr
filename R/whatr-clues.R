@@ -10,6 +10,7 @@
 #'   \item{round}{The round a clue is chosen.}
 #'   \item{col}{The column position left-to-right.}
 #'   \item{row}{The row position top-to-bottom.}
+#'   \item{n}{The order of clue chosen.}
 #'   \item{clue}{The clue read to the contestants.}
 #' }
 #' @examples
