@@ -3,13 +3,21 @@
 \name{whatr_players}
 \alias{whatr_players}
 \title{Who are the players?}
+\format{A tibble with 52 rows and 8 variables:
+\describe{
+\item{first}{The contestant's given name.}
+\item{last}{The contestant's surname name.}
+\item{occupation}{A short description of what the contestant does.}
+\item{city}{The first part of the contestants home, usually a city.}
+\item{state}{The second part of the contestants home, usually a state.}
+}}
 \usage{
 whatr_players(html = NULL, game = NULL)
 }
 \arguments{
-\item{html}{An HTML document from \code{\link[=read_scores]{read_scores()}}.}
+\item{html}{An HTML document from \code{\link[=read_game]{read_game()}}.}
 
-\item{game}{The J-Archive! game ID number.}
+\item{game}{The J-Archive! game ID number, possibly from \code{\link[=whatr_id]{whatr_id()}}.}
 }
 \value{
 A tidy tibble of player info.

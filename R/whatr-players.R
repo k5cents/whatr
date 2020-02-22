@@ -2,9 +2,17 @@
 #'
 #' These individuals compete to score the most points and win the game.
 #'
-#' @param html An HTML document from [read_scores()].
-#' @param game The J-Archive! game ID number.
+#' @param html An HTML document from [read_game()].
+#' @param game The J-Archive! game ID number, possibly from [whatr_id()].
 #' @return A tidy tibble of player info.
+#' @format A tibble with 52 rows and 8 variables:
+#' \describe{
+#'   \item{first}{The contestant's given name.}
+#'   \item{last}{The contestant's surname name.}
+#'   \item{occupation}{A short description of what the contestant does.}
+#'   \item{city}{The first part of the contestants home, usually a city.}
+#'   \item{state}{The second part of the contestants home, usually a state.}
+#' }
 #' @examples
 #' whatr_players(game = 6304)
 #' read_game(6304) %>% whatr_players()
@@ -13,7 +21,6 @@
 #' @importFrom rvest html_node html_table
 #' @importFrom stringr str_replace_all str_remove str_split str_to_title
 #'   str_trim word
-#' @importFrom tidyr drop_na
 #' @importFrom tibble enframe
 #' @importFrom tidyr separate
 #' @export
