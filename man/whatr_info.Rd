@@ -26,4 +26,5 @@ response to the clues asked.
 }
 \examples{
 whatr_info(game = 6304)
+read_game(6304) \%>\% whatr_info()
 }
