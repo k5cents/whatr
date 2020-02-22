@@ -14,6 +14,7 @@
 #' }
 #' @examples
 #' whatr_info(game = 6304)
+#' read_game(6304) %>% whatr_info()
 #' @importFrom rvest html_node html_text
 #' @importFrom stringr str_extract
 #' @importFrom tibble tibble
@@ -23,6 +24,8 @@ whatr_info <- function(html = NULL, game = NULL) {
     showgame <- read_game(game)
   } else {
     showgame <- html
+    game <- as.character(html) %>%
+      str_extract("(?<=chartgame.php\\?game_id\\=)\\d+")
   }
 
   title <- rvest::html_text(rvest::html_node(showgame, "title"))

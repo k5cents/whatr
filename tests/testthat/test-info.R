@@ -1,0 +1,17 @@
+library(testthat)
+library(whatr)
+
+id <- sample(2000:5000, 1)
+test_that("info returns from HTML", {
+  i <- read_game(id) %>% whatr_info()
+  expect_s3_class(i, "tbl")
+  expect_length(i, 3)
+  expect_equal(nrow(i), 1)
+})
+
+test_that("info returns from game ID", {
+  i <- whatr_info(game = id)
+  expect_s3_class(i, "tbl")
+  expect_length(i, 3)
+  expect_equal(nrow(i), 1)
+})
