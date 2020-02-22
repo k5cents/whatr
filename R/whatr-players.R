@@ -9,6 +9,7 @@
 #' whatr_players(game = 6304)
 #' read_game(6304) %>% whatr_players()
 #' @importFrom dplyr mutate pull
+#' @importFrom rlang .data
 #' @importFrom rvest html_node html_table
 #' @importFrom stringr str_replace_all str_remove str_split str_to_title
 #'   str_trim word
@@ -35,24 +36,24 @@ whatr_players <- function(html = NULL, game = NULL) {
     stringr::str_replace_all("\"", "\'") %>%
     tibble::enframe(name = NULL, value = "text") %>%
     tidyr::separate(
-      col = text,
+      col = .data$text,
       into = c("name", "bio"),
       sep = ",\\s",
       extra = "merge"
     ) %>%
     tidyr::separate(
-      col = name,
+      col = .data$name,
       into = c("first", "last"),
       sep = "\\s"
     ) %>%
-    dplyr::mutate(bio = stringr::str_remove(bio, "\\s\\(.*")) %>%
+    dplyr::mutate(bio = stringr::str_remove(.data$bio, "\\s\\(.*")) %>%
     tidyr::separate(
-      col = bio,
+      col = .data$bio,
       sep = "\\s(from)\\s",
       into = c("occupation", "from")
     ) %>%
     dplyr::mutate(
-      occupation = occupation %>%
+      occupation = .data$occupation %>%
         stringr::word(2, -1) %>%
         stringr::str_to_title()
     ) %>%

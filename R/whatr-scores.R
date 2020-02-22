@@ -46,7 +46,7 @@ whatr_scores <- function(html = NULL, game = NULL) {
     tibble::as_tibble() %>%
     dplyr::mutate(n = dplyr::row_number(), round = 1L) %>%
     tidyr::pivot_longer(
-      cols = -c(n, round),
+      cols = -c(.data$n, .data$round),
       names_to = "name",
       values_to = "score"
     ) %>%
@@ -71,7 +71,7 @@ whatr_scores <- function(html = NULL, game = NULL) {
     tibble::as_tibble() %>%
     dplyr::mutate(n = dplyr::row_number(), round = 2L) %>%
     tidyr::pivot_longer(
-      cols = -c(n, round),
+      cols = -c(.data$n, .data$round),
       names_to = "name",
       values_to = "score"
     ) %>%
@@ -89,7 +89,7 @@ whatr_scores <- function(html = NULL, game = NULL) {
     tibble::as_tibble() %>%
     dplyr::mutate(n = max(double_score$n) + 1L, round = 3L) %>%
     tidyr::pivot_longer(
-      cols = -c(n, round),
+      cols = -c(.data$n, .data$round),
       names_to = "name",
       values_to = "score"
     ) %>%
