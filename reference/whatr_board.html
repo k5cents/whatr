@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scrape Jeopardy game board — whatr_board • whatr</title>
+<title>What is the board? — whatr_board • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,8 @@
 
 
 
-<meta property="og:title" content="Scrape Jeopardy game board — whatr_board" />
-<meta property="og:description" content="This joins together the results of whatr_categories(), whatr_clues() and
-whatr_answers to return a single tibble with all clue/answer combinations." />
+<meta property="og:title" content="What is the board? — whatr_board" />
+<meta property="og:description" content="This grid contains all the categories, clues, and answers in a game." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -78,7 +77,7 @@ whatr_answers to return a single tibble with all clue/answer combinations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -117,59 +116,67 @@ whatr_answers to return a single tibble with all clue/answer combinations." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scrape Jeopardy game board</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-board.R'><code>R/whatr-board.R</code></a></small>
+    <h1>What is the board?</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-data.R'><code>R/whatr-data.R</code></a></small>
     <div class="hidden name"><code>whatr_board.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This joins together the results of <code><a href='whatr_categories.html'>whatr_categories()</a></code>, <code><a href='whatr_clues.html'>whatr_clues()</a></code> and
-<a href='whatr_answers.html'>whatr_answers</a> to return a single tibble with all clue/answer combinations.</p>
+    <p><em>This</em> grid contains all the categories, clues, and answers in a game.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_board</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>whatr_board</span>(<span class='kw'>html</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>html</th>
+      <td><p>An HTML document from <code><a href='read_game.html'>read_game()</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>game</th>
-      <td><p>The J-Archive! game ID number.</p></td>
-    </tr>
-    <tr>
-      <th>date</th>
-      <td><p>The original date an episode aired.</p></td>
-    </tr>
-    <tr>
-      <th>show</th>
-      <td><p>The sequential show number.</p></td>
+      <td><p>The J-Archive! game ID number, possibly from <code><a href='whatr_id.html'>whatr_id()</a></code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A tibble with (usually) 61 rows and 4 variables:</p><dl class='dl-horizontal'>
+<dt>round</dt><dd><p>The round a clue is chosen.</p></dd>
+<dt>col</dt><dd><p>The column position left-to-right.</p></dd>
+<dt>row</dt><dd><p>The row position top-to-bottom.</p></dd>
+<dt>n</dt><dd><p>The order of clue chosen.</p></dd>
+<dt>category</dt><dd><p>Category title, often humorous or with instructions.</p></dd>
+<dt>clue</dt><dd><p>The clue read to the contestants.</p></dd>
+<dt>answer</dt><dd><p>The <em>correct</em> answer to a clue.</p></dd>
+
+</dl>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble of categories and positions.</p>
+    <p>A tidy tibble of clue text.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>whatr_board</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 61 x 4
-#&gt;        n category      clue                                    answer           
-#&gt;    &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;                                   &lt;chr&gt;            
-#&gt;  1    25 Picture The … For An Optimistic View Of Things, Take… Rose-Colored Gla…
-#&gt;  2    24 Picture The … If You Have These, It Means You're Wel… Your Ducks In A …
-#&gt;  3     7 Picture The … It's What's Going On Here               Comparing Apples…
-#&gt;  4     6 Picture The … Greenhouse Gas Emission Due To Human A… A Carbon Footpri…
-#&gt;  5     4 Picture The … Note The Lovely Weather; It Means To T… Make Hay While T…
-#&gt;  6    26 Literature    Melville's 'Bartleby The Scrivener' Is… Wall Street      
-#&gt;  7    23 Literature    In A 1923 Book By Kahlil Gibran, Almus… The Prophet      
-#&gt;  8    15 Literature    In 'Charlotte's Web', Templeton Is Thi… A Rat            
-#&gt;  9     3 Literature    In A Novel Simone De Beauvoir Depicted… (Albert) Camus   
-#&gt; 10     1 Literature    The Title Peak Of This Thomas Mann Nov… Magic Mountain   
+    <pre class="examples"><div class='input'><span class='fu'>whatr_board</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 61 x 7
+#&gt;    round   col   row     n category    clue                        answer       
+#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                       &lt;chr&gt;        
+#&gt;  1     1     1     1    25 Picture Th… For An Optimistic View Of … Rose-Colored…
+#&gt;  2     1     1     2    24 Picture Th… If You Have These, It Mean… Your Ducks I…
+#&gt;  3     1     1     3     7 Picture Th… It's What's Going On Here   Comparing Ap…
+#&gt;  4     1     1     4     6 Picture Th… Greenhouse Gas Emission Du… A Carbon Foo…
+#&gt;  5     1     1     5     4 Picture Th… Note The Lovely Weather; I… Make Hay Whi…
+#&gt;  6     1     2     1    26 Literature  Melville's 'Bartleby The S… Wall Street  
+#&gt;  7     1     2     2    23 Literature  In A 1923 Book By Kahlil G… The Prophet  
+#&gt;  8     1     2     3    15 Literature  In 'Charlotte's Web', Temp… A Rat        
+#&gt;  9     1     2     4     3 Literature  In A Novel Simone De Beauv… (Albert) Cam…
+#&gt; 10     1     2     5     1 Literature  The Title Peak Of This Tho… Magic Mounta…
 #&gt; # … with 51 more rows</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#format">Format</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return a J! Archive game summary — whatr_summary • whatr</title>
+<title>What is the information? — whatr_summary • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,9 @@
 
 
 
-<meta property="og:title" content="Return a J! Archive game summary — whatr_summary" />
-<meta property="og:description" content="This small tibble summaries the various scoring metrics for each player." />
+<meta property="og:title" content="What is the information? — whatr_summary" />
+<meta property="og:description" content="These must be given by the contestants in the form of a question in
+response to the clues asked." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -77,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -116,49 +117,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return a J! Archive game summary</h1>
+    <h1>What is the information?</h1>
     <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-summary.R'><code>R/whatr-summary.R</code></a></small>
     <div class="hidden name"><code>whatr_summary.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This small tibble summaries the various scoring metrics for each player.</p>
+    <p><em>These</em> must be given by the contestants in the form of a question in
+response to the clues asked.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_summary</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>whatr_summary</span>(<span class='kw'>html</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>html</th>
+      <td><p>An HTML document from <code><a href='read_game.html'>read_game()</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>game</th>
-      <td><p>The J-Archive! game ID number.</p></td>
-    </tr>
-    <tr>
-      <th>date</th>
-      <td><p>The original date an episode aired.</p></td>
-    </tr>
-    <tr>
-      <th>show</th>
-      <td><p>The sequential show number.</p></td>
+      <td><p>The J-Archive! game ID number, possibly from <code><a href='whatr_id.html'>whatr_id()</a></code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A tibble with (usually) 3 row and 5 variables:</p><dl class='dl-horizontal'>
+<dt>name</dt><dd><p>The contestant's given name.</p></dd>
+<dt>coryat</dt><dd><p>Score if all wagering is disregarded.</p></dd>
+<dt>final</dt><dd><p>Final score after Double Jeopardy.</p></dd>
+<dt>right</dt><dd><p>Number of correct answers.</p></dd>
+<dt>wrong</dt><dd><p>Number of incorrect answers.</p></dd>
+
+</dl>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The J-Archive! game ID number.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>There are three scoring types presented in this summary:</p><ol>
-<li><p>The <a href='https://j-archive.com/help.php#coryatscore'>"coryat" score</a>: a
-player's score if all wagering is disregarded. In the Coryat score, there is
-no penalty for forced incorrect responses on Daily Doubles, but correct
-responses on Daily Doubles earn only the natural values of the clues, and any
-gain or loss from the Final Jeopardy! Round is ignored.</p></li>
-<li><p>The final score.</p></li>
-<li><p>The number of clues answered correctly and incorrectly.</p></li>
-</ol>
-
+    <p>A tidy tibble of clue text.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>whatr_summary</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 5
@@ -172,8 +168,8 @@ gain or loss from the Final Jeopardy! Round is ignored.</p></li>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#format">Format</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return all a game's data from the J! Archive — whatr_data • whatr</title>
+<title>What are the clues? — whatr_data • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="Return all a game's data from the J! Archive — whatr_data" />
-<meta property="og:description" content="Return all a game's data from the J! Archive" />
+<meta property="og:title" content="What are the clues? — whatr_data" />
+<meta property="og:description" content="Return" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -116,37 +116,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Return all a game's data from the J! Archive</h1>
+    <h1>What are the clues?</h1>
     <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-data.R'><code>R/whatr-data.R</code></a></small>
     <div class="hidden name"><code>whatr_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Return all a game's data from the J! Archive</p>
+    <p>Return</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_data</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>whatr_data</span>(<span class='no'>game</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>game</th>
-      <td><p>The J-Archive! game ID number.</p></td>
-    </tr>
-    <tr>
-      <th>date</th>
-      <td><p>The original date an episode aired.</p></td>
-    </tr>
-    <tr>
-      <th>show</th>
-      <td><p>The sequential show number.</p></td>
+      <td><p>The J-Archive! game ID number, possibly from <code><a href='whatr_id.html'>whatr_id()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of tibbles each containing a data type.</p>
+    <p>A list of tibbles.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>whatr_data</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; $info
@@ -154,6 +146,14 @@
 #&gt;    game  show date      
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;date&gt;    
 #&gt; 1  6304  8006 2019-06-03
+#&gt; 
+#&gt; $summary
+#&gt; # A tibble: 3 x 5
+#&gt;   name  coryat final right wrong
+#&gt;   &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt; 1 James  23400 24799    25     0
+#&gt; 2 Jay    11000 17000    13     1
+#&gt; 3 Emma   18800 46801    21     0
 #&gt; 
 #&gt; $players
 #&gt; # A tibble: 3 x 5
@@ -163,69 +163,37 @@
 #&gt; 2 Jay   Sexton    Senior Research Engineer    Atlanta   Georgia 
 #&gt; 3 James Holzhauer Professional Sports Gambler Las Vegas Nevada  
 #&gt; 
-#&gt; $order
-#&gt; # A tibble: 61 x 4
-#&gt;    round   col   row     n
-#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt;  1     1     2     5     1
-#&gt;  2     1     3     5     2
-#&gt;  3     1     2     4     3
-#&gt;  4     1     1     5     4
-#&gt;  5     1     4     5     5
-#&gt;  6     1     1     4     6
-#&gt;  7     1     1     3     7
-#&gt;  8     1     5     5     8
-#&gt;  9     1     6     5     9
-#&gt; 10     1     6     4    10
-#&gt; # … with 51 more rows
+#&gt; $scores
+#&gt; # A tibble: 65 x 5
+#&gt;    round     n name  score double
+#&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt; 
+#&gt;  1     1     1 James  1000 TRUE  
+#&gt;  2     1     1 Jay       0 TRUE  
+#&gt;  3     1     1 Emma      0 TRUE  
+#&gt;  4     1     2 Emma   1000 FALSE 
+#&gt;  5     1     3 James   800 FALSE 
+#&gt;  6     1     4 James  1000 FALSE 
+#&gt;  7     1     5 Emma   1000 FALSE 
+#&gt;  8     1     6 Jay     800 FALSE 
+#&gt;  9     1     7 James   600 FALSE 
+#&gt; 10     1     8 James  1000 FALSE 
+#&gt; # … with 55 more rows
 #&gt; 
 #&gt; $board
-#&gt; # A tibble: 61 x 4
-#&gt;        n category      clue                                    answer           
-#&gt;    &lt;int&gt; &lt;chr&gt;         &lt;chr&gt;                                   &lt;chr&gt;            
-#&gt;  1     1 Literature    The Title Peak Of This Thomas Mann Nov… Magic Mountain   
-#&gt;  2     2 Nests         Doesn't Sound Comfy, But Several Birds… A Woodpecker     
-#&gt;  3     3 Literature    In A Novel Simone De Beauvoir Depicted… (Albert) Camus   
-#&gt;  4     4 Picture The … Note The Lovely Weather; It Means To T… Make Hay While T…
-#&gt;  5     5 Jukebox Musi… 'Ain't Too Proud':This Motown Group     The Temptations  
-#&gt;  6     6 Picture The … Greenhouse Gas Emission Due To Human A… A Carbon Footpri…
-#&gt;  7     7 Picture The … It's What's Going On Here               Comparing Apples…
-#&gt;  8     8 Nixon Said It In His 1977 Interviews With This Briti… (David) Frost    
-#&gt;  9     9 I Am Not A C… You Don't Want Vegetables Cooked By Me… Crudités         
-#&gt; 10    10 I Am Not A C… I'm A Wizard At Breakfast With This Ce… Lucky Charms     
+#&gt; # A tibble: 61 x 7
+#&gt;    round   col   row     n category    clue                        answer       
+#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                       &lt;chr&gt;        
+#&gt;  1     1     1     1    25 Picture Th… For An Optimistic View Of … Rose-Colored…
+#&gt;  2     1     1     2    24 Picture Th… If You Have These, It Mean… Your Ducks I…
+#&gt;  3     1     1     3     7 Picture Th… It's What's Going On Here   Comparing Ap…
+#&gt;  4     1     1     4     6 Picture Th… Greenhouse Gas Emission Du… A Carbon Foo…
+#&gt;  5     1     1     5     4 Picture Th… Note The Lovely Weather; I… Make Hay Whi…
+#&gt;  6     1     2     1    26 Literature  Melville's 'Bartleby The S… Wall Street  
+#&gt;  7     1     2     2    23 Literature  In A 1923 Book By Kahlil G… The Prophet  
+#&gt;  8     1     2     3    15 Literature  In 'Charlotte's Web', Temp… A Rat        
+#&gt;  9     1     2     4     3 Literature  In A Novel Simone De Beauv… (Albert) Cam…
+#&gt; 10     1     2     5     1 Literature  The Title Peak Of This Tho… Magic Mounta…
 #&gt; # … with 51 more rows
-#&gt; 
-#&gt; $doubles
-#&gt; # A tibble: 3 x 4
-#&gt;       n name  correct change
-#&gt;   &lt;int&gt; &lt;chr&gt; &lt;lgl&gt;    &lt;int&gt;
-#&gt; 1     1 James TRUE      1000
-#&gt; 2    34 Emma  TRUE      7600
-#&gt; 3    44 Emma  TRUE      3000
-#&gt; 
-#&gt; $scores
-#&gt; # A tibble: 183 x 7
-#&gt;    round     n name  score double change correct
-#&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt;   &lt;int&gt; &lt;lgl&gt;  
-#&gt;  1     1     1 James  1000 TRUE     1000 TRUE   
-#&gt;  2     1     1 Jay       0 TRUE        0 NA     
-#&gt;  3     1     1 Emma      0 TRUE        0 NA     
-#&gt;  4     1     2 James  1000 FALSE       0 NA     
-#&gt;  5     1     2 Jay       0 FALSE       0 NA     
-#&gt;  6     1     2 Emma   1000 FALSE    1000 TRUE   
-#&gt;  7     1     3 James  1800 FALSE     800 TRUE   
-#&gt;  8     1     3 Jay       0 FALSE       0 NA     
-#&gt;  9     1     3 Emma   1000 FALSE       0 NA     
-#&gt; 10     1     4 James  2800 FALSE    1000 TRUE   
-#&gt; # … with 173 more rows
-#&gt; 
-#&gt; $summary
-#&gt; # A tibble: 3 x 5
-#&gt;   name  coryat final right wrong
-#&gt;   &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1 James  23400 24799    25     0
-#&gt; 2 Jay    11000 17000    13     1
-#&gt; 3 Emma   18800 46801    21     0
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

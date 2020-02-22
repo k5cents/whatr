@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scrape Jeopardy game air info — whatr_info • whatr</title>
+<title>What is the information? — whatr_info • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,13 +42,9 @@
 
 
 
-<meta property="og:title" content="Scrape Jeopardy game air info — whatr_info" />
-<meta property="og:description" content="For a given episode, return three variables used to identify an episode:
-The J! Archive game ID: issued sequentially as episodes are archived.
-The sequential show number: most recent episode is the highest show.
-The date the episode originally aired in the United States.
-
-" />
+<meta property="og:title" content="What is the information? — whatr_info" />
+<meta property="og:description" content="These must be given by the contestants in the form of a question in
+response to the clues asked." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -82,7 +78,7 @@ The date the episode originally aired in the United States.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -121,45 +117,48 @@ The date the episode originally aired in the United States.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scrape Jeopardy game air info</h1>
+    <h1>What is the information?</h1>
     <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-info.R'><code>R/whatr-info.R</code></a></small>
     <div class="hidden name"><code>whatr_info.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>For a given episode, return three variables used to identify an episode:</p><ol>
-<li><p>The J! Archive game ID: issued sequentially as episodes are archived.</p></li>
-<li><p>The sequential show number: most recent episode is the highest show.</p></li>
-<li><p>The date the episode originally aired in the United States.</p></li>
-</ol>
-
+    <p><em>These</em> must be given by the contestants in the form of a question in
+response to the clues asked.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_info</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>date</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>whatr_info</span>(<span class='kw'>html</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>html</th>
+      <td><p>An HTML document from <code><a href='read_game.html'>read_game()</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>game</th>
-      <td><p>The J-Archive! game ID number.</p></td>
-    </tr>
-    <tr>
-      <th>date</th>
-      <td><p>The original date an episode aired.</p></td>
-    </tr>
-    <tr>
-      <th>show</th>
-      <td><p>The sequential show number.</p></td>
+      <td><p>The J-Archive! game ID number, possibly from <code><a href='whatr_id.html'>whatr_id()</a></code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A tibble with 1 row and 3 variables:</p><dl class='dl-horizontal'>
+<dt>game</dt><dd><p>The non-sequential J! Archive game ID.</p></dd>
+<dt>show</dt><dd><p>The sequential show number of an episode.</p></dd>
+<dt>date</dt><dd><p>The air date of an episode.</p></dd>
+
+</dl>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A single tibble row of air info.</p>
+    <p>A tidy tibble of clue text.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>whatr_info</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt;    game  show date      
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;date&gt;    
+#&gt; 1  6304  8006 2019-06-03</div><div class='input'><span class='fu'><a href='read_game.html'>read_game</a></span>(<span class='fl'>6304</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_info</span>()</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;    game  show date      
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;date&gt;    
 #&gt; 1  6304  8006 2019-06-03</div></pre>
@@ -168,6 +167,7 @@ The date the episode originally aired in the United States.
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#format">Format</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
