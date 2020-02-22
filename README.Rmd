@@ -29,35 +29,44 @@ options(width = 99)
 [![Codecov test coverage][cov_badge]][cov_link]
 <!-- badges: end -->
 
-The goal of `whatr` is to facilitate the analysis of [Jeopardy!][j] data. The
-package contains both past data and the tools used to update with future games
-from the fan-made [J! Archive][ja].
+> This package was design to facilitate the analysis of game show data.
+
+> What is... what R?
+
+The package contains both past data and the tools used to update with future
+games from the fan-made episode [J! Archive][ja].
+
+The J! Archive is created by fans, for fans. The _Jeopardy!_ game show and all
+elements thereof, including but not limited to copyright and trademark thereto,
+are the property of Jeopardy Productions, Inc. and are protected under law. This
+package is not affiliated with, sponsored by, or operated by Jeopardy
+Productions, Inc.
 
 ## Installation
 
-You can install the development version of `whatr` from [GitHub][gh] with:
+You can install the development version of 'whatr' from [GitHub][gh] with:
 
 ``` r
 # install.packages("remotes")
 remotes::install_github("kiernann/whatr")
 ```
 
-## Data
+## Usage
 
-```{r}
-
-```
-
-## Functions
-
-```{r}
+```{r usage}
 library(whatr)
-library(tidyverse)
-whatr_scores(date = "2019-06-03")
-whatr_board(show = 8006)
-whatr_plot(game = 6304)
+id <- whatr_id(date = "2019-06-03")
+whatr_scores(game = id)
+whatr_board(game = id)
 ```
 
+***
+
+Please note that the 'whatr' project is released with a 
+[Contributor Code of Conduct][coc]. By
+contributing to this project, you agree to abide by its terms.
+
+<!-- refs: start -->
 [life_badge]: https://img.shields.io/badge/lifecycle-experimental-orange.svg
 [life_link]: https://www.tidyverse.org/lifecycle/#experimental
 [cran_badge]: https://www.r-pkg.org/badges/version/whatr
@@ -67,5 +76,6 @@ whatr_plot(game = 6304)
 [cov_badge]: https://codecov.io/gh/kiernann/whatr/branch/master/graph/badge.svg
 [cov_link]: https://codecov.io/gh/kiernann/whatr?branch=master'
 [ja]: http://j-archive.com/
-[j]: https://www.jeopardy.com/
 [gh]: https://github.com/kiernann/whatr
+[coc]: https://kiernann.com/whatr/CODE_OF_CONDUCT.html
+<!-- refs: end -->
