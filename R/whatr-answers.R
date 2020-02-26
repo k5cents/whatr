@@ -46,7 +46,7 @@ whatr_answers <- function(game) {
     stringr::str_split("class") %>%
     base::unlist() %>%
     stringr::str_subset("correct_response") %>%
-    stringr::str_extract("(?<=i&gt;)(.*)(?=&lt;/i&gt;)") %>%
+    stringr::str_extract("(?<=&gt;)(.*)(?=&lt;/em&gt;)") %>%
     stringr::str_to_title()
   answers <- game %>%
     rvest::html_nodes("table tr td div") %>%
