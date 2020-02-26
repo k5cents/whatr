@@ -2,8 +2,10 @@
 #'
 #' This data frame has data on the performance of each contestant.
 #'
-#' @param html An HTML document from [read_scores()].
-#' @param game The J-Archive! game ID number, possibly from [whatr_id()].
+#' @param game Either a numeric J! Archive game ID or the HTML document object
+#'   returned by [whatr_html()], which can take a game ID, air date, show
+#'   number, or another HTML document as an input. If an HTML document is not
+#'   provided, [whatr_html()] will be called.
 #' @return Tidy tibble of clue scores.
 #' @format A tibble with 52 rows and 8 variables:
 #' \describe{
@@ -15,7 +17,7 @@
 #' }
 #' @examples
 #' whatr_scores(game = 6304)
-#' read_scores(6304) %>% whatr_scores()
+#' whatr_html(6304, "showscores") %>% whatr_scores()
 #' @importFrom dplyr arrange bind_rows group_by lag mutate row_number select
 #'   slice ungroup
 #' @importFrom rlang .data
@@ -24,22 +26,21 @@
 #' @importFrom tibble as_tibble
 #' @importFrom tidyr drop_na pivot_longer
 #' @export
-whatr_scores <- function(html = NULL, game = NULL) {
-  # read showscore html
-  if (is.null(html)) {
-    showscores <- read_scores(game)
-  } else {
-    showscores <- html
+whatr_scores <- function(game) {
+  if (is(game, "xml_document") & !grepl("ddred", as.character(game), )) {
+    stop("a 'showscores' HTML input is needed")
+  } else if (!is(game, "xml_document")) {
+    game <- whatr_html(x = game, out = "showscores")
   }
 
   # find round 1 doubles location
-  single_doubles <- showscores %>%
+  single_doubles <- game %>%
     rvest::html_node("#jeopardy_round > table td.ddred") %>%
     rvest::html_text() %>%
     base::as.integer()
 
   # pivot round 1 scores
-  single_score <- showscores %>%
+  single_score <- game %>%
     rvest::html_node("#jeopardy_round > table:nth-child(2)") %>%
     rvest::html_table(fill = TRUE, header = TRUE) %>%
     magrittr::extract(, 2:4) %>%
@@ -56,14 +57,14 @@ whatr_scores <- function(html = NULL, game = NULL) {
     )
 
   # find round 2 doubles location
-  double_doubles <- showscores %>%
+  double_doubles <- game %>%
     rvest::html_nodes("#double_jeopardy_round > table td.ddred") %>%
     rvest::html_text() %>%
     base::as.integer() %>%
     base::unique()
 
   # pivot round 2 scores
-  double_score <- showscores %>%
+  double_score <- game %>%
     rvest::html_node("#double_jeopardy_round > table:nth-child(2)") %>%
     rvest::html_table(fill = TRUE, header = TRUE) %>%
     tidyr::drop_na() %>%
@@ -82,7 +83,7 @@ whatr_scores <- function(html = NULL, game = NULL) {
     )
 
   # pivot round 3 scores
-  final_scores <- showscores %>%
+  final_scores <- game %>%
     rvest::html_node("#final_jeopardy_round > table:nth-child(2)") %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
     dplyr::slice(1) %>%
