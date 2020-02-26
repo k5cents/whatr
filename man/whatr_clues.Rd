@@ -12,12 +12,13 @@
 \item{clue}{The clue read to the contestants.}
 }}
 \usage{
-whatr_clues(html = NULL, game = NULL)
+whatr_clues(game)
 }
 \arguments{
-\item{html}{An HTML document from \code{\link[=read_game]{read_game()}}.}
-
-\item{game}{The J-Archive! game ID number, possibly from \code{\link[=whatr_id]{whatr_id()}}.}
+\item{game}{Either a numeric J! Archive game ID or the HTML document object
+returned by \code{\link[=whatr_html]{whatr_html()}}, which can take a game ID, air date, show
+number, or another HTML document as an input. If an HTML document is not
+provided, \code{\link[=whatr_html]{whatr_html()}} will be called.}
 }
 \value{
 A tidy tibble of clue text.
@@ -27,5 +28,5 @@ Confusingly, \emph{these} are posed to contestants in the form of an answer.
 }
 \examples{
 whatr_clues(game = 6304)
-read_game(6304) \%>\% whatr_clues()
+whatr_html(6304) \%>\% whatr_clues()
 }
