@@ -12,12 +12,13 @@
 \item{double}{Is the clue a daily double.}
 }}
 \usage{
-whatr_scores(html = NULL, game = NULL)
+whatr_scores(game)
 }
 \arguments{
-\item{html}{An HTML document from \code{\link[=read_scores]{read_scores()}}.}
-
-\item{game}{The J-Archive! game ID number, possibly from \code{\link[=whatr_id]{whatr_id()}}.}
+\item{game}{Either a numeric J! Archive game ID or the HTML document object
+returned by \code{\link[=whatr_html]{whatr_html()}}, which can take a game ID, air date, show
+number, or another HTML document as an input. If an HTML document is not
+provided, \code{\link[=whatr_html]{whatr_html()}} will be called.}
 }
 \value{
 Tidy tibble of clue scores.
@@ -27,5 +28,5 @@ This data frame has data on the performance of each contestant.
 }
 \examples{
 whatr_scores(game = 6304)
-read_scores(6304) \%>\% whatr_scores()
+whatr_html(6304, "showscores") \%>\% whatr_scores()
 }

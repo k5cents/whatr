@@ -2,8 +2,7 @@
 #'
 #' These individuals compete to score the most points and win the game.
 #'
-#' @param html An HTML document from [read_game()].
-#' @param game The J-Archive! game ID number, possibly from [whatr_id()].
+#' @inheritParams whatr_scores
 #' @return A tidy tibble of player info.
 #' @format A tibble with 52 rows and 8 variables:
 #' \describe{
@@ -15,7 +14,7 @@
 #' }
 #' @examples
 #' whatr_players(game = 6304)
-#' read_game(6304) %>% whatr_players()
+#' whatr_html(6304) %>% whatr_players()
 #' @importFrom dplyr mutate pull
 #' @importFrom rlang .data
 #' @importFrom rvest html_node html_table
@@ -24,16 +23,15 @@
 #' @importFrom tibble enframe
 #' @importFrom tidyr separate
 #' @export
-whatr_players <- function(html = NULL, game = NULL) {
-  # read showgame html
-  if (is.null(html)) {
-    showgame <- read_game(game)
-  } else {
-    showgame <- html
+whatr_players <- function(game) {
+  if (is(game, "xml_document") & grepl("ddred", as.character(game), )) {
+    stop("a 'showgame' HTML input is needed")
+  } else if (!is(game, "xml_document")) {
+    game <- whatr_html(x = game, out = "showgame")
   }
 
   # enframe and split cols
-  players <- showgame %>%
+  players <- game %>%
     rvest::html_node("#contestants_table") %>%
     rvest::html_table(fill = TRUE) %>%
     dplyr::pull(2) %>%

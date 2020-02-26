@@ -3,7 +3,7 @@ library(whatr)
 
 id <- sample(2000:5000, 1)
 test_that("summary returns from HTML", {
-  s <- read_game(id) %>% whatr_summary()
+  s <- whatr_html(id) %>% whatr_summary()
   expect_s3_class(s, "tbl")
   expect_length(s, 5)
 })

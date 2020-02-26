@@ -3,7 +3,7 @@ library(whatr)
 
 id <- sample(2000:5000, 1)
 test_that("full board returns from HTML", {
-  b <- read_game(id) %>% whatr_board()
+  b <- whatr_html(id) %>% whatr_board()
   expect_s3_class(b, "tbl")
   expect_length(b, 7)
 })

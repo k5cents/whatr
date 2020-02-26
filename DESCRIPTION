@@ -19,6 +19,7 @@ Imports:
     ggplot2 (>= 3.2.1),
     httr (>= 1.4.1),
     magrittr (>= 1.5),
+    methods,
     purrr (>= 0.3.3),
     rlang (>= 0.4.4),
     rvest (>= 0.3.4),
