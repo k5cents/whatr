@@ -2,7 +2,7 @@
 #'
 #' Return
 #'
-#' @param game The J-Archive! game ID number, possibly from [whatr_id()].
+#' @inheritParams whatr_scores
 #' @return A list of tibbles.
 #' @examples
 #' whatr_data(game = 6304)
@@ -12,8 +12,8 @@
 #' @importFrom tibble enframe
 #' @export
 whatr_data <- function(game) {
-  showgame <- read_game(game)
-  showscores <- read_scores(game)
+  showgame <- whatr_html(game, out = "showgame")
+  showscores <-  whatr_html(game, out = "showscores")
   data <- list(
     info = whatr_info(showgame),
     summary = whatr_summary(showgame),
@@ -28,8 +28,7 @@ whatr_data <- function(game) {
 #'
 #' _This_ grid contains all the categories, clues, and answers in a game.
 #'
-#' @param html An HTML document from [read_game()].
-#' @param game The J-Archive! game ID number, possibly from [whatr_id()].
+#' @inheritParams whatr_scores
 #' @return A tidy tibble of clue text.
 #' @format A tibble with (usually) 61 rows and 4 variables:
 #' \describe{
@@ -45,15 +44,16 @@ whatr_data <- function(game) {
 #' whatr_board(game = 6304)
 #' @importFrom dplyr left_join
 #' @export
-whatr_board <- function(html = NULL, game = NULL) {
-  if (is.null(html)) {
-    showgame <- read_game(game)
-  } else {
-    showgame <- html
+whatr_board <- function(game) {
+  if (is(game, "xml_document") & grepl("ddred", as.character(game), )) {
+    stop("a 'showgame' HTML input is needed")
+  } else if (!is(game, "xml_document")) {
+    game <- whatr_html(x = game, out = "showgame")
   }
-  cats <- whatr_categories(showgame)
-  clues <- whatr_clues(showgame)
-  answers <- whatr_answers(showgame)
+
+  cats <- whatr_categories(game)
+  clues <- whatr_clues(game)
+  answers <- whatr_answers(game)
   board <- cats %>%
     dplyr::left_join(clues, by = c("round", "col")) %>%
     dplyr::left_join(answers, by = c("round", "col", "row", "n")) %>%
