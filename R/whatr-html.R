@@ -38,7 +38,7 @@ whatr_id <- function(game = NULL, date = NULL, show = NULL) {
 #' 4. HTML document itself
 #'
 #' @param x Any kind of J! Archive game identifier.
-#' @param doc One of "showscores" or "showgame" used for [whatr_scores()] or
+#' @param out One of "showscores" or "showgame" used for [whatr_scores()] or
 #'   [whatr_clues()], etc. respectively. Either document can be returned from
 #'   the input of the other.
 #' @return A J! Archive `html_document`.
@@ -47,6 +47,8 @@ whatr_id <- function(game = NULL, date = NULL, show = NULL) {
 #' whatr_html(x = "2019-06-03", out = "showgame")
 #' whatr_html("#8006", "showgame") %>% whatr_html("showscores")
 #' @importFrom httr GET content
+#' @importFrom methods is
+#' @importFrom stringr str_extract str_detect
 #' @export
 whatr_html <- function(x, out = c("showgame", "showscores")) {
   out <- match.arg(out, c("showgame", "showscores"))
@@ -94,7 +96,7 @@ whatr_html <- function(x, out = c("showgame", "showscores")) {
     } else if (stringr::str_detect(x, "^\\d{4}-\\d+-\\d+$")) {
       type <- z <- "date"
     } else {
-      error("unable to determine input type")
+      stop("unable to determine input type")
     }
     if (out == "showgame") {
       # read redirect page
