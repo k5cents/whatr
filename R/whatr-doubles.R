@@ -1,7 +1,6 @@
 #' Get the clue numbers that coorespond to the daily doubles
 #'
-#' @param html An HTML document from [read_scores()].
-#' @param game The J-Archive! game ID number, possibly from [whatr_id()].
+#' @inheritParams whatr_scores
 #' @return a list containing the question indices of the daily doubles
 #' in the first and second rounds
 #' @format a named list
@@ -11,19 +10,20 @@
 #' }
 #' @examples
 #' whatr_doubles(game = 6304)
-#' read_scores(6304) %>% whatr_douibles()
 #' @export
-whatr_doubles <- function(html = NULL, game = NULL){
-  if (!is.null(html)){
-    data <- html
-  } else data <- read_scores(game = game)
+whatr_doubles <- function(game) {
+  if (is(game, "xml_document") & !grepl("ddred", as.character(game), )) {
+    stop("a 'showscores' HTML input is needed")
+  } else if (!is(game, "xml_document")) {
+    game <- whatr_html(x = game, out = "showscores")
+  }
 
-  single_doubles <- data %>%
+  single_doubles <- game %>%
     rvest::html_node("#jeopardy_round > table td.ddred") %>%
     rvest::html_text() %>%
     base::as.integer()
 
-  double_doubles <- data %>%
+  double_doubles <- game %>%
     rvest::html_nodes("#double_jeopardy_round > table td.ddred") %>%
     rvest::html_text() %>%
     base::as.integer() %>%
