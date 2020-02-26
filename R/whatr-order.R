@@ -2,8 +2,7 @@
 #'
 #' Scrapes clue order left-to-right, top-to-bottom.
 #'
-#' @param html An HTML document from [read_game()].
-#' @param game The J-Archive! game ID number, possibly from [whatr_id()].
+#' @inheritParams whatr_scores
 #' @return A tidy tibble of player info.
 #' @format A tibble with (usually) 61 rows and 4 variables:
 #' \describe{
@@ -17,24 +16,22 @@
 #' @importFrom stringr str_extract
 #' @importFrom tibble enframe
 #' @importFrom tidyr separate
-whatr_order <- function(html = NULL, game = NULL) {
-  if (is.null(html)) {
-    showgame <- read_game(game)
-  } else {
-    showgame <- html
-    game <- as.character(html) %>%
-      str_extract("(?<=chartgame.php\\?game_id\\=)\\d+")
+whatr_order <- function(game) {
+  if (is(game, "xml_document") & grepl("ddred", as.character(game), )) {
+    stop("a 'showgame' HTML input is needed")
+  } else if (!is(game, "xml_document")) {
+    game <- whatr_html(x = game, out = "showgame")
   }
 
-  single_order <- showgame %>%
+  single_order <- game %>%
     rvest::html_nodes("#jeopardy_round > table td.clue_order_number") %>%
     rvest::html_text() %>%
     base::as.integer()
-  double_order <- showgame %>%
+  double_order <- game %>%
     rvest::html_nodes("#double_jeopardy_round > table td.clue_order_number") %>%
     rvest::html_text() %>%
     base::as.integer()
-  order <- showgame %>%
+  order <- game %>%
     rvest::html_nodes("table tr td div") %>%
     rvest::html_attr("onmouseover") %>%
     stringr::str_extract("(?<=clue_)(.*)(?=_stuck)") %>%

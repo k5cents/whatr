@@ -10,12 +10,12 @@
 \item{row}{The row position top-to-bottom.}
 }}
 \usage{
-whatr_order(html = NULL, game = NULL)
+whatr_order(game)
 }
 \arguments{
-\item{html}{An HTML document from \code{\link[=read_game]{read_game()}}.}
-
 \item{game}{The J-Archive! game ID number, possibly from \code{\link[=whatr_id]{whatr_id()}}.}
+
+\item{html}{An HTML document from \code{\link[=read_game]{read_game()}}.}
 }
 \value{
 A tidy tibble of player info.
