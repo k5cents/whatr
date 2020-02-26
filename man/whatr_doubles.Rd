@@ -9,12 +9,13 @@
 \item{double}{The indices of the two daily doubles in the second round}
 }}
 \usage{
-whatr_doubles(html = NULL, game = NULL)
+whatr_doubles(game)
 }
 \arguments{
-\item{html}{An HTML document from \code{\link[=read_scores]{read_scores()}}.}
-
-\item{game}{The J-Archive! game ID number, possibly from \code{\link[=whatr_id]{whatr_id()}}.}
+\item{game}{Either a numeric J! Archive game ID or the HTML document object
+returned by \code{\link[=whatr_html]{whatr_html()}}, which can take a game ID, air date, show
+number, or another HTML document as an input. If an HTML document is not
+provided, \code{\link[=whatr_html]{whatr_html()}} will be called.}
 }
 \value{
 a list containing the question indices of the daily doubles
@@ -25,5 +26,4 @@ Get the clue numbers that coorespond to the daily doubles
 }
 \examples{
 whatr_doubles(game = 6304)
-read_scores(6304) \%>\% whatr_douibles()
 }
