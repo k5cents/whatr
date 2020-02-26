@@ -9,7 +9,7 @@ whatr_html(x, out = c("showgame", "showscores"))
 \arguments{
 \item{x}{Any kind of J! Archive game identifier.}
 
-\item{doc}{One of "showscores" or "showgame" used for \code{\link[=whatr_scores]{whatr_scores()}} or
+\item{out}{One of "showscores" or "showgame" used for \code{\link[=whatr_scores]{whatr_scores()}} or
 \code{\link[=whatr_clues]{whatr_clues()}}, etc. respectively. Either document can be returned from
 the input of the other.}
 }
