@@ -125,18 +125,17 @@
     <p>These individuals compete to score the most points and win the game.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_players</span>(<span class='kw'>html</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>game</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>whatr_players</span>(<span class='no'>game</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>html</th>
-      <td><p>An HTML document from <code><a href='read_game.html'>read_game()</a></code>.</p></td>
-    </tr>
-    <tr>
       <th>game</th>
-      <td><p>The J-Archive! game ID number, possibly from <code><a href='whatr_id.html'>whatr_id()</a></code>.</p></td>
+      <td><p>Either a numeric J! Archive game ID or the HTML document object
+returned by <code><a href='whatr_html.html'>whatr_html()</a></code>, which can take a game ID, air date, show
+number, or another HTML document as an input. If an HTML document is not
+provided, <code><a href='whatr_html.html'>whatr_html()</a></code> will be called.</p></td>
     </tr>
     </table>
 
@@ -160,7 +159,7 @@
 #&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;                       &lt;chr&gt;     &lt;chr&gt;   
 #&gt; 1 Emma  Boettcher User Experience Librarian   Chicago   Illinois
 #&gt; 2 Jay   Sexton    Senior Research Engineer    Atlanta   Georgia 
-#&gt; 3 James Holzhauer Professional Sports Gambler Las Vegas Nevada  </div><div class='input'><span class='fu'><a href='read_game.html'>read_game</a></span>(<span class='fl'>6304</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_players</span>()</div><div class='output co'>#&gt; # A tibble: 3 x 5
+#&gt; 3 James Holzhauer Professional Sports Gambler Las Vegas Nevada  </div><div class='input'><span class='fu'><a href='whatr_html.html'>whatr_html</a></span>(<span class='fl'>6304</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_players</span>()</div><div class='output co'>#&gt; # A tibble: 3 x 5
 #&gt;   first last      occupation                  city      state   
 #&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;                       &lt;chr&gt;     &lt;chr&gt;   
 #&gt; 1 Emma  Boettcher User Experience Librarian   Chicago   Illinois
