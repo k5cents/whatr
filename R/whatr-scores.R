@@ -110,7 +110,7 @@ whatr_scores <- function(game) {
       false = .data$score - dplyr::lag(.data$score))
     ) %>%
     dplyr::ungroup() %>%
-    dplyr::filter(.data$score != 0 | .data$n == 1) %>%
+    dplyr::filter(.data$score != 0) %>%
     dplyr::arrange(.data$round, .data$n) %>%
     dplyr::select(.data$round, .data$n, .data$name, .data$score, .data$double)
 
