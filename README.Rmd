@@ -55,9 +55,10 @@ remotes::install_github("kiernann/whatr")
 
 ```{r usage}
 library(whatr)
-id <- whatr_id(date = "2019-06-03")
-whatr_scores(game = id)
-whatr_board(game = id)[, 4:7]
+data <- whatr_html(6304)
+whatr_scores(data)
+whatr_board(data)[, 5:7]
+whatr_plot(data)
 ```
 
 ***

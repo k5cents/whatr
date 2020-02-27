@@ -43,38 +43,41 @@ remotes::install_github("kiernann/whatr")
 
 ``` r
 library(whatr)
-id <- whatr_id(date = "2019-06-03")
-whatr_scores(game = id)
-#> # A tibble: 65 x 5
+data <- whatr_html(6304)
+whatr_scores(data)
+#> # A tibble: 63 x 5
 #>    round     n name  score double
 #>    <int> <int> <chr> <int> <lgl> 
 #>  1     1     1 James  1000 TRUE  
-#>  2     1     1 Jay       0 TRUE  
-#>  3     1     1 Emma      0 TRUE  
-#>  4     1     2 Emma   1000 FALSE 
-#>  5     1     3 James   800 FALSE 
-#>  6     1     4 James  1000 FALSE 
-#>  7     1     5 Emma   1000 FALSE 
-#>  8     1     6 Jay     800 FALSE 
-#>  9     1     7 James   600 FALSE 
-#> 10     1     8 James  1000 FALSE 
-#> # … with 55 more rows
-whatr_board(game = id)[, 4:7]
-#> # A tibble: 61 x 4
-#>        n category       clue                                                    answer             
-#>    <int> <chr>          <chr>                                                   <chr>              
-#>  1    25 Picture The I… For An Optimistic View Of Things, Take A Look Through … Rose-Colored Glass…
-#>  2    24 Picture The I… If You Have These, It Means You're Well-Organized       Your Ducks In A Row
-#>  3     7 Picture The I… It's What's Going On Here                               Comparing Apples &…
-#>  4     6 Picture The I… Greenhouse Gas Emission Due To Human Activity Leaves B… A Carbon Footprint 
-#>  5     4 Picture The I… Note The Lovely Weather; It Means To Take Advantage Of… Make Hay While The…
-#>  6    26 Literature     Melville's 'Bartleby The Scrivener' Is Subtitled 'A St… Wall Street        
-#>  7    23 Literature     In A 1923 Book By Kahlil Gibran, Almustafa Is This Mys… The Prophet        
-#>  8    15 Literature     In 'Charlotte's Web', Templeton Is This Creature        A Rat              
-#>  9     3 Literature     In A Novel Simone De Beauvoir Depicted Herself As Anne… (Albert) Camus     
-#> 10     1 Literature     The Title Peak Of This Thomas Mann Novel Is Home To A … Magic Mountain     
+#>  2     1     2 Emma   1000 FALSE 
+#>  3     1     3 James   800 FALSE 
+#>  4     1     4 James  1000 FALSE 
+#>  5     1     5 Emma   1000 FALSE 
+#>  6     1     6 Jay     800 FALSE 
+#>  7     1     7 James   600 FALSE 
+#>  8     1     8 James  1000 FALSE 
+#>  9     1     9 James  1000 FALSE 
+#> 10     1    10 Emma    800 FALSE 
+#> # … with 53 more rows
+whatr_board(data)[, 5:7]
+#> # A tibble: 61 x 3
+#>    category       clue                                                         answer              
+#>    <chr>          <chr>                                                        <chr>               
+#>  1 Picture The I… For An Optimistic View Of Things, Take A Look Through These  Rose-Colored Glasses
+#>  2 Picture The I… If You Have These, It Means You're Well-Organized            Your Ducks In A Row 
+#>  3 Picture The I… It's What's Going On Here                                    Comparing Apples & …
+#>  4 Picture The I… Greenhouse Gas Emission Due To Human Activity Leaves Behind… A Carbon Footprint  
+#>  5 Picture The I… Note The Lovely Weather; It Means To Take Advantage Of An O… Make Hay While The …
+#>  6 Literature     Melville's 'Bartleby The Scrivener' Is Subtitled 'A Story O… Wall Street         
+#>  7 Literature     In A 1923 Book By Kahlil Gibran, Almustafa Is This Mystical… The Prophet         
+#>  8 Literature     In 'Charlotte's Web', Templeton Is This Creature             A Rat               
+#>  9 Literature     In A Novel Simone De Beauvoir Depicted Herself As Anne & Th… (Albert) Camus      
+#> 10 Literature     The Title Peak Of This Thomas Mann Novel Is Home To A Swiss… Magic Mountain      
 #> # … with 51 more rows
+whatr_plot(data)
 ```
+
+<img src="man/figures/README-usage-1.png" width="100%" />
 
 -----
 

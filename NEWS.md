@@ -1,6 +1,7 @@
 # whatr 0.2.0
 
 * Use new `whatr_html()` method as optional input for all functions.
+* Add `whatr_plot()`.
 
 # whatr 0.1.0
 
