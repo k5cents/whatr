@@ -1,3 +1,7 @@
+# whatr 0.2.0
+
+* Use new `whatr_html()` method as optional input for all functions.
+
 # whatr 0.1.0
 
 * Add all functions with proper pipe formatting.
