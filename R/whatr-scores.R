@@ -27,9 +27,7 @@
 #' @importFrom tidyr drop_na pivot_longer
 #' @export
 whatr_scores <- function(game) {
-  if (is(game, "xml_document") & !grepl("ddred", as.character(game), )) {
-    stop("a 'showscores' HTML input is needed")
-  } else if (!is(game, "xml_document")) {
+  if (!is(game, "xml_document") | !grepl("ddred", as.character(game))) {
     game <- whatr_html(x = game, out = "showscores")
   }
 
