@@ -2,11 +2,15 @@
 % Please edit documentation in R/whatr-doubles.R
 \name{whatr_doubles}
 \alias{whatr_doubles}
-\title{Get the clue numbers that coorespond to the daily doubles}
+\title{What are daily doubles?}
 \format{a named list
 \describe{
-\item{single}{The index of the daily double in the first round}
-\item{double}{The indices of the two daily doubles in the second round}
+\item{round}{The round a clue is chosen.}
+\item{col}{The column position left-to-right.}
+\item{row}{The row position top-to-bottom.}
+\item{n}{The order of clue chosen.}
+\item{clue}{The clue read to the contestants.}
+\item{score}{The amount won or lost on the wager.}
 }}
 \usage{
 whatr_doubles(game)
@@ -22,8 +26,11 @@ a list containing the question indices of the daily doubles
 in the first and second rounds
 }
 \description{
-Get the clue numbers that coorespond to the daily doubles
+\emph{These} types of clues have no dollar value. Players wager some of their
+score before hearing the clue. In the first round, one such clue is present;
+in the second round, there are two.
 }
 \examples{
 whatr_doubles(game = 6304)
+whatr_html(6304) \%>\% whatr_doubles()
 }

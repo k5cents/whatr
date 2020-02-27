@@ -1,33 +1,41 @@
-#' Get the clue numbers that coorespond to the daily doubles
+#' What are daily doubles?
+#'
+#' _These_ types of clues have no dollar value. Players wager some of their
+#' score before hearing the clue. In the first round, one such clue is present;
+#' in the second round, there are two.
 #'
 #' @inheritParams whatr_scores
 #' @return a list containing the question indices of the daily doubles
 #' in the first and second rounds
 #' @format a named list
 #' \describe{
-#'  \item{single}{The index of the daily double in the first round}
-#'  \item{double}{The indices of the two daily doubles in the second round}
+#'   \item{round}{The round a clue is chosen.}
+#'   \item{col}{The column position left-to-right.}
+#'   \item{row}{The row position top-to-bottom.}
+#'   \item{n}{The order of clue chosen.}
+#'   \item{clue}{The clue read to the contestants.}
+#'   \item{score}{The amount won or lost on the wager.}
 #' }
 #' @examples
 #' whatr_doubles(game = 6304)
+#' whatr_html(6304) %>% whatr_doubles()
 #' @export
 whatr_doubles <- function(game) {
-  if (is(game, "xml_document") & !grepl("ddred", as.character(game), )) {
-    stop("a 'showscores' HTML input is needed")
+  if (is(game, "xml_document") & grepl("ddred", as.character(game), )) {
+    showgame <- whatr_html(game, out = "showscores")
+    showscore <- game
   } else if (!is(game, "xml_document")) {
-    game <- whatr_html(x = game, out = "showscores")
+    showgame <- game
+    showscore <- whatr_html(game, out = "showscores")
   }
 
-  single_doubles <- game %>%
-    rvest::html_node("#jeopardy_round > table td.ddred") %>%
-    rvest::html_text() %>%
-    base::as.integer()
+  order <- whatr_order(showgame)
+  doubles <- whatr_scores(showscore) %>%
+    dplyr::filter(double) %>%
+    dplyr::select(-5)
+  doubles <- dplyr::inner_join(order, doubles, by = c("round", "n"))
+  if (1 %in% doubles$n) {
 
-  double_doubles <- game %>%
-    rvest::html_nodes("#double_jeopardy_round > table td.ddred") %>%
-    rvest::html_text() %>%
-    base::as.integer() %>%
-    base::unique()
-
-  return(list(single = single_doubles, double = double_doubles))
+  }
+  return(doubles)
 }
