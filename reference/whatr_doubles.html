@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the clue numbers that coorespond to the daily doubles — whatr_doubles • whatr</title>
+<title>What are daily doubles? — whatr_doubles • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,10 @@
 
 
 
-<meta property="og:title" content="Get the clue numbers that coorespond to the daily doubles — whatr_doubles" />
-<meta property="og:description" content="Get the clue numbers that coorespond to the daily doubles" />
+<meta property="og:title" content="What are daily doubles? — whatr_doubles" />
+<meta property="og:description" content="These types of clues have no dollar value. Players wager some of their
+score before hearing the clue. In the first round, one such clue is present;
+in the second round, there are two." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -77,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -116,13 +118,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the clue numbers that coorespond to the daily doubles</h1>
+    <h1>What are daily doubles?</h1>
     <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-doubles.R'><code>R/whatr-doubles.R</code></a></small>
     <div class="hidden name"><code>whatr_doubles.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get the clue numbers that coorespond to the daily doubles</p>
+    <p><em>These</em> types of clues have no dollar value. Players wager some of their
+score before hearing the clue. In the first round, one such clue is present;
+in the second round, there are two.</p>
     </div>
 
     <pre class="usage"><span class='fu'>whatr_doubles</span>(<span class='no'>game</span>)</pre>
@@ -142,8 +146,12 @@ provided, <code><a href='whatr_html.html'>whatr_html()</a></code> will be called
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
     <p>a named list</p><dl class='dl-horizontal'>
-<dt>single</dt><dd><p>The index of the daily double in the first round</p></dd>
-<dt>double</dt><dd><p>The indices of the two daily doubles in the second round</p></dd>
+<dt>round</dt><dd><p>The round a clue is chosen.</p></dd>
+<dt>col</dt><dd><p>The column position left-to-right.</p></dd>
+<dt>row</dt><dd><p>The row position top-to-bottom.</p></dd>
+<dt>n</dt><dd><p>The order of clue chosen.</p></dd>
+<dt>clue</dt><dd><p>The clue read to the contestants.</p></dd>
+<dt>score</dt><dd><p>The amount won or lost on the wager.</p></dd>
 
 </dl>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -152,12 +160,17 @@ provided, <code><a href='whatr_html.html'>whatr_html()</a></code> will be called
 in the first and second rounds</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>whatr_doubles</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; $single
-#&gt; [1] 1
-#&gt; 
-#&gt; $double
-#&gt; [1]  4 14
-#&gt; </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>whatr_doubles</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 6
+#&gt;   round   col   row     n name  score
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt;
+#&gt; 1     1     2     5     1 James  1000
+#&gt; 2     2     1     2    34 Emma   7600
+#&gt; 3     2     3     5    44 Emma   3000</div><div class='input'><span class='fu'><a href='whatr_html.html'>whatr_html</a></span>(<span class='fl'>6304</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_doubles</span>()</div><div class='output co'>#&gt; # A tibble: 3 x 6
+#&gt;   round   col   row     n name  score
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt;
+#&gt; 1     1     2     5     1 James  1000
+#&gt; 2     2     1     2    34 Emma   7600
+#&gt; 3     2     3     5    44 Emma   3000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

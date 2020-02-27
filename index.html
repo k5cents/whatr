@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -103,37 +103,39 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(whatr)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">id &lt;-<span class="st"> </span><span class="kw"><a href="reference/whatr_id.html">whatr_id</a></span>(<span class="dt">date =</span> <span class="st">"2019-06-03"</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="reference/whatr_scores.html">whatr_scores</a></span>(<span class="dt">game =</span> id)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; # A tibble: 65 x 5</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">data &lt;-<span class="st"> </span><span class="kw"><a href="reference/whatr_html.html">whatr_html</a></span>(<span class="dv">6304</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="reference/whatr_scores.html">whatr_scores</a></span>(data)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; # A tibble: 63 x 5</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;    round     n name  score double</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt; </span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;  1     1     1 James  1000 TRUE  </span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;  2     1     1 Jay       0 TRUE  </span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;  3     1     1 Emma      0 TRUE  </span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;  4     1     2 Emma   1000 FALSE </span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;  5     1     3 James   800 FALSE </span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;  6     1     4 James  1000 FALSE </span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;  7     1     5 Emma   1000 FALSE </span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;  8     1     6 Jay     800 FALSE </span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;  9     1     7 James   600 FALSE </span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 10     1     8 James  1000 FALSE </span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; # … with 55 more rows</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="kw"><a href="reference/whatr_board.html">whatr_board</a></span>(<span class="dt">game =</span> id)[, <span class="dv">4</span><span class="op">:</span><span class="dv">7</span>]</a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; # A tibble: 61 x 4</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt;        n category       clue                                                    answer             </span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;                                                   &lt;chr&gt;              </span></a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt;  1    25 Picture The I… For An Optimistic View Of Things, Take A Look Through … Rose-Colored Glass…</span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt;  2    24 Picture The I… If You Have These, It Means You're Well-Organized       Your Ducks In A Row</span></a>
-<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;  3     7 Picture The I… It's What's Going On Here                               Comparing Apples &amp;…</span></a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt;  4     6 Picture The I… Greenhouse Gas Emission Due To Human Activity Leaves B… A Carbon Footprint </span></a>
-<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt;  5     4 Picture The I… Note The Lovely Weather; It Means To Take Advantage Of… Make Hay While The…</span></a>
-<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt;  6    26 Literature     Melville's 'Bartleby The Scrivener' Is Subtitled 'A St… Wall Street        </span></a>
-<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt;  7    23 Literature     In A 1923 Book By Kahlil Gibran, Almustafa Is This Mys… The Prophet        </span></a>
-<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt;  8    15 Literature     In 'Charlotte's Web', Templeton Is This Creature        A Rat              </span></a>
-<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt;  9     3 Literature     In A Novel Simone De Beauvoir Depicted Herself As Anne… (Albert) Camus     </span></a>
-<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt; 10     1 Literature     The Title Peak Of This Thomas Mann Novel Is Home To A … Magic Mountain     </span></a>
-<a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt; # … with 51 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;  2     1     2 Emma   1000 FALSE </span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;  3     1     3 James   800 FALSE </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;  4     1     4 James  1000 FALSE </span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;  5     1     5 Emma   1000 FALSE </span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;  6     1     6 Jay     800 FALSE </span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;  7     1     7 James   600 FALSE </span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;  8     1     8 James  1000 FALSE </span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;  9     1     9 James  1000 FALSE </span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 10     1    10 Emma    800 FALSE </span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; # … with 53 more rows</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="kw"><a href="reference/whatr_board.html">whatr_board</a></span>(data)[, <span class="dv">5</span><span class="op">:</span><span class="dv">7</span>]</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; # A tibble: 61 x 3</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt;    category       clue                                                         answer              </span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;                                                        &lt;chr&gt;               </span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt;  1 Picture The I… For An Optimistic View Of Things, Take A Look Through These  Rose-Colored Glasses</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt;  2 Picture The I… If You Have These, It Means You're Well-Organized            Your Ducks In A Row </span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;  3 Picture The I… It's What's Going On Here                                    Comparing Apples &amp; …</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt;  4 Picture The I… Greenhouse Gas Emission Due To Human Activity Leaves Behind… A Carbon Footprint  </span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt;  5 Picture The I… Note The Lovely Weather; It Means To Take Advantage Of An O… Make Hay While The …</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt;  6 Literature     Melville's 'Bartleby The Scrivener' Is Subtitled 'A Story O… Wall Street         </span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt;  7 Literature     In A 1923 Book By Kahlil Gibran, Almustafa Is This Mystical… The Prophet         </span></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt;  8 Literature     In 'Charlotte's Web', Templeton Is This Creature             A Rat               </span></a>
+<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt;  9 Literature     In A Novel Simone De Beauvoir Depicted Herself As Anne &amp; Th… (Albert) Camus      </span></a>
+<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt; 10 Literature     The Title Peak Of This Thomas Mann Novel Is Home To A Swiss… Magic Mountain      </span></a>
+<a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt; # … with 51 more rows</span></a>
+<a class="sourceLine" id="cb2-33" data-line-number="33"><span class="kw"><a href="reference/whatr_plot.html">whatr_plot</a></span>(data)</a></code></pre></div>
+<p><img src="reference/figures/README-usage-1.png" width="100%"></p>
 <hr>
 <p>Please note that the ‘whatr’ project is released with a <a href="https://kiernann.com/whatr/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 <!-- refs: start -->
