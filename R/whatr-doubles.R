@@ -21,19 +21,10 @@
 #' whatr_html(6304) %>% whatr_doubles()
 #' @export
 whatr_doubles <- function(game) {
-  if (is(game, "xml_document") & grepl("ddred", as.character(game))) {
-    showgame <- whatr_html(game, out = "showscores")
-    showscore <- game
-  } else if (is(game, "xml_document") & !grepl("ddred", as.character(game))) {
-    showgame <- game
-    showscore <- whatr_html(game, out = "showscores")
-  } else if (!is(game, "xml_document")) {
-    showgame <- whatr_html(game, out = "showgame")
-    showscores <- whatr_html(game, out = "showscores")
-  }
-
+  showgame <- whatr_html(game, out = "showgame")
+  showscores <- whatr_html(game, out = "showscores")
   order <- whatr_order(showgame)
-  doubles <- whatr_scores(showscore) %>%
+  doubles <- whatr_scores(showscores) %>%
     dplyr::filter(double) %>%
     dplyr::select(-5)
   doubles <- dplyr::inner_join(order, doubles, by = c("round", "n"))
