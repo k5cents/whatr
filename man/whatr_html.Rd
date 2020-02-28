@@ -29,5 +29,5 @@ can be used to return an HTML document from one of four types of input:
 \examples{
 whatr_html(x = 6304, out = "showscores")
 whatr_html(x = "2019-06-03", out = "showgame")
-whatr_html("#8006", "showgame") \%>\% whatr_html("showscores")
+whatr_html("#8006", "showgame") \%>\% whatr_clues()
 }

@@ -15,10 +15,13 @@
 whatr_answers(game)
 }
 \arguments{
-\item{game}{Either a numeric J! Archive game ID or the HTML document object
-returned by \code{\link[=whatr_html]{whatr_html()}}, which can take a game ID, air date, show
-number, or another HTML document as an input. If an HTML document is not
-provided, \code{\link[=whatr_html]{whatr_html()}} will be called.}
+\item{game}{One of four types of input, all passed to \code{\link[=whatr_html]{whatr_html()}}:
+\enumerate{
+\item A numeric game ID.
+\item Either a 'showgame' or 'showscores' HTML document.
+\item A show number character with "#".
+\item An air date like "yyyy-mm-dd".
+}}
 }
 \value{
 A tidy tibble of clue text.

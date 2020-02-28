@@ -21,12 +21,7 @@
 #' @importFrom tibble enframe
 #' @export
 whatr_clues <- function(game) {
-  if (is(game, "xml_document") & grepl("ddred", as.character(game), )) {
-    stop("a 'showgame' HTML input is needed")
-  } else if (!is(game, "xml_document")) {
-    game <- whatr_html(x = game, out = "showgame")
-  }
-
+  game <- whatr_html(game, "showgame")
   clues <- game %>%
     rvest::html_nodes("table td.clue_text") %>%
     rvest::html_text() %>%

@@ -24,12 +24,7 @@
 #' @importFrom tidyr separate
 #' @export
 whatr_players <- function(game) {
-  if (is(game, "xml_document") & grepl("ddred", as.character(game), )) {
-    stop("a 'showgame' HTML input is needed")
-  } else if (!is(game, "xml_document")) {
-    game <- whatr_html(x = game, out = "showgame")
-  }
-
+  game <- whatr_html(game, "showgame")
   # enframe and split cols
   players <- game %>%
     rvest::html_node("#contestants_table") %>%

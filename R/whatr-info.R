@@ -19,12 +19,7 @@
 #' @importFrom tibble tibble
 #' @export
 whatr_info <- function(game) {
-  if (is(game, "xml_document") & grepl("ddred", as.character(game), )) {
-    stop("a 'showgame' HTML input is needed")
-  } else if (!is(game, "xml_document")) {
-    game <- whatr_html(x = game, out = "showgame")
-  }
-
+  game <- whatr_html(game, "showgame")
   c <- as.character(game)
   id <- stringr::str_extract(c, "(?<=chartgame.php\\?game_id\\=)\\d+")
   title <- rvest::html_text(rvest::html_node(game, "title"))

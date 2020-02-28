@@ -26,12 +26,7 @@
 #' @importFrom tibble enframe
 #' @export
 whatr_answers <- function(game) {
-  if (is(game, "xml_document") & grepl("ddred", as.character(game), )) {
-    stop("a 'showgame' HTML input is needed")
-  } else if (!is(game, "xml_document")) {
-    game <- whatr_html(x = game, out = "showgame")
-  }
-
+  game <- whatr_html(game, "showgame")
   extract_answer <- function(node) {
     answer <- node %>%
       rvest::html_attr("onmouseover") %>%
@@ -39,7 +34,6 @@ whatr_answers <- function(game) {
       rvest::html_nodes("em.correct_response") %>%
       rvest::html_text()
   }
-
   final_answer <- game %>%
     rvest::html_node(".final_round") %>%
     base::as.character() %>%
@@ -57,7 +51,6 @@ whatr_answers <- function(game) {
     stringr::str_remove_all(stringr::fixed("\\")) %>%
     tibble::enframe(name = NULL, value = "answer") %>%
     dplyr::add_row(answer = final_answer)
-
   answers <- dplyr::bind_cols(whatr_order(game = game), answers)
   return(answers)
 }

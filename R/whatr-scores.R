@@ -2,12 +2,13 @@
 #'
 #' This data frame has data on the performance of each contestant.
 #'
-#' @param game Either a numeric J! Archive game ID or the HTML document object
-#'   returned by [whatr_html()], which can take a game ID, air date, show
-#'   number, or another HTML document as an input. If an HTML document is not
-#'   provided, [whatr_html()] will be called.
+#' @param game One of four types of input, all passed to [whatr_html()]:
+#' 1. A numeric game ID.
+#' 2. Either a 'showgame' or 'showscores' HTML document.
+#' 3. A show number character with "#".
+#' 4. An air date like "yyyy-mm-dd".
 #' @return Tidy tibble of clue scores.
-#' @format A tibble with 52 rows and 8 variables:
+#' @format A tibble with ~61 rows and 5 variables:
 #' \describe{
 #'   \item{round}{The round a clue is chosen.}
 #'   \item{n}{The order of clue chosen.}
@@ -27,17 +28,11 @@
 #' @importFrom tidyr drop_na pivot_longer
 #' @export
 whatr_scores <- function(game) {
-  if (!is(game, "xml_document") | !grepl("ddred", as.character(game))) {
-    game <- whatr_html(x = game, out = "showscores")
-  }
-
-  # find round 1 doubles location
+  game <- whatr_html(game, "showscores")
   single_doubles <- game %>%
     rvest::html_node("#jeopardy_round > table td.ddred") %>%
     rvest::html_text() %>%
     base::as.integer()
-
-  # pivot round 1 scores
   single_score <- game %>%
     rvest::html_node("#jeopardy_round > table:nth-child(2)") %>%
     rvest::html_table(fill = TRUE, header = TRUE) %>%
@@ -53,15 +48,11 @@ whatr_scores <- function(game) {
       score = as.integer(stringr::str_remove_all(.data$score, "[^\\d]")),
       double = (.data$n %in% single_doubles)
     )
-
-  # find round 2 doubles location
   double_doubles <- game %>%
     rvest::html_nodes("#double_jeopardy_round > table td.ddred") %>%
     rvest::html_text() %>%
     base::as.integer() %>%
     base::unique()
-
-  # pivot round 2 scores
   double_score <- game %>%
     rvest::html_node("#double_jeopardy_round > table:nth-child(2)") %>%
     rvest::html_table(fill = TRUE, header = TRUE) %>%
@@ -79,8 +70,6 @@ whatr_scores <- function(game) {
       double = (.data$n %in% double_doubles),
       n = .data$n + max(single_score$n)
     )
-
-  # pivot round 3 scores
   final_scores <- game %>%
     rvest::html_node("#final_jeopardy_round > table:nth-child(2)") %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
@@ -96,8 +85,6 @@ whatr_scores <- function(game) {
       score = as.integer(stringr::str_remove_all(.data$score, "[^\\d]")),
       double = FALSE
     )
-
-  # bind all scores and tidy
   scores <- single_score %>%
     dplyr::bind_rows(double_score) %>%
     dplyr::bind_rows(final_scores) %>%
@@ -111,6 +98,5 @@ whatr_scores <- function(game) {
     dplyr::filter(.data$score != 0) %>%
     dplyr::arrange(.data$round, .data$n) %>%
     dplyr::select(.data$round, .data$n, .data$name, .data$score, .data$double)
-
   return(scores)
 }

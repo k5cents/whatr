@@ -18,12 +18,7 @@
 #' whatr_html(6304) %>% whatr_summary()
 #' @export
 whatr_summary <- function(game) {
-  if (is(game, "xml_document") & grepl("ddred", as.character(game), )) {
-    stop("a 'showgame' HTML input is needed")
-  } else if (!is(game, "xml_document")) {
-    game <- whatr_html(x = game, out = "showgame")
-  }
-
+  game <- whatr_html(game, "showgame")
   coryat_final <- game %>%
     rvest::html_node("#final_jeopardy_round > table:nth-child(8)") %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
@@ -69,8 +64,8 @@ whatr_summary <- function(game) {
         stringr::str_extract("(\\d+)") %>%
         base::as.integer()
     )
-  summary_scores <- coryat_final %>%
-    dplyr::left_join(final_final, by = "name") %>%
+  summary_scores <- final_final %>%
+    dplyr::left_join(coryat_final, by = "name") %>%
     dplyr::left_join(right_wrong, by = "name")
   return(summary_scores)
 }

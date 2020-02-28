@@ -16,12 +16,7 @@
 #'   scale_x_continuous scale_color_brewer labs scale_shape_discrete
 #' @export
 whatr_plot <- function(game) {
-  if (is(game, "xml_document") & !grepl("ddred", as.character(game))) {
-    game <- whatr_html(x = game, out = "showscores")
-  } else if (!is(game, "xml_document")) {
-    game <- whatr_html(x = game, out = "showscores")
-  }
-
+  game <- whatr_html(game, "showscores")
   id <- as.character(game) %>%
     stringr::str_extract("(?<=chartgame.php\\?game_id\\=)\\d+")
   scores <- whatr_scores(game) %>%

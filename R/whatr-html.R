@@ -57,37 +57,37 @@ whatr_html <- function(x, out = c("showgame", "showscores")) {
       url = sprintf("http://www.j-archive.com/%s.php", out),
       query = list(game_id = x)
     )
-    message(sprintf("in:  id %s\nout: %s", x, out))
+    # message(sprintf("in:  id %s\nout: %s", x, out))
     httr::content(html)
   } else if (is(x, "xml_document")) {
     c <- as.character(x)
     if (stringr::str_detect(c, "ddred") & out == "showscores") {
-      message("in:  showscores\nout: showscores")
+      # message("in:  showscores\nout: showscores")
       return(x)
     } else if (stringr::str_detect(c, "ddred") & out == "showgame") {
-      message("in:  showscores\nout: showgame")
+      # message("in:  showscores\nout: showgame")
       showscores_to_game(html = x)
     } else if (!stringr::str_detect(c, "ddred") & out == "showgame") {
-      message("in:  showgame\nout: showgame")
+      # message("in:  showgame\nout: showgame")
       return(x)
     } else if (!stringr::str_detect(c, "ddred") & out == "showscores") {
-      message("in:  showgame\nout: showscores")
+      # message("in:  showgame\nout: showscores")
       showgame_to_scores(html = x)
     }
   } else if (stringr::str_detect(x, "^#\\d+$")) {
     if (out == "showgame") {
-      message(sprintf("in:  show %s\nout: showgame", x))
+      # message(sprintf("in:  show %s\nout: showgame", x))
       show_to_game(show = x)
     } else if (out == "showscores") {
-      message(sprintf("in:  show %s\nout: showscores", x))
+      # message(sprintf("in:  show %s\nout: showscores", x))
       show_to_scores(show = x)
     }
   } else if (stringr::str_detect(x, "^\\d{4}-\\d+-\\d+$")) {
     if (out == "showgame") {
-      message(sprintf("in:  %s\nout: showgame", x))
+      # message(sprintf("in:  %s\nout: showgame", x))
       date_to_game(date = x)
     } else if (out == "showscores") {
-      message(sprintf("in:  %s\nout: showscores", x))
+      # message(sprintf("in:  %s\nout: showscores", x))
       date_to_scores(date = x)
     }
   }

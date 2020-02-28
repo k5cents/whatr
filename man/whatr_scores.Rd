@@ -3,7 +3,7 @@
 \name{whatr_scores}
 \alias{whatr_scores}
 \title{What are player scores?}
-\format{A tibble with 52 rows and 8 variables:
+\format{A tibble with ~61 rows and 5 variables:
 \describe{
 \item{round}{The round a clue is chosen.}
 \item{n}{The order of clue chosen.}
@@ -15,10 +15,13 @@
 whatr_scores(game)
 }
 \arguments{
-\item{game}{Either a numeric J! Archive game ID or the HTML document object
-returned by \code{\link[=whatr_html]{whatr_html()}}, which can take a game ID, air date, show
-number, or another HTML document as an input. If an HTML document is not
-provided, \code{\link[=whatr_html]{whatr_html()}} will be called.}
+\item{game}{One of four types of input, all passed to \code{\link[=whatr_html]{whatr_html()}}:
+\enumerate{
+\item A numeric game ID.
+\item Either a 'showgame' or 'showscores' HTML document.
+\item A show number character with "#".
+\item An air date like "yyyy-mm-dd".
+}}
 }
 \value{
 Tidy tibble of clue scores.
