@@ -45,82 +45,117 @@ whatr_id <- function(game = NULL, date = NULL, show = NULL) {
 #' @examples
 #' whatr_html(x = 6304, out = "showscores")
 #' whatr_html(x = "2019-06-03", out = "showgame")
-#' whatr_html("#8006", "showgame") %>% whatr_html("showscores")
+#' whatr_html("#8006", "showgame") %>% whatr_clues()
 #' @importFrom httr GET content
 #' @importFrom methods is
 #' @importFrom stringr str_extract str_detect
 #' @export
 whatr_html <- function(x, out = c("showgame", "showscores")) {
   out <- match.arg(out, c("showgame", "showscores"))
-  if (is.numeric(x)) { # is numeric game is return out
-    z <- "game_id"
-    out_get <- httr::GET(
+  if (is.numeric(x)) {
+    html <- httr::GET(
       url = sprintf("http://www.j-archive.com/%s.php", out),
       query = list(game_id = x)
     )
-    data <- httr::content(out_get)
-    return(data); message(sprintf("in: %s, out: %s", z, out))
-  } else if (is(x, "xml_node")) { # is already html document
-    # check if already showscores and return if wanted
+    message(sprintf("in:  id %s\nout: %s", x, out))
+    httr::content(html)
+  } else if (is(x, "xml_document")) {
     c <- as.character(x)
     if (stringr::str_detect(c, "ddred") & out == "showscores") {
-      z <- "score_doc"
-      print(x); message(sprintf("in: %s, out: %s", z, out))
-    } else if (!stringr::str_detect(c, "ddred") & out == "showscores") {
-      z <- "game_doc"
-      game <- stringr::str_extract(c, "(?<=chartgame.php\\?game_id\\=)\\d+")
-      j_score <- httr::GET(
-        url = "http://www.j-archive.com/showscores.php",
-        query = list(game_id = game)
-      )
-      data <- httr::content(j_score)
-      return(data); message(sprintf("in: %s, out: %s", z, out))
-    } else if (!stringr::str_detect(c, "ddred") & out == "showgame") {
-      z <- "game_doc"
-      data <- x
-      return(data); message(sprintf("in: %s, out: %s", z, out))
+      message("in:  showscores\nout: showscores")
+      return(x)
     } else if (stringr::str_detect(c, "ddred") & out == "showgame") {
-      z <- "show_doc"
-      game <- stringr::str_extract(c, "(?<=chartgame.php\\?game_id\\=)\\d+")
-      j_game <- httr::GET(
-        url = "http://www.j-archive.com/showgame.php",
-        query = list(game_id = game)
-      )
-      data <- httr::content(j_score)
-      return(data); message(sprintf("in: %s, out: %s", z, out))
+      message("in:  showscores\nout: showgame")
+      showscores_to_game(html = x)
+    } else if (!stringr::str_detect(c, "ddred") & out == "showgame") {
+      message("in:  showgame\nout: showgame")
+      return(x)
+    } else if (!stringr::str_detect(c, "ddred") & out == "showscores") {
+      message("in:  showgame\nout: showscores")
+      showgame_to_scores(html = x)
     }
-  } else {
-    # date or show
-    if (stringr::str_starts(x, "#")) {
-      type <- z <- "show"
-    } else if (stringr::str_detect(x, "^\\d{4}-\\d+-\\d+$")) {
-      type <- z <- "date"
-    } else {
-      stop("unable to determine input type")
-    }
+  } else if (stringr::str_detect(x, "^#\\d+$")) {
     if (out == "showgame") {
-      # read redirect page
-      j_game <- httr::GET(
-        url = "http://www.j-archive.com/search.php",
-        query = list(search = paste(type, sub("#", "", x), sep = ":"))
-      )
-      data <- httr::content(j_game)
-      return(data); message(sprintf("in: %s, out: %s", z, out))
+      message(sprintf("in:  show %s\nout: showgame", x))
+      show_to_game(show = x)
     } else if (out == "showscores") {
-      # get redirect game url
-      j_head <- httr::HEAD(
-        url = "http://www.j-archive.com/search.php",
-        query = list(search = paste(type, sub("#", "", x), sep = ":"))
-      )
-      # switch redirect url to scores
-      game <- stringr::str_extract(j_head$url, "\\d+$")
-      j_score <- httr::GET(
-        url = "http://www.j-archive.com/showscores.php",
-        query = list(game_id = game)
-      )
-      data <- httr::content(j_score)
-      return(data); message(sprintf("in: %s, out: %s", z, out))
+      message(sprintf("in:  show %s\nout: showscores", x))
+      show_to_scores(show = x)
+    }
+  } else if (stringr::str_detect(x, "^\\d{4}-\\d+-\\d+$")) {
+    if (out == "showgame") {
+      message(sprintf("in:  %s\nout: showgame", x))
+      date_to_game(date = x)
+    } else if (out == "showscores") {
+      message(sprintf("in:  %s\nout: showscores", x))
+      date_to_scores(date = x)
     }
   }
 }
 
+showgame_to_scores <- function(html) {
+  id <- html %>%
+    rvest::html_node(".game_dynamics") %>%
+    rvest::html_attr("src") %>%
+    stringr::str_extract("\\d+$")
+  data <- httr::GET(
+    url = "http://www.j-archive.com/showscores.php",
+    query = list(game_id = id)
+  )
+  return(httr::content(data))
+}
+
+showscores_to_game <- function(html) {
+  id <- html %>%
+    rvest::html_node("#game_title") %>%
+    rvest::html_node("a") %>%
+    rvest::html_attr("href") %>%
+    stringr::str_extract("\\d+$")
+  data <- httr::GET(
+    url = "http://www.j-archive.com/showgame.php",
+    query = list(game_id = id)
+  )
+  httr::content(data)
+}
+
+date_to_game <- function(date) {
+  data <- httr::GET(
+    url = "http://www.j-archive.com/search.php",
+    query = list(search = paste("date", date, sep = ":"))
+  )
+  httr::content(data)
+}
+
+date_to_scores <- function(date) {
+  redirect <- httr::HEAD(
+    url = "http://www.j-archive.com/search.php",
+    query = list(search = paste("date", date, sep = ":"))
+  )
+  id <- stringr::str_extract(redirect$url, "\\d+$")
+  data <- httr::GET(
+    url = "http://www.j-archive.com/showscores.php",
+    query = list(game_id = id)
+  )
+  httr::content(data)
+}
+
+show_to_game <- function(show) {
+  data <- httr::GET(
+    url = "http://www.j-archive.com/search.php",
+    query = list(search = paste("show", gsub("#", "", show), sep = ":"))
+  )
+  httr::content(data)
+}
+
+show_to_scores <- function(show) {
+  redirect <- httr::HEAD(
+    url = "http://www.j-archive.com/search.php",
+    query = list(search = paste("show", gsub("#", "", show), sep = ":"))
+  )
+  id <- stringr::str_extract(redirect$url, "\\d+$")
+  data <- httr::GET(
+    url = "http://www.j-archive.com/showscores.php",
+    query = list(game_id = id)
+  )
+  httr::content(data)
+}
