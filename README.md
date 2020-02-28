@@ -15,19 +15,10 @@ status](https://travis-ci.org/kiernann/whatr.svg?branch=master)](https://travis-
 coverage](https://codecov.io/gh/kiernann/whatr/branch/master/graph/badge.svg)](https://codecov.io/gh/kiernann/whatr?branch=master')
 <!-- badges: end -->
 
-> This package was design to facilitate the analysis of game show data.
+> *This* R package was made to facilitate the analysis of game show data
+> by scraping the J\! Archive.
 
-> What is… what R?
-
-The package contains both past data and the tools used to update with
-future games from the fan-made episode [J\!
-Archive](http://j-archive.com/).
-
-The J\! Archive is created by fans, for fans. The *Jeopardy\!* game show
-and all elements thereof, including but not limited to copyright and
-trademark thereto, are the property of Jeopardy Productions, Inc. and
-are protected under law. This package is not affiliated with, sponsored
-by, or operated by Jeopardy Productions, Inc.
+> What is… whatr?
 
 ## Installation
 
@@ -44,21 +35,6 @@ remotes::install_github("kiernann/whatr")
 ``` r
 library(whatr)
 data <- whatr_html(6304)
-whatr_scores(data)
-#> # A tibble: 63 x 5
-#>    round     n name  score double
-#>    <int> <int> <chr> <int> <lgl> 
-#>  1     1     1 James  1000 TRUE  
-#>  2     1     2 Emma   1000 FALSE 
-#>  3     1     3 James   800 FALSE 
-#>  4     1     4 James  1000 FALSE 
-#>  5     1     5 Emma   1000 FALSE 
-#>  6     1     6 Jay     800 FALSE 
-#>  7     1     7 James   600 FALSE 
-#>  8     1     8 James  1000 FALSE 
-#>  9     1     9 James  1000 FALSE 
-#> 10     1    10 Emma    800 FALSE 
-#> # … with 53 more rows
 whatr_board(data)[, 5:7]
 #> # A tibble: 61 x 3
 #>    category       clue                                                         answer              
@@ -74,6 +50,21 @@ whatr_board(data)[, 5:7]
 #>  9 Literature     In A Novel Simone De Beauvoir Depicted Herself As Anne & Th… (Albert) Camus      
 #> 10 Literature     The Title Peak Of This Thomas Mann Novel Is Home To A Swiss… Magic Mountain      
 #> # … with 51 more rows
+whatr_scores(data)
+#> # A tibble: 63 x 5
+#>    round     n name  score double
+#>    <int> <int> <chr> <int> <lgl> 
+#>  1     1     1 James  1000 TRUE  
+#>  2     1     2 Emma   1000 FALSE 
+#>  3     1     3 James   800 FALSE 
+#>  4     1     4 James  1000 FALSE 
+#>  5     1     5 Emma   1000 FALSE 
+#>  6     1     6 Jay     800 FALSE 
+#>  7     1     7 James   600 FALSE 
+#>  8     1     8 James  1000 FALSE 
+#>  9     1     9 James  1000 FALSE 
+#> 10     1    10 Emma    800 FALSE 
+#> # … with 53 more rows
 whatr_plot(data)
 ```
 
@@ -81,9 +72,15 @@ whatr_plot(data)
 
 -----
 
-Please note that the ‘whatr’ project is released with a [Contributor
-Code of Conduct](https://kiernann.com/whatr/CODE_OF_CONDUCT.html). By
-contributing to this project, you agree to abide by its terms.
+The ‘whatr’ project is released with a [Contributor Code of
+Conduct](https://kiernann.com/whatr/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to its terms.
+
+The J\! Archive is created by fans, for fans. The *Jeopardy\!* game show
+and all elements thereof, including but not limited to copyright and
+trademark thereto, are the property of Jeopardy Productions, Inc. and
+are protected under law. This package is not affiliated with, sponsored
+by, or operated by Jeopardy Productions, Inc or the J\! Archive itself.
 
 <!-- refs: start -->
 

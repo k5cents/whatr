@@ -29,24 +29,16 @@ options(width = 99)
 [![Codecov test coverage][cov_badge]][cov_link]
 <!-- badges: end -->
 
-> This package was design to facilitate the analysis of game show data.
+> _This_ R package was made to facilitate the analysis of game show data by
+scraping the J! Archive.
 
-> What is... what R?
-
-The package contains both past data and the tools used to update with future
-games from the fan-made episode [J! Archive][ja].
-
-The J! Archive is created by fans, for fans. The _Jeopardy!_ game show and all
-elements thereof, including but not limited to copyright and trademark thereto,
-are the property of Jeopardy Productions, Inc. and are protected under law. This
-package is not affiliated with, sponsored by, or operated by Jeopardy
-Productions, Inc.
+> What is... whatr?
 
 ## Installation
 
 You can install the development version of 'whatr' from [GitHub][gh] with:
 
-``` r
+```{r install, eval=FALSE}
 # install.packages("remotes")
 remotes::install_github("kiernann/whatr")
 ```
@@ -56,16 +48,21 @@ remotes::install_github("kiernann/whatr")
 ```{r usage}
 library(whatr)
 data <- whatr_html(6304)
-whatr_scores(data)
 whatr_board(data)[, 5:7]
+whatr_scores(data)
 whatr_plot(data)
 ```
 
-***
+*****
 
-Please note that the 'whatr' project is released with a 
-[Contributor Code of Conduct][coc]. By
-contributing to this project, you agree to abide by its terms.
+The 'whatr' project is released with a [Contributor Code of Conduct][coc]. By
+contributing to this project, you agree to its terms.
+
+The J! Archive is created by fans, for fans. The _Jeopardy!_ game show and all
+elements thereof, including but not limited to copyright and trademark thereto,
+are the property of Jeopardy Productions, Inc. and are protected under law. This
+package is not affiliated with, sponsored by, or operated by Jeopardy
+Productions, Inc or the J! Archive itself.
 
 <!-- refs: start -->
 [life_badge]: https://img.shields.io/badge/lifecycle-maturing-blue.svg
