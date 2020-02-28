@@ -90,6 +90,8 @@ whatr_html <- function(x, out = c("showgame", "showscores")) {
       # message(sprintf("in:  %s\nout: showscores", x))
       date_to_scores(date = x)
     }
+  } else {
+    stop("not able to determine input type, see ?whatr_html")
   }
 }
 
