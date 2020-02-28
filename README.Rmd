@@ -68,8 +68,8 @@ Please note that the 'whatr' project is released with a
 contributing to this project, you agree to abide by its terms.
 
 <!-- refs: start -->
-[life_badge]: https://img.shields.io/badge/lifecycle-experimental-orange.svg
-[life_link]: https://www.tidyverse.org/lifecycle/#experimental
+[life_badge]: https://img.shields.io/badge/lifecycle-maturing-blue.svg
+[life_link]: https://www.tidyverse.org/lifecycle/#maturing
 [cran_badge]: https://www.r-pkg.org/badges/version/whatr
 [cran_link]: https://CRAN.R-project.org/package=whatr
 [trav_badge]: https://travis-ci.org/kiernann/whatr.svg?branch=master
