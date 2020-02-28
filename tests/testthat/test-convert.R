@@ -24,7 +24,7 @@ test_that("game ID can be converted to showscores HTML", {
 
 game_url <- paste0("http://www.j-archive.com/showgame.php?game_id=", id)
 game_html <- read_html(game_url)
-score_url <- paste0("http://www.j-archive.com/showgame.php?game_id=", id)
+score_url <- paste0("http://www.j-archive.com/showscores.php?game_id=", id)
 score_html <- read_html(score_url)
 test_that("showgame HTML can be converted to showscores HTML", {
   expect_showscores(whatr_html(game_html, out = "showscores"))
