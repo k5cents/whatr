@@ -1,6 +1,6 @@
 Package: whatr
 Title: Scrape and analyze the J! Archive
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: 
     person(given = "Kiernan",
            family = "Nicholls",

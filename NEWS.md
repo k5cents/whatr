@@ -1,3 +1,8 @@
+# whatr 0.3.0
+
+* Use _new_, new `whatr_html()` method as input for all functions.
+* Add `whatr_doubles()`
+
 # whatr 0.2.0
 
 * Use new `whatr_html()` method as optional input for all functions.
