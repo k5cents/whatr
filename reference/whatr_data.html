@@ -132,10 +132,12 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>game</th>
-      <td><p>Either a numeric J! Archive game ID or the HTML document object
-returned by <code><a href='whatr_html.html'>whatr_html()</a></code>, which can take a game ID, air date, show
-number, or another HTML document as an input. If an HTML document is not
-provided, <code><a href='whatr_html.html'>whatr_html()</a></code> will be called.</p></td>
+      <td><p>One of four types of input, all passed to <code><a href='whatr_html.html'>whatr_html()</a></code>:</p><ol>
+<li><p>A numeric game ID.</p></li>
+<li><p>Either a 'showgame' or 'showscores' HTML document.</p></li>
+<li><p>A show number character with "#".</p></li>
+<li><p>An air date like "yyyy-mm-dd".</p></li>
+</ol></td>
     </tr>
     </table>
 
@@ -152,11 +154,11 @@ provided, <code><a href='whatr_html.html'>whatr_html()</a></code> will be called
 #&gt; 
 #&gt; $summary
 #&gt; # A tibble: 3 x 5
-#&gt;   name  coryat final right wrong
-#&gt;   &lt;chr&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1 James  23400 24799    25     0
-#&gt; 2 Jay    11000 17000    13     1
-#&gt; 3 Emma   18800 46801    21     0
+#&gt;   name  final coryat right wrong
+#&gt;   &lt;chr&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt; 1 James 24799  23400    25     0
+#&gt; 2 Jay   17000  11000    13     1
+#&gt; 3 Emma  46801  18800    21     0
 #&gt; 
 #&gt; $players
 #&gt; # A tibble: 3 x 5
