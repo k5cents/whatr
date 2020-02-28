@@ -63,3 +63,9 @@ test_that("air date can be converted to showgame HTML", {
 test_that("air date can be converted to showscores HTML", {
   expect_showscores(whatr_html(date, out = "showscores"))
 })
+
+# error -------------------------------------------------------------------
+
+test_that("air date can be converted to showscores HTML", {
+  expect_error(whatr_html("test", out = "showscores"))
+})
