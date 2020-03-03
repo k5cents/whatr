@@ -7,18 +7,10 @@ library(whatr)
 library(httr)
 library(fs)
 
-# get most recent episode show number
-latest_show <- "http://www.j-archive.com/" %>%
-  read_html() %>%
-  html_node(".splash_clue_footer") %>%
-  html_text() %>%
-  str_extract("(?<=#)\\d+") %>%
-  as.integer()
-
 game_dir <- dir_create(here::here("data-raw", "games"))
 score_dir <- dir_create(here::here("data-raw", "scores"))
-pb <- txtProgressBar(1, latest_show, style = 3)
-for (i in seq(1, latest_show)) {
+pb <- txtProgressBar(7816, 8045, style = 3)
+for (i in 7816:8045) {
   r <- GET(
     # download showgame from search
     url = "http://www.j-archive.com/search.php",
@@ -65,18 +57,18 @@ score_info %>%
 
 # read html ---------------------------------------------------------------
 
-  dat <- game_info$path %>%
-    map(read_html) %>%
-    map(safely(whatr_data)) %>%
-    transpose() %>%
-    use_series("result") %>%
-    compact() %>%
-    discard(~all(is.na(.)))
+dat <- game_info$path %>%
+  map(read_html) %>%
+  map(safely(whatr_data)) %>%
+  transpose() %>%
+  use_series("result") %>%
+  compact() %>%
+  discard(~all(is.na(.)))
 
-  for (i in seq_along(dat)) {
-    dat[[i]] <- dat[[i]] %>%
-      map(~select(mutate(., game = dat[[i]]$info$game), game, everything()))
-  }
+for (i in seq_along(dat)) {
+  dat[[i]] <- dat[[i]] %>%
+    map(~select(mutate(., game = dat[[i]]$info$game), game, everything()))
+}
 
 dat <- dat %>%
   transpose() %>%
@@ -84,25 +76,23 @@ dat <- dat %>%
 
 # bind and save -----------------------------------------------------------
 
-episodes <- dat$info %>%
-  filter(year(date) == 2019) %>%
-  arrange(date)
-usethis::use_data(episodes, overwrite = TRUE)
+episodes <- filter(dat$info, show %>% between(7816, 8045))
+usethis::use_data(episodes, overwrite = TRUE, compress = "xz")
 write_csv(episodes, "data-raw/episodes.csv")
 
 # remove dates for others
-dat <- map(dat, ~filter(., game %in% info$game))
+dat <- map(dat, ~filter(., game %in% episodes$game))
 
 players <- dat$players
-usethis::use_data(players, overwrite = TRUE)
+usethis::use_data(players, overwrite = TRUE, compress = "xz")
 write_csv(players, "data-raw/players.csv")
 
 synopses <- dat$summary
-usethis::use_data(synopses, overwrite = TRUE)
+usethis::use_data(synopses, overwrite = TRUE, compress = "xz")
 write_csv(synopses, "data-raw/synopses.csv")
 
 scores <- dat$scores
-usethis::use_data(scores, overwrite = TRUE)
+usethis::use_data(scores, overwrite = TRUE, compress = "xz")
 write_csv(scores, "data-raw/scores.csv")
 
 boards <- dat$board
