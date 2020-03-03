@@ -84,11 +84,11 @@ dat <- dat %>%
 
 # bind and save -----------------------------------------------------------
 
-info <- dat$info %>%
+episodes <- dat$info %>%
   filter(year(date) == 2019) %>%
   arrange(date)
-usethis::use_data(info, overwrite = TRUE)
-write_csv(info, "data-raw/info.csv")
+usethis::use_data(episodes, overwrite = TRUE)
+write_csv(episodes, "data-raw/episodes.csv")
 
 # remove dates for others
 dat <- map(dat, ~filter(., game %in% info$game))
