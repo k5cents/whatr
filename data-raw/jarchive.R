@@ -85,7 +85,7 @@ dat <- dat %>%
 # bind and save -----------------------------------------------------------
 
 info <- dat$info %>%
-  filter(year(date) >= 1997) %>%
+  filter(year(date) == 2019) %>%
   arrange(date)
 usethis::use_data(info, overwrite = TRUE)
 write_csv(info, "data-raw/info.csv")
@@ -97,17 +97,17 @@ players <- dat$players
 usethis::use_data(players, overwrite = TRUE)
 write_csv(players, "data-raw/players.csv")
 
-summary <- dat$summary
-usethis::use_data(summary, overwrite = TRUE)
-write_csv(summary, "data-raw/summary.csv")
+synopses <- dat$summary
+usethis::use_data(synopses, overwrite = TRUE)
+write_csv(synopses, "data-raw/synopses.csv")
 
 scores <- dat$scores
 usethis::use_data(scores, overwrite = TRUE)
 write_csv(scores, "data-raw/scores.csv")
 
-boards <- dat$board %>%
-  mutate_at(vars(-game), ~str_trim(str_squish(.)))
-usethis::use_data(boards, overwrite = TRUE)
+boards <- dat$board
+boards$clue <- str_remove(boards$clue, "^\\(.*\\)(\\s|[:punct:])")
+usethis::use_data(boards, overwrite = TRUE, compress = "xz")
 write_csv(boards, "data-raw/boards.csv")
 
 # clean up ----------------------------------------------------------------
