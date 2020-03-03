@@ -1,5 +1,7 @@
 ## code to prepare `jarchive` dataset goes here
 library(tidyverse)
+library(lubridate)
+library(magrittr)
 library(rvest)
 library(whatr)
 library(httr)
@@ -61,49 +63,54 @@ score_info %>%
   pull(path) %>%
   file_delete()
 
-# compress dirs -----------------------------------------------------------
+# read html ---------------------------------------------------------------
 
-withr::with_dir(
-  new = game_dir,
-  code = tar(
-    tarfile = "../showgame.tar.xz",
-    compression = "xz",
-    compression_level = 9
-  )
-)
+  dat <- game_info$path %>%
+    map(read_html) %>%
+    map(safely(whatr_data)) %>%
+    transpose() %>%
+    use_series("result") %>%
+    compact() %>%
+    discard(~all(is.na(.)))
 
-withr::with_dir(
-  new = score_dir,
-  code = tar(
-    tarfile = "../showscores.tar.xz",
-    compression = "xz",
-    compression_level = 9
-  )
-)
+  for (i in seq_along(dat)) {
+    dat[[i]] <- dat[[i]] %>%
+      map(~select(mutate(., game = dat[[i]]$info$game), game, everything()))
+  }
 
-# dir_delete(game_dir)
-# dir_delete(score_dir)
+dat <- dat %>%
+  transpose() %>%
+  map(bind_rows)
 
 # bind and save -----------------------------------------------------------
 
-all_data <- transpose(compact(discard(all_data, ~all(is.na(.)))))
-
-info <- bind_rows(all_data$info)
-usethis::use_data(info,    overwrite = TRUE)
+info <- dat$info %>%
+  filter(year(date) >= 1997) %>%
+  arrange(date)
+usethis::use_data(info, overwrite = TRUE)
 write_csv(info, "data-raw/info.csv")
 
-summary <- bind_rows(all_data$summary)
-usethis::use_data(summary, overwrite = TRUE)
-write_csv(summary, "data-raw/summary.csv")
+# remove dates for others
+dat <- map(dat, ~filter(., game %in% info$game))
 
-players <- bind_rows(all_data$players)
+players <- dat$players
 usethis::use_data(players, overwrite = TRUE)
 write_csv(players, "data-raw/players.csv")
 
-scores <- bind_rows(all_data$scores)
-usethis::use_data(scores,  overwrite = TRUE)
+summary <- dat$summary
+usethis::use_data(summary, overwrite = TRUE)
+write_csv(summary, "data-raw/summary.csv")
+
+scores <- dat$scores
+usethis::use_data(scores, overwrite = TRUE)
 write_csv(scores, "data-raw/scores.csv")
 
-boards <- bind_rows(all_data$board)
-usethis::use_data(boards,  overwrite = TRUE)
+boards <- dat$board %>%
+  mutate_at(vars(-game), ~str_trim(str_squish(.)))
+usethis::use_data(boards, overwrite = TRUE)
 write_csv(boards, "data-raw/boards.csv")
+
+# clean up ----------------------------------------------------------------
+
+dir_delete(game_dir)
+dir_delete(score_dir)
