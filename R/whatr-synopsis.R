@@ -1,7 +1,6 @@
-#' What is the information?
+#' What is a synopsis?
 #'
-#' _These_ must be given by the contestants in the form of a question in
-#' response to the clues asked.
+#' _This_ is an overview of contestants final scores and performance.
 #'
 #' @inheritParams whatr_scores
 #' @return A tidy tibble of clue text.
@@ -14,10 +13,10 @@
 #'   \item{wrong}{Number of incorrect answers.}
 #' }
 #' @examples
-#' whatr_summary(game = 6304)
-#' whatr_html(6304) %>% whatr_summary()
+#' whatr_synopsis(game = 6304)
+#' whatr_html(6304) %>% whatr_synopsis()
 #' @export
-whatr_summary <- function(game) {
+whatr_synopsis <- function(game) {
   game <- whatr_html(game, "showgame")
   coryat_final <- game %>%
     rvest::html_node("#final_jeopardy_round > table:nth-child(8)") %>%
