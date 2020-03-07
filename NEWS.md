@@ -1,3 +1,8 @@
+# whatr 0.4.0
+
+* Rename `whatr_summary()` to `whatr_synopsis()`.
+* Add data from the 35th season of the show.
+
 # whatr 0.3.0
 
 * Use _new_, new `whatr_html()` method as input for all functions.
