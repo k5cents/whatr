@@ -11,7 +11,7 @@ expect_showscores <- function(object) {
 
 # id ----------------------------------------------------------------------
 
-id <- sample(2000:5000, 1)
+id <- sample(whatr::episodes$game, 1)
 test_that("game ID can be converted to showgame HTML", {
   expect_showgame(whatr_html(id, out = "showgame"))
 })
