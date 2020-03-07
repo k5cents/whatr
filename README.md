@@ -70,6 +70,45 @@ whatr_plot(data)
 
 <img src="man/figures/README-usage-1.png" width="100%" />
 
+## Data
+
+Included in this package is data on the 35th season of Jeopardy\!, which
+saw the historic run of James Holzhauer. This data was collected using
+the functions but does not exactly mirror the structure as returned.
+
+``` r
+whatr::episodes
+#> # A tibble: 217 x 3
+#>     game  show date      
+#>    <int> <int> <date>    
+#>  1  6096  7816 2018-09-10
+#>  2  6097  7817 2018-09-11
+#>  3  6098  7818 2018-09-12
+#>  4  6099  7819 2018-09-13
+#>  5  6101  7820 2018-09-14
+#>  6  6102  7821 2018-09-17
+#>  7  6103  7822 2018-09-18
+#>  8  6105  7823 2018-09-19
+#>  9  6106  7824 2018-09-20
+#> 10  6107  7825 2018-09-21
+#> # … with 207 more rows
+whatr::synopses
+#> # A tibble: 651 x 6
+#>     game name    final coryat right wrong
+#>    <int> <chr>   <int>  <int> <int> <int>
+#>  1  6096 Rick    20200  18000    23     2
+#>  2  6096 Isaac    5200   6400    11     4
+#>  3  6096 Caitlin  8800   7800    13     3
+#>  4  6097 Rick    29199  17400    24     2
+#>  5  6097 Lori    34401  14800    20     2
+#>  6  6097 Becky    3200   3200     9     3
+#>  7  6098 Lori    17201  14200    18     0
+#>  8  6098 Kyle    28401  17200    21     3
+#>  9  6098 Monica   8400   6000    14     5
+#> 10  6099 Kyle     9599  16000    20     3
+#> # … with 641 more rows
+```
+
 -----
 
 The ‘whatr’ project is released with a [Contributor Code of
