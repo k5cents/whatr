@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>What is a plot? — whatr_plot • whatr</title>
+<title>What is a synopsis? — whatr_synopsis • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="What is a plot? — whatr_plot" />
-<meta property="og:description" content="This type of graphic presents data in a visual manner." />
+<meta property="og:title" content="What is a synopsis? — whatr_synopsis" />
+<meta property="og:description" content="This is an overview of contestants final scores and performance." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -116,16 +116,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>What is a plot?</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-plot.R'><code>R/whatr-plot.R</code></a></small>
-    <div class="hidden name"><code>whatr_plot.Rd</code></div>
+    <h1>What is a synopsis?</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-synopsis.R'><code>R/whatr-synopsis.R</code></a></small>
+    <div class="hidden name"><code>whatr_synopsis.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This type of graphic presents data in a visual manner.</p>
+    <p><em>This</em> is an overview of contestants final scores and performance.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_plot</span>(<span class='no'>game</span>)</pre>
+    <pre class="usage"><span class='fu'>whatr_synopsis</span>(<span class='no'>game</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,17 +141,38 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A tibble with (usually) 3 row and 5 variables:</p><dl class='dl-horizontal'>
+<dt>name</dt><dd><p>The contestant's given name.</p></dd>
+<dt>coryat</dt><dd><p>Score if all wagering is disregarded.</p></dd>
+<dt>final</dt><dd><p>Final score after Double Jeopardy.</p></dd>
+<dt>right</dt><dd><p>Number of correct answers.</p></dd>
+<dt>wrong</dt><dd><p>Number of incorrect answers.</p></dd>
+
+</dl>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A ggplot object.</p>
+    <p>A tidy tibble of clue text.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>whatr_plot</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='img'><img src='whatr_plot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='whatr_html.html'>whatr_html</a></span>(<span class='st'>"2019-06-04"</span>, <span class='st'>"showscores"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_plot</span>()</div><div class='img'><img src='whatr_plot-2.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>whatr_synopsis</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 5
+#&gt;   name  final coryat right wrong
+#&gt;   &lt;chr&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt; 1 James 24799  23400    25     0
+#&gt; 2 Jay   17000  11000    13     1
+#&gt; 3 Emma  46801  18800    21     0</div><div class='input'><span class='fu'><a href='whatr_html.html'>whatr_html</a></span>(<span class='fl'>6304</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_synopsis</span>()</div><div class='output co'>#&gt; # A tibble: 3 x 5
+#&gt;   name  final coryat right wrong
+#&gt;   &lt;chr&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;
+#&gt; 1 James 24799  23400    25     0
+#&gt; 2 Jay   17000  11000    13     1
+#&gt; 3 Emma  46801  18800    21     0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#format">Format</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

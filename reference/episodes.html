@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>What is a plot? — whatr_plot • whatr</title>
+<title>2019 Jeopardy! episodes — episodes • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="What is a plot? — whatr_plot" />
-<meta property="og:description" content="This type of graphic presents data in a visual manner." />
+<meta property="og:title" content="2019 Jeopardy! episodes — episodes" />
+<meta property="og:description" content="The episodes in the 2019 season of" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -116,44 +116,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>What is a plot?</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-plot.R'><code>R/whatr-plot.R</code></a></small>
-    <div class="hidden name"><code>whatr_plot.Rd</code></div>
+    <h1>2019 Jeopardy! episodes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/data.R'><code>R/data.R</code></a></small>
+    <div class="hidden name"><code>episodes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This type of graphic presents data in a visual manner.</p>
+    <p>The episodes in the 2019 season of</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_plot</span>(<span class='no'>game</span>)</pre>
+    <pre class="usage"><span class='no'>episodes</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>game</th>
-      <td><p>One of four types of input, all passed to <code><a href='whatr_html.html'>whatr_html()</a></code>:</p><ol>
-<li><p>A numeric game ID.</p></li>
-<li><p>Either a 'showgame' or 'showscores' HTML document.</p></li>
-<li><p>A show number character with "#".</p></li>
-<li><p>An air date like "yyyy-mm-dd".</p></li>
-</ol></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A ggplot object.</p>
+    <p>A tibble with 218 rows and 3 variables:</p><dl class='dl-horizontal'>
+<dt>game</dt><dd><p>The non-sequential J! Archive game ID.</p></dd>
+<dt>show</dt><dd><p>The sequential show number of an episode.</p></dd>
+<dt>date</dt><dd><p>The air date of an episode.</p></dd>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>whatr_plot</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='img'><img src='whatr_plot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='whatr_html.html'>whatr_html</a></span>(<span class='st'>"2019-06-04"</span>, <span class='st'>"showscores"</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_plot</span>()</div><div class='img'><img src='whatr_plot-2.png' alt='' width='700' height='433' /></div></pre>
+</dl>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='http://www.j-archive.com/'>http://www.j-archive.com/</a></p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#format">Format</a></li>
+      <li><a href="#source">Source</a></li>
     </ul>
 
   </div>
