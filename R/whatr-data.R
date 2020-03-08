@@ -16,7 +16,7 @@ whatr_data <- function(game) {
   showscores <-  whatr_html(game, out = "showscores")
   data <- list(
     info = whatr_info(showgame),
-    summary = whatr_summary(showgame),
+    summary = whatr_synopsis(showgame),
     players = whatr_players(showgame),
     scores = whatr_scores(showscores),
     board = whatr_board(showgame)

@@ -1,7 +1,7 @@
 library(testthat)
 library(whatr)
 
-id <- sample(2000:5000, 1)
+id <- sample(whatr::episodes$game, 1)
 test_that("info returns from HTML", {
   i <- whatr_html(id) %>% whatr_info()
   expect_s3_class(i, "tbl")

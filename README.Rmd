@@ -1,5 +1,7 @@
 ---
 output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -52,6 +54,16 @@ whatr_board(data)[, 5:7]
 whatr_scores(data)
 whatr_plot(data)
 ```
+
+## Data
+
+Included in this package is data on the 217 episodes of the show's 35th season.
+
+```{r data}
+whatr::episodes
+whatr::synopses
+```
+
 
 *****
 
