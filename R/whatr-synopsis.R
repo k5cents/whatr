@@ -1,6 +1,6 @@
-#' What is a synopsis?
+#' What a synopsis?
 #'
-#' _This_ is an overview of contestants final scores and performance.
+#' _This_ is an overview containing various summary statistics of a game.
 #'
 #' @inheritParams whatr_scores
 #' @return A tidy tibble of clue text.

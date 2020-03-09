@@ -2,7 +2,7 @@
 % Please edit documentation in R/whatr-synopsis.R
 \name{whatr_synopsis}
 \alias{whatr_synopsis}
-\title{What is a synopsis?}
+\title{What a synopsis?}
 \format{A tibble with (usually) 3 row and 5 variables:
 \describe{
 \item{name}{The contestant's given name.}
@@ -27,7 +27,7 @@ whatr_synopsis(game)
 A tidy tibble of clue text.
 }
 \description{
-\emph{This} is an overview of contestants final scores and performance.
+\emph{This} is an overview containing various summary statistics of a game.
 }
 \examples{
 whatr_synopsis(game = 6304)
