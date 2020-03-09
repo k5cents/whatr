@@ -19,6 +19,6 @@
 synopses
 }
 \description{
-2019 Jeopardy! game synopses
+Synopses of the games in the 2019 season of Jeopardy.
 }
 \keyword{datasets}

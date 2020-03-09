@@ -19,6 +19,6 @@
 scores
 }
 \description{
-2019 Jeopardy! game scores
+The score history of the games in the 2019 season of Jeopardy.
 }
 \keyword{datasets}

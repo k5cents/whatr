@@ -17,6 +17,6 @@
 players
 }
 \description{
-2019 Jeopardy! contestants
+The contestants in the 2019 season of Jeopardy.
 }
 \keyword{datasets}

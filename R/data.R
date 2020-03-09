@@ -1,6 +1,6 @@
 #' 2019 Jeopardy! episodes
 #'
-#' The episodes in the 2019 season of
+#' The episodes in the 2019 season of Jeopardy.
 #'
 #' @format A tibble with 218 rows and 3 variables:
 #' \describe{
@@ -13,6 +13,8 @@
 
 #' 2019 Jeopardy! contestants
 #'
+#' The contestants in the 2019 season of Jeopardy.
+#'
 #' @format A tibble with 672 rows and 6 variables:
 #' \describe{
 #'   \item{game}{The J! Archive game ID.}
@@ -23,6 +25,8 @@
 "players"
 
 #' 2019 Jeopardy! game synopses
+#'
+#' Synopses of the games in the 2019 season of Jeopardy.
 #'
 #' @format A tibble with 654 rows and 6 variables:
 #' \describe{
@@ -37,6 +41,8 @@
 
 #' 2019 Jeopardy! game scores
 #'
+#' The score history of the games in the 2019 season of Jeopardy.
+#'
 #' @format A tibble with 13,261 rows and 6 variables:
 #' \describe{
 #'   \item{round}{The round a clue is chosen.}
@@ -49,6 +55,8 @@
 "scores"
 
 #' 2019 Jeopardy! game boards
+#'
+#' The categories, clues, and answers in the 2019 season of Jeopardy.
 #'
 #' @format A tibble with 13,261 rows and 8 variables:
 #' \describe{

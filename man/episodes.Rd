@@ -17,6 +17,6 @@
 episodes
 }
 \description{
-The episodes in the 2019 season of
+The episodes in the 2019 season of Jeopardy.
 }
 \keyword{datasets}

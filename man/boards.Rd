@@ -22,6 +22,6 @@
 boards
 }
 \description{
-2019 Jeopardy! game boards
+The categories, clues, and answers in the 2019 season of Jeopardy.
 }
 \keyword{datasets}
