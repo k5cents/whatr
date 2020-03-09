@@ -24,8 +24,7 @@ whatr_categories <- function(game) {
   cats <- game %>%
     rvest::html_nodes("table td.category_name") %>%
     rvest::html_text(trim = TRUE) %>%
-    stringr::str_to_title() %>%
-    stringr::str_replace_all("\"", "'") %>%
+    entity_clean() %>%
     tibble::enframe(name = NULL, value = "category") %>%
     dplyr::mutate(
       round = c(rep(1L, 6), rep(2L, 6), 3L),

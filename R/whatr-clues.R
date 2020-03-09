@@ -25,8 +25,7 @@ whatr_clues <- function(game) {
   clues <- game %>%
     rvest::html_nodes("table td.clue_text") %>%
     rvest::html_text() %>%
-    stringr::str_to_title() %>%
-    stringr::str_replace_all("\"", "\'") %>%
+    entity_clean() %>%
     tibble::enframe(name = NULL, value = "clue") %>%
     dplyr::bind_cols(whatr_order(game = game)) %>%
     dplyr::select(.data$round, .data$col, .data$row, .data$n, .data$clue)
