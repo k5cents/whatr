@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -135,7 +135,7 @@
       <td><p>One of four types of input, all passed to <code><a href='whatr_html.html'>whatr_html()</a></code>:</p><ol>
 <li><p>A numeric game ID.</p></li>
 <li><p>Either a 'showgame' or 'showscores' HTML document.</p></li>
-<li><p>A show number character with "#".</p></li>
+<li><p>A show number character starting with "#".</p></li>
 <li><p>An air date like "yyyy-mm-dd".</p></li>
 </ol></td>
     </tr>
@@ -159,7 +159,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>whatr_board</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 61 x 7
-#&gt;    round   col   row     n category    clue                        answer       
+#&gt;    round   col   row     i category    clue                        answer       
 #&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                       &lt;chr&gt;        
 #&gt;  1     1     1     1    25 Picture Th… For An Optimistic View Of … Rose-Colored…
 #&gt;  2     1     1     2    24 Picture Th… If You Have These, It Mean… Your Ducks I…

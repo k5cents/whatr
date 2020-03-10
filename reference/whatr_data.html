@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>What are the clues? — whatr_data • whatr</title>
+<title>What is the board? — whatr_data • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="What are the clues? — whatr_data" />
-<meta property="og:description" content="Return" />
+<meta property="og:title" content="What is the board? — whatr_data" />
+<meta property="og:description" content="This is the name for game mechanic displaying all categories and clues." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -116,13 +116,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>What are the clues?</h1>
+    <h1>What is the board?</h1>
     <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-data.R'><code>R/whatr-data.R</code></a></small>
     <div class="hidden name"><code>whatr_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Return</p>
+    <p><em>This</em> is the name for game mechanic displaying all categories and clues.</p>
     </div>
 
     <pre class="usage"><span class='fu'>whatr_data</span>(<span class='no'>game</span>)</pre>
@@ -135,7 +135,7 @@
       <td><p>One of four types of input, all passed to <code><a href='whatr_html.html'>whatr_html()</a></code>:</p><ol>
 <li><p>A numeric game ID.</p></li>
 <li><p>Either a 'showgame' or 'showscores' HTML document.</p></li>
-<li><p>A show number character with "#".</p></li>
+<li><p>A show number character starting with "#".</p></li>
 <li><p>An air date like "yyyy-mm-dd".</p></li>
 </ol></td>
     </tr>
@@ -161,16 +161,16 @@
 #&gt; 3 Emma  46801  18800    21     0
 #&gt; 
 #&gt; $players
-#&gt; # A tibble: 3 x 5
-#&gt;   first last      occupation                  city      state   
-#&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;                       &lt;chr&gt;     &lt;chr&gt;   
-#&gt; 1 Emma  Boettcher User Experience Librarian   Chicago   Illinois
-#&gt; 2 Jay   Sexton    Senior Research Engineer    Atlanta   Georgia 
-#&gt; 3 James Holzhauer Professional Sports Gambler Las Vegas Nevada  
+#&gt; # A tibble: 3 x 4
+#&gt;   first last      occupation                  from             
+#&gt;   &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;                       &lt;chr&gt;            
+#&gt; 1 Emma  Boettcher user experience librarian   Chicago, Illinois
+#&gt; 2 Jay   Sexton    senior research engineer    Atlanta, Georgia 
+#&gt; 3 James Holzhauer professional sports gambler Las Vegas, Nevada
 #&gt; 
 #&gt; $scores
 #&gt; # A tibble: 63 x 5
-#&gt;    round     n name  score double
+#&gt;    round     i name  score double
 #&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt; 
 #&gt;  1     1     1 James  1000 TRUE  
 #&gt;  2     1     2 Emma   1000 FALSE 
@@ -186,7 +186,7 @@
 #&gt; 
 #&gt; $board
 #&gt; # A tibble: 61 x 7
-#&gt;    round   col   row     n category    clue                        answer       
+#&gt;    round   col   row     i category    clue                        answer       
 #&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;       &lt;chr&gt;                       &lt;chr&gt;        
 #&gt;  1     1     1     1    25 Picture Th… For An Optimistic View Of … Rose-Colored…
 #&gt;  2     1     1     2    24 Picture Th… If You Have These, It Mean… Your Ducks I…

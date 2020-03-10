@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -135,7 +135,7 @@
       <td><p>One of four types of input, all passed to <code><a href='whatr_html.html'>whatr_html()</a></code>:</p><ol>
 <li><p>A numeric game ID.</p></li>
 <li><p>Either a 'showgame' or 'showscores' HTML document.</p></li>
-<li><p>A show number character with "#".</p></li>
+<li><p>A show number character starting with "#".</p></li>
 <li><p>An air date like "yyyy-mm-dd".</p></li>
 </ol></td>
     </tr>
@@ -157,11 +157,6 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>whatr_synopsis</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 5
-#&gt;   name  final coryat right wrong
-#&gt;   &lt;chr&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;
-#&gt; 1 James 24799  23400    25     0
-#&gt; 2 Jay   17000  11000    13     1
-#&gt; 3 Emma  46801  18800    21     0</div><div class='input'><span class='fu'><a href='whatr_html.html'>whatr_html</a></span>(<span class='fl'>6304</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_synopsis</span>()</div><div class='output co'>#&gt; # A tibble: 3 x 5
 #&gt;   name  final coryat right wrong
 #&gt;   &lt;chr&gt; &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;int&gt;
 #&gt; 1 James 24799  23400    25     0

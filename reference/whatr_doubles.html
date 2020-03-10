@@ -79,7 +79,7 @@ in the second round, there are two." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">whatr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -139,7 +139,7 @@ in the second round, there are two.</p>
       <td><p>One of four types of input, all passed to <code><a href='whatr_html.html'>whatr_html()</a></code>:</p><ol>
 <li><p>A numeric game ID.</p></li>
 <li><p>Either a 'showgame' or 'showscores' HTML document.</p></li>
-<li><p>A show number character with "#".</p></li>
+<li><p>A show number character starting with "#".</p></li>
 <li><p>An air date like "yyyy-mm-dd".</p></li>
 </ol></td>
     </tr>
@@ -151,7 +151,7 @@ in the second round, there are two.</p>
 <dt>round</dt><dd><p>The round a clue is chosen.</p></dd>
 <dt>col</dt><dd><p>The column position left-to-right.</p></dd>
 <dt>row</dt><dd><p>The row position top-to-bottom.</p></dd>
-<dt>n</dt><dd><p>The order of clue chosen.</p></dd>
+<dt>i</dt><dd><p>The order of clue chosen.</p></dd>
 <dt>clue</dt><dd><p>The clue read to the contestants.</p></dd>
 <dt>score</dt><dd><p>The amount won or lost on the wager.</p></dd>
 
@@ -163,12 +163,7 @@ in the first and second rounds</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>whatr_doubles</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 6
-#&gt;   round   col   row     n name  score
-#&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt;
-#&gt; 1     1     2     5     1 James  1000
-#&gt; 2     2     1     2    34 Emma   7600
-#&gt; 3     2     3     5    44 Emma   3000</div><div class='input'><span class='fu'><a href='whatr_html.html'>whatr_html</a></span>(<span class='fl'>6304</span>) <span class='kw'>%&gt;%</span> <span class='fu'>whatr_doubles</span>()</div><div class='output co'>#&gt; # A tibble: 3 x 6
-#&gt;   round   col   row     n name  score
+#&gt;   round   col   row     i name  score
 #&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt;
 #&gt; 1     1     2     5     1 James  1000
 #&gt; 2     2     1     2    34 Emma   7600

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>What are player scores? — whatr_scores • whatr</title>
+<title>What is the air date? — whatr_airdate • whatr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="What are player scores? — whatr_scores" />
-<meta property="og:description" content="This data describes how players performed over the course of a game." />
+<meta property="og:title" content="What is the air date? — whatr_airdate" />
+<meta property="og:description" content="This date identifies when an episode was first viewed on television." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -116,16 +116,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>What are player scores?</h1>
-    <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-scores.R'><code>R/whatr-scores.R</code></a></small>
-    <div class="hidden name"><code>whatr_scores.Rd</code></div>
+    <h1>What is the air date?</h1>
+    <small class="dont-index">Source: <a href='https://github.com/kiernann/whatr/blob/master/R/whatr-airdate.R'><code>R/whatr-airdate.R</code></a></small>
+    <div class="hidden name"><code>whatr_airdate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><em>This</em> data describes how players performed over the course of a game.</p>
+    <p><em>This</em> date identifies when an episode was first viewed on television.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_scores</span>(<span class='no'>game</span>)</pre>
+    <pre class="usage"><span class='fu'>whatr_airdate</span>(<span class='no'>game</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,33 +143,21 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble with (up to) 61 rows and 5 variables:</p><dl class='dl-horizontal'>
-<dt>round</dt><dd><p>The round a clue is chosen.</p></dd>
-<dt>i</dt><dd><p>The order of clue chosen.</p></dd>
-<dt>name</dt><dd><p>First name of player responding.</p></dd>
-<dt>score</dt><dd><p>Change in score from this clue.</p></dd>
-<dt>double</dt><dd><p>Is the clue a daily double.</p></dd>
+    <p>A tibble with 1 row and 3 variables:</p><dl class='dl-horizontal'>
+<dt>game</dt><dd><p>The non-sequential J! Archive game ID.</p></dd>
+<dt>show</dt><dd><p>The sequential show number of an episode.</p></dd>
+<dt>date</dt><dd><p>The air date of an episode.</p></dd>
 
 </dl>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Tidy tibble of clue scores.</p>
+    <p>A tidy tibble of clue text.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>whatr_scores</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 63 x 5
-#&gt;    round     i name  score double
-#&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;lgl&gt; 
-#&gt;  1     1     1 James  1000 TRUE  
-#&gt;  2     1     2 Emma   1000 FALSE 
-#&gt;  3     1     3 James   800 FALSE 
-#&gt;  4     1     4 James  1000 FALSE 
-#&gt;  5     1     5 Emma   1000 FALSE 
-#&gt;  6     1     6 Jay     800 FALSE 
-#&gt;  7     1     7 James   600 FALSE 
-#&gt;  8     1     8 James  1000 FALSE 
-#&gt;  9     1     9 James  1000 FALSE 
-#&gt; 10     1    10 Emma    800 FALSE 
-#&gt; # … with 53 more rows</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>whatr_airdate</span>(<span class='kw'>game</span> <span class='kw'>=</span> <span class='fl'>6304</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt;    game  show date      
+#&gt;   &lt;int&gt; &lt;int&gt; &lt;date&gt;    
+#&gt; 1  6304  8006 2019-06-03</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
