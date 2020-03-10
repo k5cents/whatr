@@ -3,13 +3,12 @@
 \name{whatr_players}
 \alias{whatr_players}
 \title{Who are the players?}
-\format{A tibble with 52 rows and 8 variables:
+\format{A tibble with (usually) 3 rows and 4 variables:
 \describe{
 \item{first}{The contestant's given name.}
 \item{last}{The contestant's surname name.}
 \item{occupation}{A short description of what the contestant does.}
-\item{city}{The first part of the contestants home, usually a city.}
-\item{state}{The second part of the contestants home, usually a state.}
+\item{from}{The city or institution from where the contestant comes.}
 }}
 \usage{
 whatr_players(game)
@@ -19,7 +18,7 @@ whatr_players(game)
 \enumerate{
 \item A numeric game ID.
 \item Either a 'showgame' or 'showscores' HTML document.
-\item A show number character with "#".
+\item A show number character starting with "#".
 \item An air date like "yyyy-mm-dd".
 }}
 }
@@ -27,9 +26,8 @@ whatr_players(game)
 A tidy tibble of player info.
 }
 \description{
-These individuals compete to score the most points and win the game.
+\emph{These} individuals compete to score the most points and win the game.
 }
 \examples{
 whatr_players(game = 6304)
-whatr_html(6304) \%>\% whatr_players()
 }

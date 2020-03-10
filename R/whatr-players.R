@@ -1,20 +1,18 @@
 #' Who are the players?
 #'
-#' These individuals compete to score the most points and win the game.
+#' _These_ individuals compete to score the most points and win the game.
 #'
 #' @inheritParams whatr_scores
 #' @return A tidy tibble of player info.
-#' @format A tibble with 52 rows and 8 variables:
+#' @format A tibble with (usually) 3 rows and 4 variables:
 #' \describe{
 #'   \item{first}{The contestant's given name.}
 #'   \item{last}{The contestant's surname name.}
 #'   \item{occupation}{A short description of what the contestant does.}
-#'   \item{city}{The first part of the contestants home, usually a city.}
-#'   \item{state}{The second part of the contestants home, usually a state.}
+#'   \item{from}{The city or institution from where the contestant comes.}
 #' }
 #' @examples
 #' whatr_players(game = 6304)
-#' whatr_html(6304) %>% whatr_players()
 #' @importFrom dplyr mutate pull
 #' @importFrom rlang .data
 #' @importFrom rvest html_node html_table
@@ -25,7 +23,6 @@
 #' @export
 whatr_players <- function(game) {
   game <- whatr_html(game, "showgame")
-  # enframe and split cols
   players <- game %>%
     rvest::html_node("#contestants_table") %>%
     rvest::html_table(fill = TRUE) %>%
@@ -46,21 +43,16 @@ whatr_players <- function(game) {
       into = c("first", "last"),
       sep = "\\s"
     ) %>%
-    dplyr::mutate(bio = stringr::str_remove(.data$bio, "\\s\\(.*")) %>%
+    dplyr::mutate(
+      bio = .data$bio %>%
+        stringr::str_remove("\\s\\(.*") %>%
+        stringr::str_remove("^a\\s")
+    ) %>%
     tidyr::separate(
       col = .data$bio,
       sep = "\\s(from)\\s",
-      into = c("occupation", "from")
-    ) %>%
-    dplyr::mutate(
-      occupation = .data$occupation %>%
-        stringr::word(2, -1) %>%
-        stringr::str_to_title()
-    ) %>%
-    tidyr::separate(
-      col = "from",
-      sep = ",\\s",
-      into = c("city", "state")
+      into = c("occupation", "from"),
+      extra = "merge"
     )
   return(players)
 }
