@@ -65,9 +65,10 @@ dat <- game_info$path %>%
   compact() %>%
   discard(~all(is.na(.)))
 
-for (i in seq_along(dat)) {
-  dat[[i]] <- dat[[i]] %>%
-    map(~select(mutate(., game = dat[[i]]$info$game), game, everything()))
+for (x in seq_along(dat)) {
+  id <- dat[[x]]$info$game
+  dat[[x]] <- dat[[x]] %>%
+    map(~select(mutate(., game = id), game, everything()))
 }
 
 dat <- dat %>%

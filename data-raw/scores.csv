@@ -1,4 +1,4 @@
-game,round,n,name,score,double
+game,round,i,name,score,double
 6096,1,1,Rick,200,FALSE
 6096,1,2,Caitlin,400,FALSE
 6096,1,3,Rick,600,FALSE
