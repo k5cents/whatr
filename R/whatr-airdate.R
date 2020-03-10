@@ -1,7 +1,6 @@
-#' What is the information?
+#' What is the air date?
 #'
-#' _These_ must be given by the contestants in the form of a question in
-#' response to the clues asked.
+#' _This_ date identifies when an episode was first viewed on television.
 #'
 #' @inheritParams whatr_scores
 #' @return A tidy tibble of clue text.
@@ -12,13 +11,12 @@
 #'   \item{date}{The air date of an episode.}
 #' }
 #' @examples
-#' whatr_info(game = 6304)
-#' whatr_html(6304) %>% whatr_info()
+#' whatr_airdate(game = 6304)
 #' @importFrom rvest html_node html_text
 #' @importFrom stringr str_extract
 #' @importFrom tibble tibble
 #' @export
-whatr_info <- function(game) {
+whatr_airdate <- function(game) {
   game <- whatr_html(game, "showgame")
   c <- as.character(game)
   id <- stringr::str_extract(c, "(?<=chartgame.php\\?game_id\\=)\\d+")
