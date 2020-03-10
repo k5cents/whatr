@@ -1,3 +1,8 @@
+# whatr 0.4.1
+
+* Use new `entity_clean()` for all `html_text()`.
+* Use `html_attr()` for final answer too.
+
 # whatr 0.4.0
 
 * Rename `whatr_summary()` to `whatr_synopsis()`.
