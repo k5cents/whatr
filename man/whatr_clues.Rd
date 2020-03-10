@@ -8,7 +8,7 @@
 \item{round}{The round a clue is chosen.}
 \item{col}{The column position left-to-right.}
 \item{row}{The row position top-to-bottom.}
-\item{n}{The order of clue chosen.}
+\item{i}{The order of clue chosen.}
 \item{clue}{The clue read to the contestants.}
 }}
 \usage{
@@ -19,7 +19,7 @@ whatr_clues(game)
 \enumerate{
 \item A numeric game ID.
 \item Either a 'showgame' or 'showscores' HTML document.
-\item A show number character with "#".
+\item A show number character starting with "#".
 \item An air date like "yyyy-mm-dd".
 }}
 }
@@ -31,5 +31,4 @@ Confusingly, \emph{these} are posed to contestants in the form of an answer.
 }
 \examples{
 whatr_clues(game = 6304)
-whatr_html(6304) \%>\% whatr_clues()
 }

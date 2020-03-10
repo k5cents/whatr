@@ -14,7 +14,6 @@
 #' }
 #' @examples
 #' whatr_synopsis(game = 6304)
-#' whatr_html(6304) %>% whatr_synopsis()
 #' @export
 whatr_synopsis <- function(game) {
   game <- whatr_html(game, "showgame")

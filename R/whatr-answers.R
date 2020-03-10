@@ -1,21 +1,20 @@
 #' What are the answers?
 #'
-#' _These_ must be given by the contestants in the form of a question in
-#' response to the clues asked.
+#' _These_ must be given by the contestants in the form of a question as a
+#' response to the clues given.
 #'
 #' @inheritParams whatr_scores
-#' @return A tidy tibble of clue text.
-#' @format A tibble with (usually) 61 rows and 5 variables:
+#' @return A tidy tibble of answer text.
+#' @format A tibble with (up to) 61 rows and 5 variables:
 #' \describe{
 #'   \item{round}{The round a clue is chosen.}
 #'   \item{col}{The column position left-to-right.}
 #'   \item{row}{The row position top-to-bottom.}
-#'   \item{n}{The order of clue chosen.}
+#'   \item{i}{The order of clue chosen.}
 #'   \item{answer}{The _correct_ answer to a clue.}
 #' }
 #' @examples
 #' whatr_answers(game = 6304)
-#' whatr_html(6304) %>% whatr_answers()
 #' @importFrom xml2 read_html
 #' @importFrom rvest html_attr html_nodes html_text
 #' @importFrom stringr str_split str_extract str_to_title

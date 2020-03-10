@@ -2,7 +2,7 @@
 % Please edit documentation in R/whatr-data.R
 \name{whatr_data}
 \alias{whatr_data}
-\title{What are the clues?}
+\title{What is the board?}
 \usage{
 whatr_data(game)
 }
@@ -11,7 +11,7 @@ whatr_data(game)
 \enumerate{
 \item A numeric game ID.
 \item Either a 'showgame' or 'showscores' HTML document.
-\item A show number character with "#".
+\item A show number character starting with "#".
 \item An air date like "yyyy-mm-dd".
 }}
 }
@@ -19,7 +19,7 @@ whatr_data(game)
 A list of tibbles.
 }
 \description{
-Return
+\emph{This} is the name for game mechanic displaying all categories and clues.
 }
 \examples{
 whatr_data(game = 6304)

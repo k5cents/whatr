@@ -4,7 +4,7 @@
 #'
 #' @inheritParams whatr_scores
 #' @return Tidy tibble of category titles.
-#' @format A tibble with (usually 13) rows and 3 variables:
+#' @format A tibble with (up to) 13 rows and 3 variables:
 #' \describe{
 #'   \item{round}{The round a clue is chosen.}
 #'   \item{col}{The column position left-to-right.}
@@ -12,7 +12,6 @@
 #' }
 #' @examples
 #' whatr_categories(game = 6304)
-#' whatr_html(6304) %>% whatr_categories()
 #' @importFrom rlang .data
 #' @importFrom rvest html_nodes html_text
 #' @importFrom stringr str_to_title str_replace_all

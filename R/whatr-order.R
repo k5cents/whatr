@@ -25,7 +25,8 @@ whatr_order <- function(game) {
   double_order <- game %>%
     rvest::html_nodes("#double_jeopardy_round > table td.clue_order_number") %>%
     rvest::html_text() %>%
-    base::as.integer()
+    base::as.integer() %>%
+    `+`(max(single_order))
   order <- game %>%
     rvest::html_nodes("table tr td div") %>%
     rvest::html_attr("onmouseover") %>%
@@ -53,10 +54,10 @@ whatr_order <- function(game) {
             "FJ" = "3"
           )
       ),
-      n = c(
+      i = c(
         single_order,
-        double_order + max(single_order),
-        max(single_order) + max(double_order) + 1L
+        double_order,
+        max(double_order) + 1L
       )
     )
   order$row[length(order$row)] <- 1L

@@ -11,7 +11,7 @@ whatr_plot(game)
 \enumerate{
 \item A numeric game ID.
 \item Either a 'showgame' or 'showscores' HTML document.
-\item A show number character with "#".
+\item A show number character starting with "#".
 \item An air date like "yyyy-mm-dd".
 }}
 }
@@ -19,9 +19,8 @@ whatr_plot(game)
 A ggplot object.
 }
 \description{
-This type of graphic presents data in a visual manner.
+\emph{This} type of graphic presents data in a visual manner.
 }
 \examples{
 whatr_plot(game = 6304)
-whatr_html("2019-06-04", "showscores") \%>\% whatr_plot()
 }

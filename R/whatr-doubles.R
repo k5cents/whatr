@@ -12,13 +12,12 @@
 #'   \item{round}{The round a clue is chosen.}
 #'   \item{col}{The column position left-to-right.}
 #'   \item{row}{The row position top-to-bottom.}
-#'   \item{n}{The order of clue chosen.}
+#'   \item{i}{The order of clue chosen.}
 #'   \item{clue}{The clue read to the contestants.}
 #'   \item{score}{The amount won or lost on the wager.}
 #' }
 #' @examples
 #' whatr_doubles(game = 6304)
-#' whatr_html(6304) %>% whatr_doubles()
 #' @export
 whatr_doubles <- function(game) {
   showgame <- whatr_html(game, out = "showgame")
@@ -27,6 +26,6 @@ whatr_doubles <- function(game) {
   doubles <- whatr_scores(showscores) %>%
     dplyr::filter(double) %>%
     dplyr::select(-5)
-  doubles <- dplyr::inner_join(order, doubles, by = c("round", "n"))
+  doubles <- dplyr::inner_join(order, doubles, by = c("round", "i"))
   return(doubles)
 }

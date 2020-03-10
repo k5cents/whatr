@@ -1,12 +1,11 @@
 #' What is a plot?
 #'
-#' This type of graphic presents data in a visual manner.
+#' _This_ type of graphic presents data in a visual manner.
 #'
 #' @inheritParams whatr_scores
 #' @return A ggplot object.
 #' @examples
 #' whatr_plot(game = 6304)
-#' whatr_html("2019-06-04", "showscores") %>% whatr_plot()
 #' @importFrom xml2 read_html
 #' @importFrom rvest html_node html_text
 #' @importFrom stringr str_extract str_remove
@@ -29,13 +28,13 @@ whatr_plot <- function(game) {
     stringr::str_remove(".*-\\s")
   finals <- dplyr::filter(scores, .data$round == 3)
   doubles <- dplyr::filter(scores, .data$double)
-  finals$n <- finals$n + 2
+  finals$i <- finals$i + 2
   plot <- scores %>%
     dplyr::filter(.data$round != 3) %>%
-    ggplot2::ggplot(mapping = ggplot2::aes_string(x = "n", y = "run")) +
-    ggplot2::geom_vline(xintercept = max(scores$n[scores$round == 1]),
+    ggplot2::ggplot(mapping = ggplot2::aes_string(x = "i", y = "run")) +
+    ggplot2::geom_vline(xintercept = max(scores$i[scores$round == 1]),
                         linetype = 2) +
-    ggplot2::geom_vline(xintercept = max(scores$n[scores$round == 2]),
+    ggplot2::geom_vline(xintercept = max(scores$i[scores$round == 2]),
                         linetype = 2) +
     ggplot2::geom_line(mapping = ggplot2::aes_string(color = "name"),
                        size = 2) +

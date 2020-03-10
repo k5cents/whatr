@@ -3,10 +3,10 @@
 \name{whatr_scores}
 \alias{whatr_scores}
 \title{What are player scores?}
-\format{A tibble with ~61 rows and 5 variables:
+\format{A tibble with (up to) 61 rows and 5 variables:
 \describe{
 \item{round}{The round a clue is chosen.}
-\item{n}{The order of clue chosen.}
+\item{i}{The order of clue chosen.}
 \item{name}{First name of player responding.}
 \item{score}{Change in score from this clue.}
 \item{double}{Is the clue a daily double.}
@@ -19,7 +19,7 @@ whatr_scores(game)
 \enumerate{
 \item A numeric game ID.
 \item Either a 'showgame' or 'showscores' HTML document.
-\item A show number character with "#".
+\item A show number character starting with "#".
 \item An air date like "yyyy-mm-dd".
 }}
 }
@@ -27,9 +27,8 @@ whatr_scores(game)
 Tidy tibble of clue scores.
 }
 \description{
-This data frame has data on the performance of each contestant.
+\emph{This} data describes how players performed over the course of a game.
 }
 \examples{
 whatr_scores(game = 6304)
-whatr_html(6304, "showscores") \%>\% whatr_scores()
 }

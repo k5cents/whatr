@@ -19,7 +19,7 @@ whatr_synopsis(game)
 \enumerate{
 \item A numeric game ID.
 \item Either a 'showgame' or 'showscores' HTML document.
-\item A show number character with "#".
+\item A show number character starting with "#".
 \item An air date like "yyyy-mm-dd".
 }}
 }
@@ -31,5 +31,4 @@ A tidy tibble of clue text.
 }
 \examples{
 whatr_synopsis(game = 6304)
-whatr_html(6304) \%>\% whatr_synopsis()
 }

@@ -1,6 +1,6 @@
-#' What are the clues?
+#' What is the board?
 #'
-#' Return
+#' _This_ is the name for game mechanic displaying all categories and clues.
 #'
 #' @inheritParams whatr_scores
 #' @return A list of tibbles.
@@ -15,7 +15,7 @@ whatr_data <- function(game) {
   showgame <- whatr_html(game, out = "showgame")
   showscores <-  whatr_html(game, out = "showscores")
   data <- list(
-    info = whatr_info(showgame),
+    info = whatr_airdate(showgame),
     summary = whatr_synopsis(showgame),
     players = whatr_players(showgame),
     scores = whatr_scores(showscores),
@@ -51,7 +51,7 @@ whatr_board <- function(game) {
   answers <- whatr_answers(game)
   board <- cats %>%
     dplyr::left_join(clues, by = c("round", "col")) %>%
-    dplyr::left_join(answers, by = c("round", "col", "row", "n")) %>%
+    dplyr::left_join(answers, by = c("round", "col", "row", "i")) %>%
     dplyr::select(1, 2, 4, 5, 3, 6, 7)
   return(board)
 }

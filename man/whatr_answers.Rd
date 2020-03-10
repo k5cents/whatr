@@ -3,12 +3,12 @@
 \name{whatr_answers}
 \alias{whatr_answers}
 \title{What are the answers?}
-\format{A tibble with (usually) 61 rows and 5 variables:
+\format{A tibble with (up to) 61 rows and 5 variables:
 \describe{
 \item{round}{The round a clue is chosen.}
 \item{col}{The column position left-to-right.}
 \item{row}{The row position top-to-bottom.}
-\item{n}{The order of clue chosen.}
+\item{i}{The order of clue chosen.}
 \item{answer}{The \emph{correct} answer to a clue.}
 }}
 \usage{
@@ -19,18 +19,17 @@ whatr_answers(game)
 \enumerate{
 \item A numeric game ID.
 \item Either a 'showgame' or 'showscores' HTML document.
-\item A show number character with "#".
+\item A show number character starting with "#".
 \item An air date like "yyyy-mm-dd".
 }}
 }
 \value{
-A tidy tibble of clue text.
+A tidy tibble of answer text.
 }
 \description{
-\emph{These} must be given by the contestants in the form of a question in
-response to the clues asked.
+\emph{These} must be given by the contestants in the form of a question as a
+response to the clues given.
 }
 \examples{
 whatr_answers(game = 6304)
-whatr_html(6304) \%>\% whatr_answers()
 }
