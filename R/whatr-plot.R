@@ -49,7 +49,7 @@ whatr_plot <- function(game) {
     ggplot2::labs(
       title = "Jeopardy! Game Score History",
       subtitle = subtitle,
-      caption = paste("Souce: J! Archive:", id),
+      caption = paste0("Souce: J! Archive/", id),
       color = "Contestant",
       y = "Score",
       x = "Clue"
