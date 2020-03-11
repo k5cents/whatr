@@ -38,7 +38,7 @@ appropriate game on the J\! Archive:
 1.  An HTML document object from `whatr_html()` or similar.
 2.  The numeric, non-sequential game ID.
 3.  The sequential show number, as character starting with `#`.
-4.  The date an episode originall aired, as `yyyy-mm-dd`.
+4.  The date an episode originally aired, as `yyyy-mm-dd`.
 
 <!-- end list -->
 

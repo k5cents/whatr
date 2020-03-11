@@ -6,6 +6,7 @@
 * Rename the `n` column to `i` to avoid confusion with `count()`, etc.
 * Stop splitting the player `from` column into `city` and `state`.
 * Finish documentaing all the functions.
+* Use spelling.
 
 # whatr 0.5.0
 
@@ -13,7 +14,7 @@
 * Remove `whatr_id()` in favor of `whatr_html()`.
 * Rename the `n` column to `i` to avoid confusion with `count()`, etc.
 * Stop splitting the player `from` column into `city` and `state`.
-* Finish documentaing all the functions.
+* Finish documenting all the functions.
 
 # whatr 0.4.1
 

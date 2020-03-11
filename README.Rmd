@@ -53,7 +53,7 @@ game on the J! Archive:
 1. An HTML document object from `whatr_html()` or similar.
 2. The numeric, non-sequential game ID.
 3. The sequential show number, as character starting with `#`.
-4. The date an episode originall aired, as `yyyy-mm-dd`.
+4. The date an episode originally aired, as `yyyy-mm-dd`.
 
 ```{r usage}
 library(whatr)
@@ -92,7 +92,7 @@ Productions, Inc or the J! Archive itself.
 [trav_link]: https://travis-ci.org/kiernann/whatr
 [cov_badge]: https://img.shields.io/codecov/c/github/kiernann/whatr/master.svg
 [cov_link]: https://codecov.io/gh/kiernann/whatr?branch=master'
-[ja]: http://j-archive.com/
+[ja]: https://j-archive.com/
 [gh]: https://github.com/kiernann/whatr
 [coc]: https://kiernann.com/whatr/CODE_OF_CONDUCT.html
 <!-- refs: end -->
