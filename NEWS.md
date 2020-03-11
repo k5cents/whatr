@@ -1,3 +1,7 @@
+# whatr 0.5.1
+
+* Fix player scraping for season 35 multi-team episodes (#7).
+
 # whatr 0.5.0
 
 * Rename `whatr_info()` to `whatr_airdate()`.
