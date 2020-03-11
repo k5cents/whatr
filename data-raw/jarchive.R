@@ -13,13 +13,13 @@ pb <- txtProgressBar(7816, 8045, style = 3)
 for (i in 7816:8045) {
   r <- GET(
     # download showgame from search
-    url = "http://www.j-archive.com/search.php",
+    url = "https://www.j-archive.com/search.php",
     query = list(search = paste("show", i, sep = ":")),
     write_disk(path(game_dir, sprintf("showgame-%s.html", i)))
   )
   GET(
     # download showscores from showgame id
-    url = "http://www.j-archive.com/showscores.php",
+    url = "https://www.j-archive.com/showscores.php",
     query = list(game_id = stringr::str_extract(r$url, "\\d+$")),
     write_disk(path(score_dir, sprintf("showscores-%s.html", i)))
   )

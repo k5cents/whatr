@@ -11,7 +11,7 @@
 \item{date}{The date each episodes initially aired.}
 }}
 \source{
-\url{http://www.j-archive.com/}
+\url{https://www.j-archive.com/}
 }
 \usage{
 players

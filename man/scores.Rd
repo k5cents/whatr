@@ -13,7 +13,7 @@
 \item{double}{Is the clue a daily double.}
 }}
 \source{
-\url{http://www.j-archive.com/}
+\url{https://www.j-archive.com/}
 }
 \usage{
 scores

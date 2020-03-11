@@ -16,7 +16,7 @@
 \item{answer}{The \emph{correct} answer to a clue.}
 }}
 \source{
-\url{http://www.j-archive.com/}
+\url{https://www.j-archive.com/}
 }
 \usage{
 boards

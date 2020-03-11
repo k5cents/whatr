@@ -8,7 +8,7 @@
 #'   \item{show}{The sequential show number of an episode.}
 #'   \item{date}{The air date of an episode.}
 #' }
-#' @source \url{http://www.j-archive.com/}
+#' @source \url{https://www.j-archive.com/}
 "episodes"
 
 #' 2019 Jeopardy! contestants
@@ -21,7 +21,7 @@
 #'   \item{show}{The sequential episode show number.}
 #'   \item{date}{The date each episodes initially aired.}
 #' }
-#' @source \url{http://www.j-archive.com/}
+#' @source \url{https://www.j-archive.com/}
 "players"
 
 #' 2019 Jeopardy! game synopses
@@ -36,7 +36,7 @@
 #'   \item{right}{Number of correct answers.}
 #'   \item{wrong}{Number of incorrect answers.}
 #' }
-#' @source \url{http://www.j-archive.com/}
+#' @source \url{https://www.j-archive.com/}
 "synopses"
 
 #' 2019 Jeopardy! game scores
@@ -51,7 +51,7 @@
 #'   \item{score}{Change in score from this clue.}
 #'   \item{double}{Is the clue a daily double.}
 #' }
-#' @source \url{http://www.j-archive.com/}
+#' @source \url{https://www.j-archive.com/}
 "scores"
 
 #' 2019 Jeopardy! game boards
@@ -69,5 +69,5 @@
 #'   \item{clue}{The clue read to the contestants.}
 #'   \item{answer}{The _correct_ answer to a clue.}
 #' }
-#' @source \url{http://www.j-archive.com/}
+#' @source \url{https://www.j-archive.com/}
 "boards"

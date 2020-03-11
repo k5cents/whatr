@@ -11,7 +11,7 @@
 \item{date}{The air date of an episode.}
 }}
 \source{
-\url{http://www.j-archive.com/}
+\url{https://www.j-archive.com/}
 }
 \usage{
 episodes

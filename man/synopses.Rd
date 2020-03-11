@@ -13,7 +13,7 @@
 \item{wrong}{Number of incorrect answers.}
 }}
 \source{
-\url{http://www.j-archive.com/}
+\url{https://www.j-archive.com/}
 }
 \usage{
 synopses
