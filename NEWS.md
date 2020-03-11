@@ -1,6 +1,11 @@
-# whatr 0.5.1
+# whatr 1.0.0
 
 * Fix player scraping for season 35 multi-team episodes (#7).
+* Rename `whatr_info()` to `whatr_airdate()`.
+* Remove `whatr_id()` in favor of `whatr_html()`.
+* Rename the `n` column to `i` to avoid confusion with `count()`, etc.
+* Stop splitting the player `from` column into `city` and `state`.
+* Finish documentaing all the functions.
 
 # whatr 0.5.0
 
