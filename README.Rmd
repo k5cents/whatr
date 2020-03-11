@@ -32,7 +32,7 @@ options(width = 99)
 <!-- badges: end -->
 
 > _This_ R package was made to facilitate the analysis of game show data by
-scraping the J! Archive.
+scraping the [J! Archive][ja].
 
 > What is... whatr?
 
@@ -47,12 +47,20 @@ remotes::install_github("kiernann/whatr")
 
 ## Usage
 
+The `whatr_*()` functions take one of four inputs to find the appropriate
+game on the J! Archive:
+
+1. An HTML document object from `whatr_html()` or similar.
+2. The numeric, non-sequential game ID.
+3. The sequential show number, as character starting with `#`.
+4. The date an episode originall aired, as `yyyy-mm-dd`.
+
 ```{r usage}
 library(whatr)
-data <- whatr_html(6304)
-whatr_board(data)[, 5:7]
-whatr_scores(data)
-whatr_plot(data)
+page <- whatr_html("2019-06-03")
+whatr_board(page)[, 5:7]
+whatr_scores(6304)
+whatr_plot("#8006")
 ```
 
 ## Data
@@ -63,7 +71,6 @@ Included in this package is data on the 217 episodes of the show's 35th season.
 whatr::episodes
 whatr::synopses
 ```
-
 
 *****
 
@@ -83,7 +90,7 @@ Productions, Inc or the J! Archive itself.
 [cran_link]: https://CRAN.R-project.org/package=whatr
 [trav_badge]: https://travis-ci.org/kiernann/whatr.svg?branch=master
 [trav_link]: https://travis-ci.org/kiernann/whatr
-[cov_badge]: https://codecov.io/gh/kiernann/whatr/branch/master/graph/badge.svg
+[cov_badge]: https://img.shields.io/codecov/c/github/kiernann/whatr/master.svg
 [cov_link]: https://codecov.io/gh/kiernann/whatr?branch=master'
 [ja]: http://j-archive.com/
 [gh]: https://github.com/kiernann/whatr

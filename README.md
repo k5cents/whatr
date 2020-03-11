@@ -12,11 +12,11 @@ status](https://www.r-pkg.org/badges/version/whatr)](https://CRAN.R-project.org/
 [![Travis build
 status](https://travis-ci.org/kiernann/whatr.svg?branch=master)](https://travis-ci.org/kiernann/whatr)
 [![Codecov test
-coverage](https://codecov.io/gh/kiernann/whatr/branch/master/graph/badge.svg)](https://codecov.io/gh/kiernann/whatr?branch=master')
+coverage](https://img.shields.io/codecov/c/github/kiernann/whatr/master.svg)](https://codecov.io/gh/kiernann/whatr?branch=master')
 <!-- badges: end -->
 
 > *This* R package was made to facilitate the analysis of game show data
-> by scraping the J\! Archive.
+> by scraping the [J\! Archive](http://j-archive.com/).
 
 > What is… whatr?
 
@@ -32,10 +32,20 @@ remotes::install_github("kiernann/whatr")
 
 ## Usage
 
+The `whatr_*()` functions take one of four inputs to find the
+appropriate game on the J\! Archive:
+
+1.  An HTML document object from `whatr_html()` or similar.
+2.  The numeric, non-sequential game ID.
+3.  The sequential show number, as character starting with `#`.
+4.  The date an episode originall aired, as `yyyy-mm-dd`.
+
+<!-- end list -->
+
 ``` r
 library(whatr)
-data <- whatr_html(6304)
-whatr_board(data)[, 5:7]
+page <- whatr_html("2019-06-03")
+whatr_board(page)[, 5:7]
 #> # A tibble: 61 x 3
 #>    category       clue                                                         answer              
 #>    <chr>          <chr>                                                        <chr>               
@@ -50,9 +60,9 @@ whatr_board(data)[, 5:7]
 #>  9 Literature     In A Novel Simone De Beauvoir Depicted Herself As Anne & Th… (Albert) Camus      
 #> 10 Literature     The Title Peak Of This Thomas Mann Novel Is Home To A Swiss… Magic Mountain      
 #> # … with 51 more rows
-whatr_scores(data)
+whatr_scores(6304)
 #> # A tibble: 63 x 5
-#>    round     n name  score double
+#>    round     i name  score double
 #>    <int> <int> <chr> <int> <lgl> 
 #>  1     1     1 James  1000 TRUE  
 #>  2     1     2 Emma   1000 FALSE 
@@ -65,16 +75,15 @@ whatr_scores(data)
 #>  9     1     9 James  1000 FALSE 
 #> 10     1    10 Emma    800 FALSE 
 #> # … with 53 more rows
-whatr_plot(data)
+whatr_plot("#8006")
 ```
 
 <img src="man/figures/README-usage-1.png" width="100%" />
 
 ## Data
 
-Included in this package is data on the 35th season of Jeopardy\!, which
-saw the historic run of James Holzhauer. This data was collected using
-the functions but does not exactly mirror the structure as returned.
+Included in this package is data on the 217 episodes of the show’s 35th
+season.
 
 ``` r
 whatr::episodes
