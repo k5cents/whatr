@@ -1,5 +1,5 @@
 Package: whatr
-Title: Scrape and analyze the J! Archive
+Title: Scrape and Analyze the J! Archive
 Version: 1.0.0
 Authors@R: 
     person(given = "Kiernan",
