@@ -29,8 +29,11 @@ whatr_players <- function(game) {
     dplyr::pull(2) %>%
     stringr::str_split(pattern = "\n") %>%
     base::unlist() %>%
-    stringr::str_trim(side = "both") %>%
-    stringr::str_replace_all("\"", "\'") %>%
+    entity_clean() %>%
+    stringr::str_remove("\\s\\(.*") %>%
+    stringr::str_remove("(?<=,\\s)A\\s") %>%
+    stringr::str_subset("^Team\\s", negate = TRUE) %>%
+    stringr::str_remove("Playing(.*)Round:\\s") %>%
     tibble::enframe(name = NULL, value = "text") %>%
     tidyr::separate(
       col = .data$text,
@@ -41,16 +44,12 @@ whatr_players <- function(game) {
     tidyr::separate(
       col = .data$name,
       into = c("first", "last"),
-      sep = "\\s"
-    ) %>%
-    dplyr::mutate(
-      bio = .data$bio %>%
-        stringr::str_remove("\\s\\(.*") %>%
-        stringr::str_remove("^a\\s")
+      sep = "\\s",
+      extra = "merge"
     ) %>%
     tidyr::separate(
       col = .data$bio,
-      sep = "\\s(from)\\s",
+      sep = "\\sFrom\\s",
       into = c("occupation", "from"),
       extra = "merge"
     )
