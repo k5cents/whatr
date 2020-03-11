@@ -103,5 +103,26 @@ write_csv(boards, "data-raw/boards.csv")
 
 # clean up ----------------------------------------------------------------
 
+usethis::use_git_ignore("*.tar.xz")
+
+withr::with_dir(
+  new = game_dir,
+  code = tar(
+    tarfile = "../showgames-35.tar.xz",
+    compression = "xz",
+    compression_level = 9
+  )
+)
+
 dir_delete(game_dir)
+
+withr::with_dir(
+  new = score_dir,
+  code = tar(
+    tarfile = "../showscores-35.tar.xz",
+    compression = "xz",
+    compression_level = 9
+  )
+)
+
 dir_delete(score_dir)
