@@ -8,6 +8,7 @@ test_that("scores returns from HTML", {
   expect_length(s, 5)
   expect_length(unique(s$round), 3)
   expect_type(s$double, "logical")
+  Sys.sleep(runif(1, 5, 10))
 })
 
 test_that("scores returns from game ID", {
@@ -16,4 +17,5 @@ test_that("scores returns from game ID", {
   expect_length(s, 5)
   expect_length(unique(s$round), 3)
   expect_type(s$double, "logical")
+  Sys.sleep(runif(1, 5, 10))
 })

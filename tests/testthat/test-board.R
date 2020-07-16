@@ -6,10 +6,12 @@ test_that("full board returns from HTML", {
   b <- whatr_html(id) %>% whatr_board()
   expect_s3_class(b, "tbl")
   expect_length(b, 7)
+  Sys.sleep(runif(1, 5, 10))
 })
 
 test_that("full board returns from game ID", {
   b <- whatr_board(game = id)
   expect_s3_class(b, "tbl")
   expect_length(b, 7)
+  Sys.sleep(runif(1, 5, 10))
 })

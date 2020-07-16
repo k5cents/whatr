@@ -7,10 +7,12 @@ test_that("players return from HTML", {
   expect_s3_class(p, "tbl")
   expect_length(p, 4)
   expect_equal(nrow(p), 3)
+  Sys.sleep(runif(1, 5, 10))
 })
 
 test_that("players return from game ID", {
   p <- whatr_players(game = id)
   expect_s3_class(p, "tbl")
   expect_length(p, 4)
+  Sys.sleep(runif(1, 5, 10))
 })

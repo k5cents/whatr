@@ -7,6 +7,7 @@ test_that("order returns from HTML", {
   expect_s3_class(d, "tbl")
   expect_length(d, 6)
   expect_equal(nrow(d), 3)
+  Sys.sleep(runif(1, 5, 10))
 })
 
 test_that("order returns from game ID", {
@@ -14,4 +15,5 @@ test_that("order returns from game ID", {
   expect_s3_class(d, "tbl")
   expect_length(d, 6)
   expect_equal(nrow(d), 3)
+  Sys.sleep(runif(1, 5, 10))
 })
