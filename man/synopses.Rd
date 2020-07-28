@@ -4,14 +4,16 @@
 \name{synopses}
 \alias{synopses}
 \title{2019 Jeopardy! game synopses}
-\format{A tibble with 654 rows and 6 variables:
+\format{
+A tibble with 654 rows and 6 variables:
 \describe{
 \item{name}{The contestant's given name.}
 \item{coryat}{Score if all wagering is disregarded.}
 \item{final}{Final score after Double Jeopardy.}
 \item{right}{Number of correct answers.}
 \item{wrong}{Number of incorrect answers.}
-}}
+}
+}
 \source{
 \url{https://www.j-archive.com/}
 }

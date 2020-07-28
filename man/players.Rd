@@ -4,12 +4,14 @@
 \name{players}
 \alias{players}
 \title{2019 Jeopardy! contestants}
-\format{A tibble with 672 rows and 6 variables:
+\format{
+A tibble with 672 rows and 6 variables:
 \describe{
 \item{game}{The J! Archive game ID.}
 \item{show}{The sequential episode show number.}
 \item{date}{The date each episodes initially aired.}
-}}
+}
+}
 \source{
 \url{https://www.j-archive.com/}
 }

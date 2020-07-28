@@ -3,14 +3,16 @@
 \name{whatr_answers}
 \alias{whatr_answers}
 \title{What are the answers?}
-\format{A tibble with (up to) 61 rows and 5 variables:
+\format{
+A tibble with (up to) 61 rows and 5 variables:
 \describe{
 \item{round}{The round a clue is chosen.}
 \item{col}{The column position left-to-right.}
 \item{row}{The row position top-to-bottom.}
 \item{i}{The order of clue chosen.}
 \item{answer}{The \emph{correct} answer to a clue.}
-}}
+}
+}
 \usage{
 whatr_answers(game)
 }

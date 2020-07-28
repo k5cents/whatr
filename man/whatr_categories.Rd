@@ -3,12 +3,14 @@
 \name{whatr_categories}
 \alias{whatr_categories}
 \title{What are categories?}
-\format{A tibble with (up to) 13 rows and 3 variables:
+\format{
+A tibble with (up to) 13 rows and 3 variables:
 \describe{
 \item{round}{The round a clue is chosen.}
 \item{col}{The column position left-to-right.}
 \item{category}{Category title, often humorous or with instructions.}
-}}
+}
+}
 \usage{
 whatr_categories(game)
 }

@@ -4,14 +4,16 @@
 \name{scores}
 \alias{scores}
 \title{2019 Jeopardy! game scores}
-\format{A tibble with 13,261 rows and 6 variables:
+\format{
+A tibble with 13,261 rows and 6 variables:
 \describe{
 \item{round}{The round a clue is chosen.}
 \item{n}{The order of clue chosen.}
 \item{name}{First name of player responding.}
 \item{score}{Change in score from this clue.}
 \item{double}{Is the clue a daily double.}
-}}
+}
+}
 \source{
 \url{https://www.j-archive.com/}
 }

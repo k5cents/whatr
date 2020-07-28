@@ -4,12 +4,14 @@
 \name{episodes}
 \alias{episodes}
 \title{2019 Jeopardy! episodes}
-\format{A tibble with 218 rows and 3 variables:
+\format{
+A tibble with 218 rows and 3 variables:
 \describe{
 \item{game}{The non-sequential J! Archive game ID.}
 \item{show}{The sequential show number of an episode.}
 \item{date}{The air date of an episode.}
-}}
+}
+}
 \source{
 \url{https://www.j-archive.com/}
 }

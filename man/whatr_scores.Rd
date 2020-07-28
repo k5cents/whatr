@@ -3,14 +3,16 @@
 \name{whatr_scores}
 \alias{whatr_scores}
 \title{What are player scores?}
-\format{A tibble with (up to) 61 rows and 5 variables:
+\format{
+A tibble with (up to) 61 rows and 5 variables:
 \describe{
 \item{round}{The round a clue is chosen.}
 \item{i}{The order of clue chosen.}
 \item{name}{First name of player responding.}
 \item{score}{Change in score from this clue.}
 \item{double}{Is the clue a daily double.}
-}}
+}
+}
 \usage{
 whatr_scores(game)
 }

@@ -4,7 +4,8 @@
 \name{boards}
 \alias{boards}
 \title{2019 Jeopardy! game boards}
-\format{A tibble with 13,261 rows and 8 variables:
+\format{
+A tibble with 13,261 rows and 8 variables:
 \describe{
 \item{game}{The J! Archive game ID.}
 \item{round}{The round a clue is chosen.}
@@ -14,7 +15,8 @@
 \item{category}{Category title, often humorous or with instructions.}
 \item{clue}{The clue read to the contestants.}
 \item{answer}{The \emph{correct} answer to a clue.}
-}}
+}
+}
 \source{
 \url{https://www.j-archive.com/}
 }

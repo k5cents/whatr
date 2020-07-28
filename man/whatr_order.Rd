@@ -3,12 +3,14 @@
 \name{whatr_order}
 \alias{whatr_order}
 \title{What is the order?}
-\format{A tibble with (usually) 61 rows and 4 variables:
+\format{
+A tibble with (usually) 61 rows and 4 variables:
 \describe{
 \item{round}{The round a clue is chosen.}
 \item{col}{The column position left-to-right.}
 \item{row}{The row position top-to-bottom.}
-}}
+}
+}
 \usage{
 whatr_order(game)
 }

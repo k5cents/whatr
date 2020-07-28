@@ -3,14 +3,16 @@
 \name{whatr_clues}
 \alias{whatr_clues}
 \title{What are the clues?}
-\format{A tibble with (usually) 61 rows and 4 variables:
+\format{
+A tibble with (usually) 61 rows and 4 variables:
 \describe{
 \item{round}{The round a clue is chosen.}
 \item{col}{The column position left-to-right.}
 \item{row}{The row position top-to-bottom.}
 \item{i}{The order of clue chosen.}
 \item{clue}{The clue read to the contestants.}
-}}
+}
+}
 \usage{
 whatr_clues(game)
 }

@@ -3,14 +3,16 @@
 \name{whatr_synopsis}
 \alias{whatr_synopsis}
 \title{What a synopsis?}
-\format{A tibble with (usually) 3 row and 5 variables:
+\format{
+A tibble with (usually) 3 row and 5 variables:
 \describe{
 \item{name}{The contestant's given name.}
 \item{coryat}{Score if all wagering is disregarded.}
 \item{final}{Final score after Double Jeopardy.}
 \item{right}{Number of correct answers.}
 \item{wrong}{Number of incorrect answers.}
-}}
+}
+}
 \usage{
 whatr_synopsis(game)
 }

@@ -3,12 +3,14 @@
 \name{whatr_airdate}
 \alias{whatr_airdate}
 \title{What is the air date?}
-\format{A tibble with 1 row and 3 variables:
+\format{
+A tibble with 1 row and 3 variables:
 \describe{
 \item{game}{The non-sequential J! Archive game ID.}
 \item{show}{The sequential show number of an episode.}
 \item{date}{The air date of an episode.}
-}}
+}
+}
 \usage{
 whatr_airdate(game)
 }

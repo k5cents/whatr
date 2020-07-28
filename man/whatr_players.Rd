@@ -3,13 +3,15 @@
 \name{whatr_players}
 \alias{whatr_players}
 \title{Who are the players?}
-\format{A tibble with (usually) 3 rows and 4 variables:
+\format{
+A tibble with (usually) 3 rows and 4 variables:
 \describe{
 \item{first}{The contestant's given name.}
 \item{last}{The contestant's surname name.}
 \item{occupation}{A short description of what the contestant does.}
 \item{from}{The city or institution from where the contestant comes.}
-}}
+}
+}
 \usage{
 whatr_players(game)
 }

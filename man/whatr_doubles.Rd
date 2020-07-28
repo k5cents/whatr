@@ -3,7 +3,8 @@
 \name{whatr_doubles}
 \alias{whatr_doubles}
 \title{What are daily doubles?}
-\format{a named list
+\format{
+a named list
 \describe{
 \item{round}{The round a clue is chosen.}
 \item{col}{The column position left-to-right.}
@@ -11,7 +12,8 @@
 \item{i}{The order of clue chosen.}
 \item{clue}{The clue read to the contestants.}
 \item{score}{The amount won or lost on the wager.}
-}}
+}
+}
 \usage{
 whatr_doubles(game)
 }
