@@ -29,6 +29,7 @@ options(width = 99)
 [![CRAN status][cran_badge]][cran_link]
 [![Travis build status][trav_badge]][trav_link]
 [![Codecov test coverage][cov_badge]][cov_link]
+![Downloads][dl_badge]
 <!-- badges: end -->
 
 > _This_ R package was made to facilitate the analysis of game show data by
@@ -92,6 +93,7 @@ Productions, Inc or the J! Archive itself.
 [trav_link]: https://travis-ci.org/kiernann/whatr
 [cov_badge]: https://img.shields.io/codecov/c/github/kiernann/whatr/master.svg
 [cov_link]: https://codecov.io/gh/kiernann/whatr?branch=master'
+[dl_badge]: https://cranlogs.r-pkg.org/badges/grand-total/gluedown
 [ja]: https://j-archive.com/
 [gh]: https://github.com/kiernann/whatr
 [coc]: https://kiernann.com/whatr/CODE_OF_CONDUCT.html

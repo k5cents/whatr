@@ -13,10 +13,11 @@ status](https://www.r-pkg.org/badges/version/whatr)](https://CRAN.R-project.org/
 status](https://travis-ci.org/kiernann/whatr.svg?branch=master)](https://travis-ci.org/kiernann/whatr)
 [![Codecov test
 coverage](https://img.shields.io/codecov/c/github/kiernann/whatr/master.svg)](https://codecov.io/gh/kiernann/whatr?branch=master')
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/gluedown)
 <!-- badges: end -->
 
 > *This* R package was made to facilitate the analysis of game show data
-> by scraping the [J\! Archive](http://j-archive.com/).
+> by scraping the [J\! Archive](https://j-archive.com/).
 
 > What is… whatr?
 
