@@ -13,4 +13,6 @@
 
 ## Resubmission
 
-The package title has been converted to title case.
+Tests rely on access to outside server. They should work perfectly every time
+as long as said server is accepting requests. I have tweaked every test to
+sleep some random amount to reduce load on the server.

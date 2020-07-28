@@ -1,3 +1,5 @@
+# whatr 1.0.1
+
 # whatr 1.0.0
 
 * Fix player scraping for season 35 multi-team episodes (#7).
