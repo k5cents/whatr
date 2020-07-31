@@ -57,11 +57,19 @@ score_info %>%
 
 # read html ---------------------------------------------------------------
 
+read_jarchive <- function(path) {
+  whatr_safe <- safely(whatr_data)
+  read_file(path) %>%
+    iconv(to = "ASCII//TRANSLIT", sub = "Unicode") %>%
+    read_html() %>%
+    whatr_safe() %>%
+    use_series("result") %>%
+    compact() %>%
+    discard(~all(is.na(.)))
+}
+
 dat <- game_info$path %>%
-  map(read_html) %>%
-  map(safely(whatr_data)) %>%
-  transpose() %>%
-  use_series("result") %>%
+  map(read_jarchive) %>%
   compact() %>%
   discard(~all(is.na(.)))
 
