@@ -1,18 +1,16 @@
 ## Test environments
 
-* local: linux-gnu-3.6.1
-* travis: 3.1, 3.2, 3.3, oldrel, release, devel
+* local: ubuntu 20.04, R 4.0.3
+* github actions: windows-latest, macOS-latest, ubuntu-20.04
 * r-hub: windows-x86_64-devel, ubuntu-gcc-release, fedora-clang-devel
 * win-builder: windows-x86_64-devel
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
+0 errors | 0 warnings | 0 note
 
 ## Resubmission
 
-Tests rely on access to outside server. They should work perfectly every time
-as long as said server is accepting requests. I have tweaked every test to
-sleep some random amount to reduce load on the server.
+* Improve reliability of tests to pass at any time.
+* Improve how tests randomly wait before running.
+* Remove non-ASCII characters from data.

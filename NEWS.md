@@ -1,5 +1,9 @@
 # whatr 1.0.1
 
+* Improve reliability of tests to pass at any time.
+* Improve how tests randomly wait before running.
+* Remove non-ASCII characters from data.
+
 # whatr 1.0.0
 
 * Fix player scraping for season 35 multi-team episodes (#7).
