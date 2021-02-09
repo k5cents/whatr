@@ -1,15 +1,14 @@
 library(testthat)
 library(whatr)
 
-id <- sample(whatr::episodes$game, 1)
 test_that("answers return from HTML", {
-  p <- whatr_html(id) %>% whatr_plot()
+  rand_wait()
+  p <- whatr_html(6185) %>% whatr_plot()
   expect_s3_class(p, "ggplot")
-  Sys.sleep(runif(1, 5, 10))
 })
 
 test_that("answers return from game ID", {
-  p <- whatr_plot(id)
+  rand_wait()
+  p <- whatr_plot(6185)
   expect_s3_class(p, "ggplot")
-  Sys.sleep(runif(1, 5, 10))
 })

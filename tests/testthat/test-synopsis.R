@@ -1,17 +1,16 @@
 library(testthat)
 library(whatr)
 
-id <- sample(whatr::episodes$game, 1)
 test_that("summary returns from HTML", {
-  s <- whatr_html(id) %>% whatr_synopsis()
+  rand_wait()
+  s <- whatr_html(6185) %>% whatr_synopsis()
   expect_s3_class(s, "tbl")
   expect_length(s, 5)
-  Sys.sleep(runif(1, 5, 10))
 })
 
 test_that("summary returns from game ID", {
-  s <- whatr_synopsis(game = id)
+  rand_wait()
+  s <- whatr_synopsis(game = 6185)
   expect_s3_class(s, "tbl")
   expect_length(s, 5)
-  Sys.sleep(runif(1, 5, 10))
 })

@@ -1,17 +1,16 @@
 library(testthat)
 library(whatr)
 
-id <- sample(whatr::episodes$game, 1)
 test_that("full board returns from HTML", {
-  b <- whatr_html(id) %>% whatr_board()
+  rand_wait()
+  b <- whatr_html(6185) %>% whatr_board()
   expect_s3_class(b, "tbl")
   expect_length(b, 7)
-  Sys.sleep(runif(1, 5, 10))
 })
 
 test_that("full board returns from game ID", {
-  b <- whatr_board(game = id)
+  rand_wait()
+  b <- whatr_board(game = 6185)
   expect_s3_class(b, "tbl")
   expect_length(b, 7)
-  Sys.sleep(runif(1, 5, 10))
 })
