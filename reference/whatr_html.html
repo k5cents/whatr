@@ -95,7 +95,7 @@ HTML document itself
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -109,7 +109,7 @@ HTML document itself
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/kiernann/whatr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -142,7 +142,7 @@ can be used to return an HTML document from one of four types of input:</p><ol>
 
     </div>
 
-    <pre class="usage"><span class='fu'>whatr_html</span>(<span class='no'>x</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"showgame"</span>, <span class='st'>"showscores"</span>))</pre>
+    <pre class="usage"><span class='fu'>whatr_html</span><span class='op'>(</span><span class='va'>x</span>, out <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"showgame"</span>, <span class='st'>"showscores"</span><span class='op'>)</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,26 +164,29 @@ the input of the other.</p></td>
     <p>A J! Archive <code>html_document</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>whatr_html</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>6304</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='st'>"showscores"</span>)</div><div class='output co'>#&gt; {html_document}
-#&gt; &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"&gt;
+    <pre class="examples"><div class='input'><span class='fu'>whatr_html</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>6304</span>, out <span class='op'>=</span> <span class='st'>"showscores"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {html_document}
+#&gt; &lt;html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en"&gt;
 #&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
-#&gt; [2] &lt;body&gt;\n\n&lt;div id="navbar"&gt;\n  &lt;span id="navbarlogo"&gt;&lt;a href="http://www. ...</div><div class='input'><span class='fu'>whatr_html</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"2019-06-03"</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='st'>"showgame"</span>)</div><div class='output co'>#&gt; {html_document}
-#&gt; &lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"&gt;
+#&gt; [2] &lt;body&gt;\n\n&lt;div id="navbar"&gt;\n  &lt;span id="navbarlogo"&gt;&lt;a href="https://www ...</div><div class='input'><span class='fu'>whatr_html</span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"2019-06-03"</span>, out <span class='op'>=</span> <span class='st'>"showgame"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {html_document}
+#&gt; &lt;html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en"&gt;
 #&gt; [1] &lt;head&gt;\n&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8 ...
-#&gt; [2] &lt;body&gt;\n\n&lt;div id="navbar"&gt;\n  &lt;span id="navbarlogo"&gt;&lt;a href="http://www. ...</div><div class='input'><span class='fu'>whatr_html</span>(<span class='st'>"#8006"</span>, <span class='st'>"showgame"</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='whatr_clues.html'>whatr_clues</a></span>()</div><div class='output co'>#&gt; # A tibble: 61 x 5
+#&gt; [2] &lt;body&gt;\n\n&lt;div id="navbar"&gt;\n  &lt;span id="navbarlogo"&gt;&lt;a href="https://www ...</div><div class='input'><span class='fu'>whatr_html</span><span class='op'>(</span><span class='st'>"#8006"</span>, <span class='st'>"showgame"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='whatr_clues.html'>whatr_clues</a></span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 61 x 5</span><span>
 #&gt;    round   col   row     i clue                                                 
-#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;                                                
-#&gt;  1     1     1     1    25 For An Optimistic View Of Things, Take A Look Throug…
-#&gt;  2     1     2     1    26 Melville's 'Bartleby The Scrivener' Is Subtitled 'A …
-#&gt;  3     1     3     1    27 Ahoy! It's A Lookout Perch Atop A High Mast          
-#&gt;  4     1     4     1    28 'Escape To Margaritaville': Him                      
-#&gt;  5     1     5     1    29 'The American People Don't Believe Anything's Real U…
-#&gt;  6     1     6     1    30 I'M Not A Cook, But I Can Sure Toast Up These Kellog…
-#&gt;  7     1     1     2    24 If You Have These, It Means You're Well-Organized    
-#&gt;  8     1     2     2    23 In A 1923 Book By Kahlil Gibran, Almustafa Is This M…
-#&gt;  9     1     3     2    22 Made In A Series Of Varying Sizes To Fit One Inside …
-#&gt; 10     1     4     2    21 'Jersey Boys': Them                                  
-#&gt; # … with 51 more rows</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                                
+#&gt; </span><span style='color: #555555;'> 1</span><span>     1     1     1    25 For An Optimistic View Of Things, Take A Look Throug…
+#&gt; </span><span style='color: #555555;'> 2</span><span>     1     2     1    26 Melville's 'Bartleby The Scrivener' Is Subtitled 'A …
+#&gt; </span><span style='color: #555555;'> 3</span><span>     1     3     1    27 Ahoy! It's A Lookout Perch Atop A High Mast          
+#&gt; </span><span style='color: #555555;'> 4</span><span>     1     4     1    28 'Escape To Margaritaville': Him                      
+#&gt; </span><span style='color: #555555;'> 5</span><span>     1     5     1    29 'The American People Don't Believe Anything's Real U…
+#&gt; </span><span style='color: #555555;'> 6</span><span>     1     6     1    30 I'M Not A Cook, But I Can Sure Toast Up These Kellog…
+#&gt; </span><span style='color: #555555;'> 7</span><span>     1     1     2    24 If You Have These, It Means You're Well-Organized    
+#&gt; </span><span style='color: #555555;'> 8</span><span>     1     2     2    23 In A 1923 Book By Kahlil Gibran, Almustafa Is This M…
+#&gt; </span><span style='color: #555555;'> 9</span><span>     1     3     2    22 Made In A Series Of Varying Sizes To Fit One Inside …
+#&gt; </span><span style='color: #555555;'>10</span><span>     1     4     2    21 'Jersey Boys': Them                                  
+#&gt; </span><span style='color: #555555;'># … with 51 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -199,7 +202,7 @@ the input of the other.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
