@@ -19,7 +19,9 @@ knitr::opts_chunk$set(
   fig.width = 10,
   dpi = 300
 )
-options(width = 99)
+if (!interactive()) {
+  options(width = 99)
+}
 ```
 
 # whatr <img src='man/figures/logo.png' align="right" height="139" />
@@ -27,9 +29,9 @@ options(width = 99)
 <!-- badges: start -->
 [![Lifecycle: experimental][life_badge]][life_link]
 [![CRAN status][cran_badge]][cran_link]
-[![Travis build status][trav_badge]][trav_link]
-[![Codecov test coverage][cov_badge]][cov_link]
 ![Downloads][dl_badge]
+[![Codecov test coverage][cov_badge]][cov_link]
+[![R build status][ga_badge]][ga_link]
 <!-- badges: end -->
 
 > _This_ R package was made to facilitate the analysis of game show data by
@@ -39,9 +41,15 @@ scraping the [J! Archive][ja].
 
 ## Installation
 
+The release version of 'whatr' can be installed from [CRAN][cran]:
+
+```{r cran, eval=FALSE}
+install.packages("whatr")
+```
+
 You can install the development version of 'whatr' from [GitHub][gh] with:
 
-```{r install, eval=FALSE}
+```{r github, eval=FALSE}
 # install.packages("remotes")
 remotes::install_github("kiernann/whatr")
 ```
@@ -86,15 +94,16 @@ Productions, Inc or the J! Archive itself.
 
 <!-- refs: start -->
 [life_badge]: https://img.shields.io/badge/lifecycle-maturing-blue.svg
-[life_link]: https://www.tidyverse.org/lifecycle/#maturing
+[life_link]: https://lifecycle.r-lib.org/articles/stages.html#maturing
 [cran_badge]: https://www.r-pkg.org/badges/version/whatr
 [cran_link]: https://CRAN.R-project.org/package=whatr
-[trav_badge]: https://travis-ci.org/kiernann/whatr.svg?branch=master
-[trav_link]: https://travis-ci.org/kiernann/whatr
+[ga_badge]: https://github.com/kiernann/whatr/workflows/R-CMD-check/badge.svg
+[ga_link]: https://github.com/kiernann/whatr/actions
 [cov_badge]: https://img.shields.io/codecov/c/github/kiernann/whatr/master.svg
 [cov_link]: https://codecov.io/gh/kiernann/whatr?branch=master'
-[dl_badge]: https://cranlogs.r-pkg.org/badges/grand-total/gluedown
+[dl_badge]: https://cranlogs.r-pkg.org/badges/grand-total/whatr
 [ja]: https://j-archive.com/
 [gh]: https://github.com/kiernann/whatr
+[cran]: https://cran.r-project.org/package=whatr
 [coc]: https://kiernann.com/whatr/CODE_OF_CONDUCT.html
 <!-- refs: end -->

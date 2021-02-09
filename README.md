@@ -6,22 +6,29 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+experimental](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/whatr)](https://CRAN.R-project.org/package=whatr)
-[![Travis build
-status](https://travis-ci.org/kiernann/whatr.svg?branch=master)](https://travis-ci.org/kiernann/whatr)
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/whatr)
 [![Codecov test
 coverage](https://img.shields.io/codecov/c/github/kiernann/whatr/master.svg)](https://codecov.io/gh/kiernann/whatr?branch=master')
-![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/gluedown)
+[![R build
+status](https://github.com/kiernann/whatr/workflows/R-CMD-check/badge.svg)](https://github.com/kiernann/whatr/actions)
 <!-- badges: end -->
 
 > *This* R package was made to facilitate the analysis of game show data
-> by scraping the [J\! Archive](https://j-archive.com/).
+> by scraping the [J! Archive](https://j-archive.com/).
 
 > What is… whatr?
 
 ## Installation
+
+The release version of ‘whatr’ can be installed from
+[CRAN](https://cran.r-project.org/package=whatr):
+
+``` r
+install.packages("whatr")
+```
 
 You can install the development version of ‘whatr’ from
 [GitHub](https://github.com/kiernann/whatr) with:
@@ -34,14 +41,12 @@ remotes::install_github("kiernann/whatr")
 ## Usage
 
 The `whatr_*()` functions take one of four inputs to find the
-appropriate game on the J\! Archive:
+appropriate game on the J! Archive:
 
 1.  An HTML document object from `whatr_html()` or similar.
 2.  The numeric, non-sequential game ID.
 3.  The sequential show number, as character starting with `#`.
 4.  The date an episode originally aired, as `yyyy-mm-dd`.
-
-<!-- end list -->
 
 ``` r
 library(whatr)
@@ -119,18 +124,17 @@ whatr::synopses
 #> # … with 641 more rows
 ```
 
------
+------------------------------------------------------------------------
 
 The ‘whatr’ project is released with a [Contributor Code of
 Conduct](https://kiernann.com/whatr/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to its terms.
 
-The J\! Archive is created by fans, for fans. The *Jeopardy\!* game show
+The J! Archive is created by fans, for fans. The *Jeopardy!* game show
 and all elements thereof, including but not limited to copyright and
 trademark thereto, are the property of Jeopardy Productions, Inc. and
 are protected under law. This package is not affiliated with, sponsored
-by, or operated by Jeopardy Productions, Inc or the J\! Archive itself.
+by, or operated by Jeopardy Productions, Inc or the J! Archive itself.
 
 <!-- refs: start -->
-
 <!-- refs: end -->
