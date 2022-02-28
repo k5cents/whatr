@@ -1,3 +1,5 @@
+# whatr 1.1.0
+
 # whatr 1.0.1
 
 * Improve reliability of tests to pass at any time.
