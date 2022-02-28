@@ -34,6 +34,7 @@ whatr_players <- function(game) {
     stringr::str_remove("(?<=,\\s)A\\s") %>%
     stringr::str_subset("^Team\\s", negate = TRUE) %>%
     stringr::str_remove("Playing(.*)Round:\\s") %>%
+    stringr::str_remove(",\\s(Jr|JR)\\.") %>%
     tibble::enframe(name = NULL, value = "text") %>%
     tidyr::separate(
       col = .data$text,
@@ -51,7 +52,8 @@ whatr_players <- function(game) {
       col = .data$bio,
       sep = "\\sFrom\\s",
       into = c("occupation", "from"),
-      extra = "merge"
+      extra = "merge",
+      fill = "left"
     )
   return(players)
 }
