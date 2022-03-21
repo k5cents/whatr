@@ -44,7 +44,7 @@ whatr_scores <- function(game) {
       values_to = "score"
     ) %>%
     dplyr::mutate(
-      score = as.integer(stringr::str_remove_all(.data$score, "[^\\d]")),
+      score = as.integer(stringr::str_remove_all(.data$score, "[\\$,]")),
       double = (.data$i %in% single_doubles)
     )
   double_doubles <- game %>%
@@ -65,7 +65,7 @@ whatr_scores <- function(game) {
       values_to = "score"
     ) %>%
     dplyr::mutate(
-      score = as.integer(stringr::str_remove_all(.data$score, "[^\\d]")),
+      score = as.integer(stringr::str_remove_all(.data$score, "[\\$,]")),
       double = (.data$i %in% double_doubles),
       i = .data$i + max(single_score$i)
     )
@@ -81,7 +81,7 @@ whatr_scores <- function(game) {
       values_to = "score"
     ) %>%
     dplyr::mutate(
-      score = as.integer(stringr::str_remove_all(.data$score, "[^\\d]")),
+      score = as.integer(stringr::str_remove_all(.data$score, "[\\$,]")),
       double = FALSE
     )
   scores <- single_score %>%
