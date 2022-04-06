@@ -16,14 +16,15 @@
 #' whatr_html(x = 6304, out = "showscores")
 #' whatr_html(x = "2019-06-03", out = "showgame")
 #' whatr_html("#8006", "showgame") %>% whatr_clues()
-#' @importFrom httr GET content
+#' @importFrom httr RETRY content
 #' @importFrom methods is
 #' @importFrom stringr str_extract str_detect
 #' @export
 whatr_html <- function(x, out = c("showgame", "showscores")) {
   out <- match.arg(out, c("showgame", "showscores"))
   if (is.numeric(x)) {
-    html <- httr::GET(
+    html <- httr::RETRY(
+      verb = "GET",
       url = sprintf("https://www.j-archive.com/%s.php", out),
       query = list(game_id = x)
     )
@@ -70,7 +71,8 @@ showgame_to_scores <- function(html) {
     rvest::html_node(".game_dynamics") %>%
     rvest::html_attr("src") %>%
     stringr::str_extract("\\d+$")
-  data <- httr::GET(
+  data <- httr::RETRY(
+    verb = "GET",
     url = "https://www.j-archive.com/showscores.php",
     query = list(game_id = id)
   )
@@ -83,7 +85,8 @@ showscores_to_game <- function(html) {
     rvest::html_node("a") %>%
     rvest::html_attr("href") %>%
     stringr::str_extract("\\d+$")
-  data <- httr::GET(
+  data <- httr::RETRY(
+    verb = "GET",
     url = "https://www.j-archive.com/showgame.php",
     query = list(game_id = id)
   )
@@ -91,7 +94,8 @@ showscores_to_game <- function(html) {
 }
 
 date_to_game <- function(date) {
-  data <- httr::GET(
+  data <- httr::RETRY(
+    verb = "GET",
     url = "https://www.j-archive.com/search.php",
     query = list(search = paste("date", date, sep = ":"))
   )
@@ -104,7 +108,8 @@ date_to_scores <- function(date) {
     query = list(search = paste("date", date, sep = ":"))
   )
   id <- stringr::str_extract(redirect$url, "\\d+$")
-  data <- httr::GET(
+  data <- httr::RETRY(
+    verb = "GET",
     url = "https://www.j-archive.com/showscores.php",
     query = list(game_id = id)
   )
@@ -112,7 +117,8 @@ date_to_scores <- function(date) {
 }
 
 show_to_game <- function(show) {
-  data <- httr::GET(
+  data <- httr::RETRY(
+    verb = "GET",
     url = "https://www.j-archive.com/search.php",
     query = list(search = paste("show", gsub("#", "", show), sep = ":"))
   )
@@ -125,7 +131,8 @@ show_to_scores <- function(show) {
     query = list(search = paste("show", gsub("#", "", show), sep = ":"))
   )
   id <- stringr::str_extract(redirect$url, "\\d+$")
-  data <- httr::GET(
+  data <- httr::RETRY(
+    verb = "GET",
     url = "https://www.j-archive.com/showscores.php",
     query = list(game_id = id)
   )
