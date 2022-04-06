@@ -26,14 +26,6 @@
 #' @export
 whatr_answers <- function(game) {
   game <- whatr_html(game, "showgame")
-  extract_answer <- function(node) {
-    answer <- node %>%
-      rvest::html_attr("onmouseover") %>%
-      xml2::read_html() %>%
-      rvest::html_nodes("em.correct_response") %>%
-      rvest::html_text() %>%
-      entity_clean()
-  }
   final_answer <- game %>%
     rvest::html_node(".final_round tr td div") %>%
     rvest::html_attr("onmouseover") %>%
@@ -45,11 +37,19 @@ whatr_answers <- function(game) {
     entity_clean()
   answers <- game %>%
     rvest::html_nodes("table tr td div") %>%
-    purrr::map(extract_answer) %>%
+    purrr::map_chr(extract_answer) %>%
     base::unlist() %>%
     entity_clean() %>%
-    base::append(final_answer) %>%
     tibble::enframe(name = NULL, value = "answer")
   answers <- dplyr::bind_cols(whatr_order(game = game), answers)
   return(answers)
+}
+
+extract_answer <- function(node) {
+  answer <- node %>%
+    rvest::html_attr("onmouseover") %>%
+    xml2::read_html() %>%
+    rvest::html_nodes("em.correct_response") %>%
+    rvest::html_text() %>%
+    entity_clean()
 }
