@@ -27,6 +27,10 @@ whatr_order <- function(game) {
     rvest::html_text() %>%
     base::as.integer() %>%
     `+`(max(single_order))
+  has_tb <- game %>%
+    rvest::html_nodes("#final_jeopardy_round") %>%
+    rvest::html_nodes(".final_round") %>%
+    length() > 1
   order <- game %>%
     rvest::html_nodes("table tr td div") %>%
     rvest::html_attr("onmouseover") %>%
@@ -51,16 +55,18 @@ whatr_order <- function(game) {
           dplyr::recode(
             "J"  = "1",
             "DJ" = "2",
-            "FJ" = "3"
+            "FJ" = "3",
+            "TB" = "4"
           )
       ),
       i = c(
         single_order,
         double_order,
-        max(double_order) + 1L
+        max(double_order) + 1L,
+        ifelse(has_tb,max(double_order) + 2L,NULL)
       )
     )
-  order$row[length(order$row)] <- 1L
-  order$col[length(order$col)] <- 1L
+  order$row[order$round >= 3] <- 1L
+  order$col[order$round >= 3] <- 1L
   return(order)
 }

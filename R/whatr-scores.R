@@ -70,7 +70,7 @@ whatr_scores <- function(game) {
       i = .data$i + max(single_score$i)
     )
   final_scores <- game %>%
-    rvest::html_node("#final_jeopardy_round > table:nth-child(2)") %>%
+    rvest::html_node("#final_jeopardy_round > table") %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
     dplyr::slice(1) %>%
     tibble::as_tibble() %>%

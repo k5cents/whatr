@@ -14,3 +14,10 @@ test_that("order returns from game ID", {
   expect_s3_class(o, "tbl")
   expect_length(o, 4)
 })
+
+test_that("tiebreaker order is handled", {
+  rand_wait()
+  o <- whatr_order(game = 5922)
+  expect_s3_class(o, "tbl")
+  expect_length(unique(o[["round"]]), 4)
+})
