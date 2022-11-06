@@ -17,8 +17,14 @@
 #' @export
 whatr_synopsis <- function(game) {
   game <- whatr_html(game, "showgame")
+  has_tb <- game %>%
+    rvest::html_nodes("#final_jeopardy_round") %>%
+    rvest::html_nodes(".final_round") %>%
+    length() > 1
+  coryat_node <- paste0("#final_jeopardy_round > table:nth-child(",ifelse(has_tb,10,8),")")
+  final_node <- paste0("#final_jeopardy_round > table:nth-child(",ifelse(has_tb,6,4),")")
   coryat_final <- game %>%
-    rvest::html_node("#final_jeopardy_round > table:nth-child(8)") %>%
+    rvest::html_node(coryat_node) %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
     tibble::as_tibble() %>%
     dplyr::slice(1) %>%
@@ -30,7 +36,7 @@ whatr_synopsis <- function(game) {
         base::as.integer()
     )
   final_final <- game %>%
-    rvest::html_node("#final_jeopardy_round > table:nth-child(4)") %>%
+    rvest::html_node(final_node) %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
     tibble::as_tibble() %>%
     dplyr::slice(1) %>%
@@ -42,7 +48,7 @@ whatr_synopsis <- function(game) {
         base::as.integer()
     )
   right_wrong <- game %>%
-    rvest::html_node("#final_jeopardy_round > table:nth-child(8)") %>%
+    rvest::html_node(coryat_node) %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
     tibble::as_tibble() %>%
     dplyr::slice(2) %>%

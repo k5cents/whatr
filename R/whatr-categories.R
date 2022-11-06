@@ -20,14 +20,18 @@
 #' @export
 whatr_categories <- function(game) {
   game <- whatr_html(game, "showgame")
+  has_tb <- game %>%
+    rvest::html_nodes("#final_jeopardy_round") %>%
+    rvest::html_nodes(".final_round") %>%
+    length() > 1
   cats <- game %>%
     rvest::html_nodes("table td.category_name") %>%
     rvest::html_text(trim = TRUE) %>%
     entity_clean() %>%
     tibble::enframe(name = NULL, value = "category") %>%
     dplyr::mutate(
-      round = c(rep(1L, 6), rep(2L, 6), 3L),
-      col = c(1L:6L, 1L:6L, 1L)
+      round = c(rep(1L, 6), rep(2L, 6), 3L, ifelse(has_tb,4L,NULL)),
+      col = c(1L:6L, 1L:6L, 1L, ifelse(has_tb,1L, NULL))
     ) %>%
     dplyr::select(.data$round, .data$col, .data$category)
   return(cats)
