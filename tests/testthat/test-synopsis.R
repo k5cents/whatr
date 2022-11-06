@@ -14,3 +14,10 @@ test_that("summary returns from game ID", {
   expect_s3_class(s, "tbl")
   expect_length(s, 5)
 })
+
+test_that("summary handles tiebreakers", {
+  rand_wait()
+  s <- whatr_synopsis(game = 5922)
+  expect_s3_class(s, "tbl")
+  expect_length(s, 5)
+})

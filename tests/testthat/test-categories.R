@@ -14,3 +14,10 @@ test_that("categories return from game ID", {
   expect_s3_class(c, "tbl")
   expect_length(c, 3)
 })
+
+test_that("tiebreaker categories are handled", {
+  rand_wait()
+  c <- whatr_categories(game = 5922)
+  expect_s3_class(c, "tbl")
+  expect_length(unique(c[["round"]]), 4)
+})

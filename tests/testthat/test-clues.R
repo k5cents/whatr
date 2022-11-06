@@ -14,3 +14,10 @@ test_that("clues return from game ID", {
   expect_s3_class(c, "tbl")
   expect_length(c, 5)
 })
+
+test_that("tiebreaker clues are handled", {
+  rand_wait()
+  c <- whatr_clues(game = 5922)
+  expect_s3_class(c, "tbl")
+  expect_length(unique(c[["round"]]), 4)
+})
