@@ -27,6 +27,22 @@ whatr_order <- function(game) {
     rvest::html_text() %>%
     base::as.integer() %>%
     `+`(max(single_order))
+  triple_round <- game %>%
+    rvest::html_nodes("#content") %>%
+    rvest::html_text2() %>%
+    grepl("Triple Jeopardy! Round", ., ignore.case = TRUE)
+  if(triple_round) {
+    triple_order <- game %>%
+      rvest::html_nodes("#triple_jeopardy_round > table td.clue_order_number") %>%
+      rvest::html_text() %>%
+      base::as.integer() %>%
+      `+`(max(double_order))
+  } else{NULL}
+  tiebreaker_round <- game %>%
+    rvest::html_nodes("#final_jeopardy_round") %>%
+    rvest::html_text2() %>%
+    grepl("Tiebreaker Round", ., ignore.case = TRUE)
+  max_order <- ifelse(triple_round,max(triple_order),max(double_order))
   order <- game %>%
     rvest::html_nodes("table tr td div") %>%
     rvest::html_attr("onmouseover") %>%
@@ -51,16 +67,20 @@ whatr_order <- function(game) {
           dplyr::recode(
             "J"  = "1",
             "DJ" = "2",
-            "FJ" = "3"
+            "TJ" = "3",
+            "FJ" = "4",
+            "TB" = "5"
           )
       ),
       i = c(
         single_order,
         double_order,
-        max(double_order) + 1L
+        if(triple_round) {triple_order} else{NULL},
+        max_order + 1L,
+        if(tiebreaker_round) {max_order + 2L} else{NULL}
       )
     )
-  order$row[length(order$row)] <- 1L
-  order$col[length(order$col)] <- 1L
+  order$row[order$round >= 4] <- 1L
+  order$col[order$round >= 4] <- 1L
   return(order)
 }

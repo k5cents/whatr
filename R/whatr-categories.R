@@ -20,14 +20,26 @@
 #' @export
 whatr_categories <- function(game) {
   game <- whatr_html(game, "showgame")
+  tiebreaker_round <- game %>%
+    rvest::html_nodes("#final_jeopardy_round") %>%
+    rvest::html_text2() %>%
+    grepl("Tiebreaker Round", ., ignore.case = TRUE)
+  triple_round <- game %>%
+    rvest::html_nodes("#content") %>%
+    rvest::html_text2() %>%
+    grepl("Triple Jeopardy! Round", ., ignore.case = TRUE)
   cats <- game %>%
     rvest::html_nodes("table td.category_name") %>%
     rvest::html_text(trim = TRUE) %>%
     entity_clean() %>%
     tibble::enframe(name = NULL, value = "category") %>%
     dplyr::mutate(
-      round = c(rep(1L, 6), rep(2L, 6), 3L),
-      col = c(1L:6L, 1L:6L, 1L)
+      round = c(rep(1L, 6), rep(2L, 6),
+                if(triple_round) {rep(3L, 6)} else{NULL}, 4L,
+                if(tiebreaker_round) {5L} else{NULL}),
+      col = c(1L:6L, 1L:6L,
+              if(triple_round) {1L:6L} else{NULL}, 1L,
+              if(tiebreaker_round) {1L} else{NULL})
     ) %>%
     dplyr::select(.data$round, .data$col, .data$category)
   return(cats)
