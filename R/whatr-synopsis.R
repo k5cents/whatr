@@ -17,8 +17,24 @@
 #' @export
 whatr_synopsis <- function(game) {
   game <- whatr_html(game, "showgame")
+  cumulative_scores <- game %>%
+    rvest::html_nodes("#final_jeopardy_round") %>%
+    rvest::html_text2() %>%
+    grepl("Cumulative scores:", ., ignore.case = TRUE)
+  tiebreaker_round <- game %>%
+    rvest::html_nodes("#final_jeopardy_round") %>%
+    rvest::html_text2() %>%
+    grepl("Tiebreaker Round", ., ignore.case = TRUE)
+  coryat_node <- paste0("#final_jeopardy_round > table:nth-child(",
+                        ifelse(cumulative_scores,
+                               ifelse(tiebreaker_round, 12, 10),
+                               ifelse(tiebreaker_round, 10, 8)), ")")
+  final_node <- paste0("#final_jeopardy_round > table:nth-child(",
+                       ifelse(cumulative_scores,
+                              ifelse(tiebreaker_round, 6, 4),
+                              ifelse(tiebreaker_round, 6, 4)), ")")
   coryat_final <- game %>%
-    rvest::html_node("#final_jeopardy_round > table:nth-child(8)") %>%
+    rvest::html_node(coryat_node) %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
     tibble::as_tibble() %>%
     dplyr::slice(1) %>%
@@ -30,7 +46,7 @@ whatr_synopsis <- function(game) {
         base::as.integer()
     )
   final_final <- game %>%
-    rvest::html_node("#final_jeopardy_round > table:nth-child(4)") %>%
+    rvest::html_node(final_node) %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
     tibble::as_tibble() %>%
     dplyr::slice(1) %>%
@@ -42,7 +58,7 @@ whatr_synopsis <- function(game) {
         base::as.integer()
     )
   right_wrong <- game %>%
-    rvest::html_node("#final_jeopardy_round > table:nth-child(8)") %>%
+    rvest::html_node(coryat_node) %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
     tibble::as_tibble() %>%
     dplyr::slice(2) %>%

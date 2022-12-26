@@ -35,7 +35,8 @@ whatr_scores <- function(game) {
   single_score <- game %>%
     rvest::html_node("#jeopardy_round > table:nth-child(2)") %>%
     rvest::html_table(fill = TRUE, header = TRUE) %>%
-    magrittr::extract(, 2:4) %>%
+    magrittr::extract(, 2:(ncol(.)-1)) %>%
+    mutate_if(is.numeric, as.character) %>%
     tibble::as_tibble() %>%
     dplyr::mutate(i = dplyr::row_number(), round = 1L) %>%
     tidyr::pivot_longer(
@@ -56,7 +57,8 @@ whatr_scores <- function(game) {
     rvest::html_node("#double_jeopardy_round > table:nth-child(2)") %>%
     rvest::html_table(fill = TRUE, header = TRUE) %>%
     tidyr::drop_na() %>%
-    magrittr::extract(, 2:4) %>%
+    magrittr::extract(, 2:(ncol(.)-1)) %>%
+    mutate_if(is.numeric, as.character) %>%
     tibble::as_tibble() %>%
     dplyr::mutate(i = dplyr::row_number(), round = 2L) %>%
     tidyr::pivot_longer(
@@ -69,12 +71,49 @@ whatr_scores <- function(game) {
       double = (.data$i %in% double_doubles),
       i = .data$i + max(single_score$i)
     )
+  triple_round <- game %>%
+    rvest::html_nodes("#content") %>%
+    rvest::html_text2() %>%
+    grepl("Triple Jeopardy! Round", ., ignore.case = TRUE)
+  if(triple_round) {
+    triple_doubles <- game %>%
+      rvest::html_nodes("#triple_jeopardy_round > table td.ddred") %>%
+      rvest::html_text() %>%
+      base::as.integer() %>%
+      base::unique()
+    triple_score <- game %>%
+      rvest::html_node("#triple_jeopardy_round > table:nth-child(2)") %>%
+      rvest::html_table(fill = TRUE, header = TRUE) %>%
+      tidyr::drop_na() %>%
+      magrittr::extract(, 2:(ncol(.)-1)) %>%
+      mutate_if(is.numeric, as.character) %>%
+      tibble::as_tibble() %>%
+      dplyr::mutate(i = dplyr::row_number(), round = 3L) %>%
+      tidyr::pivot_longer(
+        cols = -c(.data$i, .data$round),
+        names_to = "name",
+        values_to = "score"
+      ) %>%
+      dplyr::mutate(
+        score = as.integer(stringr::str_remove_all(.data$score, "[\\$,]")),
+        double = (.data$i %in% triple_doubles),
+        i = .data$i + max(double_score$i)
+      )
+  } else{NULL}
+  tiebreaker_round <- game %>%
+    rvest::html_nodes("#final_jeopardy_round") %>%
+    rvest::html_text2() %>%
+    grepl("Tiebreaker Round", ., ignore.case = TRUE)
+  final_node <- paste0("#final_jeopardy_round > table:nth-child(",
+                       ifelse(tiebreaker_round,3,2),")")
+  max_i <- ifelse(triple_round,max(triple_score$i),max(double_score$i))
   final_scores <- game %>%
-    rvest::html_node("#final_jeopardy_round > table:nth-child(2)") %>%
+    rvest::html_node(final_node) %>%
     rvest::html_table(header = TRUE, fill = TRUE) %>%
     dplyr::slice(1) %>%
+    mutate_if(is.numeric, as.character) %>%
     tibble::as_tibble() %>%
-    dplyr::mutate(i = max(double_score$i) + 1L, round = 3L) %>%
+    dplyr::mutate(i = max_i + 1L, round = 4L) %>%
     tidyr::pivot_longer(
       cols = -c(.data$i, .data$round),
       names_to = "name",
@@ -84,6 +123,8 @@ whatr_scores <- function(game) {
       score = as.integer(stringr::str_remove_all(.data$score, "[\\$,]")),
       double = FALSE
     )
+  if(triple_round) {double_score <- dplyr::bind_rows(double_score,
+                                                     triple_score)} else{NULL}
   scores <- single_score %>%
     dplyr::bind_rows(double_score) %>%
     dplyr::bind_rows(final_scores) %>%
